@@ -10,6 +10,7 @@
             <button class="bg-sky-700 my-3">login</button>
             <p>forgot</p>
             </form>
+            <!-- login -->
         </div>
     </div>
 </template>
