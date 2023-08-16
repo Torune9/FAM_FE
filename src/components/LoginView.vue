@@ -14,7 +14,7 @@
             <input type="text" name="password" id="password" class="w-[180px] h-8 rounded-sm border border-indigo-500 outline-none">
         </div>
         <div class="flex justify-center items-center">      
-            <button class="bg-indigo-600 w-24 h-9 mt-20 rounded-md text-white font-semibold">Login</button>
+            <button class="bg-indigo-600 w-24 h-9 mt-20 rounded-md text-white font-semibold" @click="gotoDasboard">Login</button>
         </div>
         </form>
         <!-- login -->
@@ -22,3 +22,13 @@
     </div>
 </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const gotoDasboard = () => {
+    router.push({ name:'Dashboard' })
+}
+</script>
