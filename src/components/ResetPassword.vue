@@ -5,7 +5,7 @@
     <div class=" w-screen h-screen flex justify-center items-center">
        <div class="rounded-md flex justify-center items-center flex-wrap h-[300px] w-[300px] shadow-lg">
         <h1 class=" text-2xl font-semibold text-slate-800">Reset password</h1>
-        <small>Fill up the field to change your password</small>
+        <small>Fill up the field to changegit  your password</small>
         <form action="#" method="post">
             <label for="password" class=" font-semibold ">Password</label>
             <br>
