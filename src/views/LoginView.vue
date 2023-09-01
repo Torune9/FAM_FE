@@ -7,3 +7,6 @@ import LoginView from '../components/LoginView.vue'
     <LoginView />
   </main>
 </template>
+
+<style>
+</style>
