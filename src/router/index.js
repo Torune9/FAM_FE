@@ -2,25 +2,32 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import ForgotView from '../views/ForgotView.vue'
 import ResetView from '../views/ResetView.vue'
+import Dashboard from '../views/Dashboard.vue'
 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/login',
+      path: '/',
+      alias :'/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
     },
     {
       path: '/forgot-password',
       name: 'forgot-password',
-      component: ForgotView
+      component: ForgotView,
     },
     {
       path: '/reset-password',
       name: 'reset-password',
-      component: ResetView
+      component: ResetView,
+    },
+    {
+      path : '/dashboard',
+      name : 'dashboard',
+      component : Dashboard
     },
   ]
 })
