@@ -1,23 +1,19 @@
+import { defineStore } from 'pinia';
 
-import { defineStore, mapState } from 'pinia';
-import axios from 'axios';
 import router from '../router';
-import apiStore from './apiStore';
+
 import jwtDecode from 'jwt-decode';
+import api from '../service/api'
 
 export const loginStore = defineStore('login', {
     state: () => ({
         eror : '',
         token : null
       }),
-      getters: {
-        ...mapState(apiStore,['API_URL'])
-      },
+     
     actions:{
-    async signIn(username,password) {
-        const response = await axios.post(`${this.API_URL}authentication/login`,{
-            username,password
-        })
+    async signIn(payload) {
+        const response = await api.post(`/authentication/login`,payload)
         
         if (response.data.code == 406) {
           this.eror = response.data.message
@@ -26,7 +22,9 @@ export const loginStore = defineStore('login', {
         
         const {data:{token}} = response.data
         this.token = jwtDecode(token)
-        if (this.token.username == username) {
+        
+        if (this.token.username == payload.username) {
+          alert(response.data.message)
           return  router.push({
                     path : '/dashboard'
                 })
@@ -35,3 +33,4 @@ export const loginStore = defineStore('login', {
       },
     }
 });
+
