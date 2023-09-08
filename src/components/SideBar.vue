@@ -8,9 +8,9 @@
         <hr>
         </div>
         <ul class="grid grid-rows-3 font-semibold text-sm">
-            <li class="active:border-l-4 h-10 flex items-center p-2 active:border-l-cyan-400 active:text-cyan-400 "><router-link to="#">Dashboard</router-link></li>
-            <li class="active:border-l-4 h-10 flex items-center p-2 active:border-l-cyan-400 active:text-cyan-400 "><router-link to="#">Master Data Asset</router-link></li>
-            <li class="active:border-l-4 h-10 flex items-center p-2 active:border-l-cyan-400 active:text-cyan-400 "><router-link to="#">Asset</router-link></li>
+            <li class="h-10 flex items-center p-2 before:contents[''] before:bg-cyan-400 before:h-10 before:w-1 before:mr-3 active:text-cyan-400 before:scale-y-0 hover:before:scale-y-100 before:transition-transform hover:text-cyan-400 "><router-link to="#">Dashboard</router-link></li>
+            <li class="h-10 flex items-center p-2 before:contents[''] before:bg-cyan-400 before:h-10 before:w-1 before:mr-3 active:text-cyan-400 before:scale-y-0 hover:before:scale-y-100 before:transition-transform hover:text-cyan-400 "><router-link to="#">Master Data Asset</router-link></li>
+            <li class="h-10 flex items-center p-2 before:contents[''] before:bg-cyan-400 before:h-10 before:w-1 before:mr-3 active:text-cyan-400 before:scale-y-0 hover:before:scale-y-100 before:transition-transform hover:text-cyan-400 "><router-link to="#">Asset</router-link></li>
         </ul>
        </div>
     </nav>
