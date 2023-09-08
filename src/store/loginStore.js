@@ -24,7 +24,6 @@ export const loginStore = defineStore('login', {
         this.token = jwtDecode(token)
         
         if (this.token.username == payload.username) {
-          alert(response.data.message)
           return  router.push({
                     path : '/dashboard'
                 })
