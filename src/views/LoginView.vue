@@ -35,10 +35,8 @@
     <!-- login -->
     <p class=" w-full text-center text-sm"><router-link to ="/forgot-password">Forgot password?</router-link></p>
 </div>
-
 </div>
   </main>
-  <router-view/>
 </template>
 
 <script setup>
