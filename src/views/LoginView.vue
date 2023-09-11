@@ -13,7 +13,7 @@
             <label class="font-bold" for="username">username</label>
             <br>
             <input type="text" name="username" id="username" class="h-8 w-[250px] text-center text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none" v-model="form.username" >
-            <div class="input-errors" v-for="error of v$.username.$errors" >
+            <div v-for="error of v$.username.$errors" :key="error.$uid">
                 <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
             </div>
         </div>
@@ -22,7 +22,7 @@
             <label class="font-bold" for="password">password</label>
             <br>
             <input type="password" name="password" id="password" class="w-[250px] text-center text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none" v-model="form.password" >
-            <div class="input-errors" v-for="error of v$.password.$errors" >
+            <div v-for="error of v$.password.$errors" :key="error.$uid" >
                 <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
             </div>
         </div>
@@ -38,7 +38,7 @@
 
 </div>
   </main>
-  <router-view/>)
+  <router-view/>
 </template>
 
 <script setup>
