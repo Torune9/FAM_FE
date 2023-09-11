@@ -14,7 +14,6 @@ export const loginStore = defineStore('login', {
     actions:{
     async signIn(payload) {
         const response = await api.post(`/authentication/login`,payload)
-        console.log(response);
         
         if (response.data.code == 406) {
           this.eror = response.data.message
