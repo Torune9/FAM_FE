@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="flex justify-center items-center  w-screen h-screen">
-    <div class="h-[400px] w-[400px] bg-slate-800 rounded-md flex flex-wrap justify-center items-center text-zinc-100 shadow-xl">
+    <div class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100">
     
         <div class=" w-[20%]  mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4" v-if="auth.eror"><small class=" font-bold">{{ auth.eror}}</small></div>
 
@@ -12,7 +12,7 @@
         <div>
             <label class="font-bold" for="username">username</label>
             <br>
-            <input type="text" name="username" id="username" class="h-8 w-[250px] text-center text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none" v-model="form.username" >
+            <input type="text" name="username" id="username" class="h-8 w-[250px] text-center text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800" v-model.trim.trim="form.username" >
             <div v-for="error of v$.username.$errors" :key="error.$uid">
                 <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
             </div>
@@ -21,14 +21,14 @@
         <div>
             <label class="font-bold" for="password">password</label>
             <br>
-            <input type="password" name="password" id="password" class="w-[250px] text-center text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none" v-model="form.password" >
+            <input type="password" name="password" id="password" class="w-[250px] text-center text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800" v-model.trim="form.password" >
             <div v-for="error of v$.password.$errors" :key="error.$uid" >
                 <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
             </div>
         </div>
 
         <div class="flex justify-center items-center">      
-            <button class=" bg-blue-600 w-[250px] h-9 mt-20 rounded-md text-white font-semibold">Login</button>
+            <button class=" bg-redHunt w-[250px] h-9 mt-20 rounded-md text-white font-semibold hover:bg-red-400">Login</button>
         </div>
 
     </form>
@@ -70,6 +70,3 @@
  }
 
 </script>
-
-<style>
-</style>

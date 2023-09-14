@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import ForgotView from '../views/ForgotView.vue'
 import ResetView from '../views/ResetView.vue'
-import Dashboard from '../views/Dashboard.vue'
+import Dashboard from '../views/DashboardView.vue'
 
 
 const router = createRouter({

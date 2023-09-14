@@ -21,13 +21,14 @@ getters: {
 actions: {
         async login(payload) {
             return api
-                .post("authentication/login", payload)
+                .post("api/authentication/login", payload)
                 .then((res) => {
                     const { token } = res.data.data;
                     const decoded = jwt_decode(token);
 
                     this.token = token
                     this.user = decoded
+                    console.log(this.user);
 
                     return res.data;
                 })

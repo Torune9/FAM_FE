@@ -3,7 +3,7 @@ import { useAuth } from '../store/Auth'
 
 const instance = axios.create({
   // baseURL: process.env.VUE_APP_BASE_URL,
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://localhost:3000/',
 });
 
 instance.interceptors.request.use(
