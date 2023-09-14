@@ -7,12 +7,10 @@ export const categoryStore = defineStore('category', {
        success:''
     }),
     actions: {
-        async getCategory(){
-            return api.get('/asset/categories')
+        async getCategory(payload){
+            return api.get('/asset/categories',   { params: payload } )
             .then(res => {
-                const {data:{result:{content}}} = res
-                this.categories = content
-                return this.categories
+                return res.data
             })
             .catch(eror => eror)
         },
@@ -30,6 +28,13 @@ export const categoryStore = defineStore('category', {
                     default:
                         break;
                 }
+            })
+            .catch(eror =>  console.log(eror))
+        },
+        async deleteCategory(payload){
+            return api.delete(`asset/categories/${payload}`)
+            .then(res => {
+                return res.data
             })
             .catch(eror =>  console.log(eror))
         }
