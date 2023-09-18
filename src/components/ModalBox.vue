@@ -1,18 +1,20 @@
 <template>
     <Transition name="modal">
-        <div class="fixed bottom-6 right-6" v-show="modalPop">
+        <div class="fixed top-40 right-96 z-20" v-show="modalPop">
             <div v-if="modalPop" class=" bg-blueHunt w-80 h-60 rounded-md relative flex content-center justify-items-center shadow-lg flex-wrap">
                 <div class="flex justify-center flex-wrap">
                     <label for="name" class="text-sm font-semibold text-white">Category name</label>
-                    <input v-model.trim="payload.name" type="text" id="name" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-600">
+                    <input v-model="payload.name" type="text" id="name" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-600">
                 </div>
                 <div class="flex justify-center flex-wrap">
                     <label for="code" class="text-sm font-semibold text-white">Category code</label>
-                    <input v-model.trim="payload.code" type="text" id="code" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-600">
+                    <input v-model="payload.code " type="text" id="code" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-600">
                 </div>
-                <button @click="category.addCategory(payload)"  class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all" type="submit">submit</button>
+                <button v-if="showAdd" @click="add"  class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">submit</button>
 
-                <button class="absolute -top-2 -left-2 text-white font-bold w-6 h-6 rounded-full bg-slate-900" @click="$emit('close-modal')">x</button>
+                <button v-if="showUpdate" @click="update(data.id)"  class="absolute bottom-2 right-2 bg-blue-600 font-semifold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">update</button>
+
+                <button class="absolute -top-2 -left-2 text-white font-bold w-6 h-6 rounded-full bg-slate-900" @click="$emit('close')">x</button>
             </div>
         </div>
     </Transition>
@@ -20,27 +22,50 @@
 
 <script setup>
  import { categoryStore } from '../store/categoryStore';
-    defineEmits(["close-modal"])
     defineProps({
         modalPop : {
             type : Boolean,
-            default : false,
+        },
+        showAdd : {
+            type : Boolean,
+        },
+        showUpdate : {
+            type : Boolean
+        },
+        data : {
+            type : Object
         }
     })
     const category = categoryStore()
-    const payload ={
+    const payload = {
         code : '',
-        name : ''
+        name : '',
+    }
+
+    const add = async ()=>{
+        try {
+        await category.addCategory(payload)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const update = async (id) =>{
+        try {
+        await category.updateCategory(id,payload)
+        } catch (error) {
+            console.log(error);
+        }
     }
     
 </script>
 <style scoped>
 .modal-enter-active{
     transition : 0.2s ease-in;
+    transform-origin: top;
 }
 
 .modal-enter-from{
-    transform: scale(0);
+    transform: scaleY(0)
 }
 
 </style>

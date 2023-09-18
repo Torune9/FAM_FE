@@ -5,6 +5,7 @@ import router from '../router';
 import jwtDecode from 'jwt-decode';
 import api from '../service/api'
 
+
 export const loginStore = defineStore('login', {
   state: () => ({
     eror: '',
@@ -42,6 +43,10 @@ export const loginStore = defineStore('login', {
     logout() {
       this.token = null;
       this.user = {};
+      this.eror = null
+      if (this.isLogged == false) {
+        router.replace("/")
+      }
     }
   },
 });

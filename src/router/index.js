@@ -4,6 +4,7 @@ import ForgotView from '../views/ForgotView.vue'
 import ResetView from '../views/ResetView.vue'
 import Dashboard from '../views/dashboard/DashboardView.vue'
 import Category from '../views/category/CategoryView.vue'
+import MasterAsset from'../views/master/MasterAssetView.vue'
 
 
 const router = createRouter({
@@ -31,9 +32,15 @@ const router = createRouter({
       component : Dashboard
     },
     {
-      path : '/category-assets',
+      path : '/category-assets/:id?',
       name : 'category-assets',
-      component : Category
+      component : Category,
+      props : true
+    },
+    {
+      path : '/master-assets',
+      name : 'Master-assets',
+      component : MasterAsset
     },
   ]
 })
