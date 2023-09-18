@@ -30,6 +30,10 @@ const menus = [
         title: "Category Assets",
         route: { path: '/category-assets' }
     },
+    {
+        title: "Master Data Asset",
+        route: {path : '/master-assets'}
+    },
 ]
 
 
