@@ -12,17 +12,19 @@
                 </div>
                 <button v-if="showAdd" @click="add"  class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">submit</button>
 
-                <button v-if="showUpdate" @click="update(data.id)"  class="absolute bottom-2 right-2 bg-blue-600 font-semifold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">update</button>
+                <button v-if="showUpdate" @click="update"  class="absolute bottom-2 right-2 bg-blue-600 font-semifold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">update</button>
 
-                <button class="absolute -top-2 -left-2 text-white font-bold w-6 h-6 rounded-full bg-slate-900" @click="$emit('close')">x</button>
+                <button class="absolute -top-2 -left-2 text-white font-bold w-6 h-6 rounded-full bg-slate-900" @click="close(false)">x</button>
             </div>
         </div>
     </Transition>
 </template>
 
 <script setup>
+import {watch, reactive} from "vue";
+
  import { categoryStore } from '../store/categoryStore';
-    defineProps({
+ const props = defineProps({
         modalPop : {
             type : Boolean,
         },
@@ -33,28 +35,50 @@
             type : Boolean
         },
         data : {
-            type : Object
+            type : Object,
+            default: () => {
+                return {}
+            }
         }
     })
+    const emit = defineEmits(['close'])
+
     const category = categoryStore()
-    const payload = {
+    const payload = reactive({
         code : '',
         name : '',
-    }
+    })
+
+    watch(()=> props.modalPop, () => {
+            if(props.showUpdate){
+                payload.code = props.data.category_code;
+                payload.name = props.data.category_name
+            }else{
+                payload.code = ''
+                payload.name = ''
+            }
+    } )
 
     const add = async ()=>{
-        try {
-        await category.addCategory(payload)
-        } catch (error) {
-            console.log(error);
-        }
+       
+        await category.addCategory(payload).then((res) => {
+            console.log(res);
+            close(true)
+        })
+        
     }
-    const update = async (id) =>{
-        try {
-        await category.updateCategory(id,payload)
-        } catch (error) {
-            console.log(error);
-        }
+    const update = async () =>{
+
+        const id = props.data.id;
+        await category.updateCategory(id,payload).then((res) => {
+            console.log(res);
+            close(true)
+        })
+      
+    }
+
+    const close = (needRefresh = false) => {
+        emit("close", needRefresh)
     }
     
 </script>

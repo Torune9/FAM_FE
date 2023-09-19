@@ -44,9 +44,9 @@ export const loginStore = defineStore('login', {
       this.token = null;
       this.user = {};
       this.eror = null
-      if (this.isLogged == false) {
+       
         router.replace("/")
-      }
+       
     }
   },
 });
