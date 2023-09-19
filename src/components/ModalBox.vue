@@ -12,7 +12,7 @@
                 </div>
                 <button v-if="showAdd" @click="add"  class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">submit</button>
 
-                <button v-if="showUpdate" @click="update"  class="absolute bottom-2 right-2 bg-blue-600 font-semifold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">update</button>
+                <button v-else @click="update"  class="absolute bottom-2 right-2 bg-blue-600 font-semifold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">update</button>
 
                 <button class="absolute -top-2 -left-2 text-white font-bold w-6 h-6 rounded-full bg-slate-900" @click="close(false)">x</button>
             </div>
@@ -49,20 +49,21 @@ import {watch, reactive} from "vue";
         name : '',
     })
 
-    watch(()=> props.modalPop, () => {
-            if(props.showUpdate){
+    const handleShowUpdate = ()=> {
+        if(props.showUpdate){
                 payload.code = props.data.category_code;
                 payload.name = props.data.category_name
             }else{
                 payload.code = ''
                 payload.name = ''
             }
-    } )
+    }
 
     const add = async ()=>{
        
-        await category.addCategory(payload).then((res) => {
-            console.log(res);
+        await category.addCategory(payload)
+        .then((res) => {
+            console.log(res.data.message);
             close(true)
         })
         
@@ -70,8 +71,9 @@ import {watch, reactive} from "vue";
     const update = async () =>{
 
         const id = props.data.id;
-        await category.updateCategory(id,payload).then((res) => {
-            console.log(res);
+        await category.updateCategory(id,payload)
+        .then((res) => {
+            console.log(res.data.message);
             close(true)
         })
       
@@ -80,6 +82,8 @@ import {watch, reactive} from "vue";
     const close = (needRefresh = false) => {
         emit("close", needRefresh)
     }
+
+    watch(()=> props.modalPop,handleShowUpdate )
     
 </script>
 <style scoped>
