@@ -4,7 +4,7 @@
             <div>
                 <button class="p-2 bg-green-700 rounded text-zinc-200 font-semibold" @click="btnCreate"> Add Category </button>
             </div>
-            <ModalBox :modal-pop="showModal" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal" :data="content" ></ModalBox>
+            <ModalBox :modalPop="showModal" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal" :data="content" ></ModalBox>
             <div class="mt-4">
                 <input v-model="search" id="search" class="border-2 outline-none focus:border-red-300 rounded border-red-500 text-center text-sm w-[25%] h-8" placeholder="search" />
             </div>
@@ -14,6 +14,7 @@
             <label class="mr-4" for="not-active">Not Active</label>
             <input type="checkbox" value="test" @change="checkTrue">
            </div>
+
             <div>
                 <EasyDataTable :headers="headers" :items="items" :loading="loading">
                     <template #item-action="item">
