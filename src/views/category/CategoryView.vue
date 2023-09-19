@@ -8,6 +8,7 @@
             <div class="mt-4">
                 <input v-model="search" id="search" class="border-2 outline-none focus:border-red-300 rounded border-red-500 text-center text-sm w-[25%] h-8" placeholder="search" />
             </div>
+            
             <br>
 
            <div class="flex items-center">
