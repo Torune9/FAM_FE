@@ -2,8 +2,8 @@ import api from '../service/api'
 import { defineStore } from 'pinia'
 export const categoryStore = defineStore('category', {
     actions: {
-        async getCategory(){
-            return api.get(`asset/categories`,)
+        async getCategory(payload){
+            return api.get(`asset/categories`, { params: payload })
             .then(res => {
                 return res.data
             })
