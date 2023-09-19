@@ -2,9 +2,6 @@
     <MainLayout>
         <div class=" p-16">
             <EasyDataTable :headers="headers" :items="items" :loading="loading">
-                <template>
-                    kjqbwkfj   
-                </template>
             </EasyDataTable>
         </div>
     </MainLayout>
@@ -14,14 +11,17 @@
 import MainLayout from '../../layout/MainLayout.vue';
 const headers = [
     {
-        name : 'Kendaraan',
+      text : 'Kendaraan',
         value : 'kendaraan'
     },{
-        name : 'Pesawat',
+      text : 'Pesawat',
         value : 'pesawat'
     }
 ]
 const items = [
-    {Kendaraan : 'Beat' ,Pesawat : 'Sukhoi'}
+{
+    kendaraan : 'Beat',
+    pesawat : 'Sukhoi'
+}
 ]
 </script>
