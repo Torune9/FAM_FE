@@ -32,10 +32,9 @@ const router = createRouter({
       component : Dashboard
     },
     {
-      path : '/category-assets/:id?',
+      path : '/category-assets/',
       name : 'category-assets',
       component : Category,
-      props : true
     },
     {
       path : '/master-assets',
