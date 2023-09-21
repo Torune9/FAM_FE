@@ -16,7 +16,7 @@ export const loginStore = defineStore('login', {
   persist: true,
 
   getters: {
-    isLogged: state => !!state.token
+    isLogged: state => !!state.token,
   },
 
   actions: {
@@ -27,6 +27,7 @@ export const loginStore = defineStore('login', {
         this.eror = response.data.message
         return this.eror
       }
+      console.log(this.eror);
 
       const { data: { token } } = response.data
       const decoded = jwtDecode(token);
