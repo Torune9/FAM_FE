@@ -1,8 +1,9 @@
 <template>
     <Transition name="modal">
-        <div class="fixed top-40 right-96 z-20" v-show="modalPop">
+        <main v-if="modalPop" class="h-screen w-screen fixed z-10">
+        <div class="absolute bottom-24" v-show="modalPop">
             <div v-if="modalPop" class=" bg-blueHunt w-80 h-60 rounded-md relative flex content-center justify-items-center shadow-lg flex-wrap">
-                <div class="flex justify-center flex-wrap">
+                <div class="flex justify-center flex-wrap mb-2">
                     <label for="name" class="text-sm font-semibold text-white">Category name</label>
                     <input v-model="payload.name" type="text" id="name" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-600">
                 </div>
@@ -10,13 +11,14 @@
                     <label for="code" class="text-sm font-semibold text-white">Category code</label>
                     <input v-model="payload.code " type="text" id="code" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-600">
                 </div>
-                <button v-if="showAdd" @click="add"  class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">submit</button>
+                <button v-if="showAdd" @click="add"  class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">create</button>
 
-                <button v-else @click="update"  class="absolute bottom-2 right-2 bg-blue-600 font-semifold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">update</button>
+                <button v-else @click="update"  class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">update</button>
 
-                <button class="absolute -top-2 -left-2 text-white font-bold w-6 h-6 rounded-full bg-slate-900" @click="close(false)">x</button>
+                <button class="absolute -top-2 -left-2 text-white font-bold w-7 h-7 rounded-full bg-slate-900" @click="close(false)">x</button>
             </div>
         </div>
+    </main>
     </Transition>
 </template>
 
@@ -24,6 +26,21 @@
 import {watch, reactive} from "vue";
 
  import { categoryStore } from '../store/categoryStore';
+ import { useNotification } from "@kyvg/vue3-notification";
+
+const notification = useNotification()
+
+const info = (message)=>{
+    notification.notify({
+        title: message,
+    });
+}
+const success = (message)=>{
+    notification.notify({
+        title: message,
+        type : 'success'
+    });
+}
  const props = defineProps({
         modalPop : {
             type : Boolean,
@@ -51,7 +68,6 @@ import {watch, reactive} from "vue";
 
     const handleShowUpdate = ()=> {
         if(props.showUpdate){
-                payload.code = props.data.category_code;
                 payload.name = props.data.category_name
             }else{
                 payload.code = ''
@@ -64,6 +80,7 @@ import {watch, reactive} from "vue";
         await category.addCategory(payload)
         .then((res) => {
             console.log(res.data.message);
+            success(res.data.message)
             close(true)
         })
         
@@ -74,6 +91,7 @@ import {watch, reactive} from "vue";
         await category.updateCategory(id,payload)
         .then((res) => {
             console.log(res.data.message);
+            info(res.data.message)
             close(true)
         })
       
@@ -89,11 +107,10 @@ import {watch, reactive} from "vue";
 <style scoped>
 .modal-enter-active{
     transition : 0.2s ease-in;
-    transform-origin: top;
 }
 
 .modal-enter-from{
-    transform: scaleY(0)
+    transform: scale(0)
 }
 
 </style>
