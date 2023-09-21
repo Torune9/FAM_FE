@@ -1,17 +1,15 @@
 import axios from "axios"
-import { useAuth } from '../store/Auth'
+import { loginStore } from '../store/loginStore'
 
 const instance = axios.create({
-  // baseURL: process.env.VUE_APP_BASE_URL,
   baseURL: 'http://localhost:3000/',
 });
 
 instance.interceptors.request.use(
   (set) => {
-    // set interceptor request config here
-     if (useAuth.isAuthenticated) {
+     if (loginStore().isLogged) {
        set.headers = { 
-         Authorization: `Bearer ${useAuth.token}`,  
+         Authorization: `Bearer ${loginStore().token}`,  
         }
       }
       return set
