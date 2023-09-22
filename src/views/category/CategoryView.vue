@@ -19,7 +19,7 @@
 
             <div class="flex items-center">
                 <label class="mr-4 text-sm" for="not-active">Not Active</label>
-                <input type="checkbox" v-model="is_deleted">
+                <input id="not-active" type="checkbox" v-model="is_deleted">
             </div>
 
             <div>

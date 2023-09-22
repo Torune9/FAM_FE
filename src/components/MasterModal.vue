@@ -3,24 +3,24 @@
         <main v-if="modalPop" class="h-screen w-screen fixed z-10">
             <div class=" absolute bottom-24 bg-blue-500 w-72 h-60 flex flex-col text-white items-center rounded" >
                 <div class="mt-4">
-                    <label for="" class="font-semibold text-sm">Name</label>
+                    <label for="name" class="font-semibold text-sm">Name</label>
                     <br>
-                    <input v-model="payload.name" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
+                    <input v-model="payload.name" id="name" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div>
-                    <label for="" class="font-semibold text-sm">Code</label>
+                    <label for="code" class="font-semibold text-sm">Code</label>
                     <br>
-                    <input v-model="payload.code" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
+                    <input v-model="payload.code" id="code" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div v-if="showAdd">
-                    <label for="" class="font-semibold text-sm">Price</label>
+                    <label for="price" class="font-semibold text-sm">Price</label>
                     <br>
-                    <input v-model="payload.price" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
+                    <input v-model="payload.price" id="price" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div v-else>
-                    <label for="" class="font-semibold text-sm">Status</label>
+                    <label for="status" class="font-semibold text-sm">Status</label>
                     <br>
-                    <input v-model="payload.status" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
+                    <input v-model="payload.status" id="status" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div v-if="showAdd">
                     <button @click="add" class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
