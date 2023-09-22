@@ -1,40 +1,41 @@
 <template>
   <main>
-    <div class="flex justify-center items-center  w-screen h-screen">
-    <div class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100">
-    
-        <div class=" w-[20%]  mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4" v-if="auth.eror"><small class=" font-bold">{{ auth.eror}}</small></div>
+      <div class="flex justify-center items-center  w-screen h-screen">
+            <div class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100">
+                <div class=" w-[20%]  mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4" v-if="auth.eror">
+                    <small class=" font-bold">{{ auth.eror}}</small>
+                </div>
 
-        <p class="text-center w-full font-extrabold text-2xl">Login Form</p>
-        
-        <form @submit.prevent="login" class="grid grid-rows-3 h-44 gap-10 justify-items-center">
-            
-        <div>
-            <label class="font-bold" for="username">username</label>
-            <br>
-            <input type="text" name="username" id="username" class="h-8 w-[250px] text-center text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800" v-model.trim.trim="form.username" >
-            <div v-for="error of v$.username.$errors" :key="error.$uid">
-                <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
+                        <p class="text-center w-full font-extrabold text-2xl">Login Form</p>
+                        
+                        <form @submit.prevent="login" class="grid grid-rows-3 h-44 gap-10 justify-items-center">
+                            
+                        <div>
+                            <label class="font-bold" for="username">username</label>
+                            <br>
+                            <input type="text" name="username" id="username" class="h-8 w-[250px] text-center text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800" v-model.trim.trim="form.username" >
+                            <div v-for="error of v$.username.$errors" :key="error.$uid">
+                                <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="font-bold" for="password">password</label>
+                            <br>
+                            <input type="password" name="password" id="password" class="w-[250px] text-center text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800" v-model.trim="form.password" >
+                            <div v-for="error of v$.password.$errors" :key="error.$uid" >
+                                <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center items-center">      
+                            <button class=" bg-redHunt w-[250px] h-9 mt-20 rounded-md text-white font-semibold hover:bg-red-400">Login</button>
+                        </div>
+
+                    </form>
+                    <p class=" w-full text-center text-sm"><router-link to ="/forgot-password">Forgot password?</router-link></p>
             </div>
         </div>
-
-        <div>
-            <label class="font-bold" for="password">password</label>
-            <br>
-            <input type="password" name="password" id="password" class="w-[250px] text-center text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800" v-model.trim="form.password" >
-            <div v-for="error of v$.password.$errors" :key="error.$uid" >
-                <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
-            </div>
-        </div>
-
-        <div class="flex justify-center items-center">      
-            <button class=" bg-redHunt w-[250px] h-9 mt-20 rounded-md text-white font-semibold hover:bg-red-400">Login</button>
-        </div>
-
-    </form>
-    <p class=" w-full text-center text-sm"><router-link to ="/forgot-password">Forgot password?</router-link></p>
-</div>
-</div>
   </main>
 </template>
 
@@ -42,14 +43,16 @@
  import {useVuelidate} from '@vuelidate/core';
  import { required } from '@vuelidate/validators';
  import {loginStore} from '../store/loginStore'
+ import { onBeforeMount,reactive, computed } from 'vue';
 
- import { reactive, computed } from "vue"
-    
  const auth = loginStore()
  
  const form = reactive({
      username : '',
      password : '',
+    })
+    onBeforeMount(()=>{
+        localStorage.removeItem(auth.eror)
     })
     
     
@@ -64,7 +67,6 @@
 
  const login =async () => {
     v$.value.$touch()
-
     if(v$.value.$invalid) return
     auth.signIn(form)
  }

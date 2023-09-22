@@ -19,7 +19,7 @@
                         <div class="flex flex-row gap-2">
                                 <template v-if="!item.is_deleted">
                                     <div @click="onUpdate(item)">
-                                        <button class=" text-white text-[font-size:8px] w-10 rounded bg-amber-500">
+                                        <button class=" text-white text-[font-size:8px] w-12 rounded bg-blue-400">
                                             Edit
                                         </button>
                                     </div>

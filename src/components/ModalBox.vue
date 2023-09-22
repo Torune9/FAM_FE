@@ -32,15 +32,18 @@ const notification = useNotification()
 
 const info = (message)=>{
     notification.notify({
-        title: message,
+        title:message,
+        type :message.includes('updated') ? 'success' : 'error'
     });
 }
+
 const success = (message)=>{
     notification.notify({
         title: message,
-        type : 'success'
+        type : message.includes('Success') ? 'success' : 'error'
     });
 }
+
  const props = defineProps({
         modalPop : {
             type : Boolean,

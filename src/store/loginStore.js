@@ -26,8 +26,9 @@ export const loginStore = defineStore('login', {
       if (response.data.code == 406) {
         this.eror = response.data.message
         return this.eror
+      }else{
+        response.data.message
       }
-      console.log(this.eror);
 
       const { data: { token } } = response.data
       const decoded = jwtDecode(token);

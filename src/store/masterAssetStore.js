@@ -3,9 +3,6 @@ import { defineStore } from 'pinia';
 import api from '../service/api'
 
 export const masterStore = defineStore('master',{
-    state:()=>({
-        message : ''
-    }),
     actions :{
         async getMasterData(payload){
             return api.get('master-asset',{params : payload})
@@ -15,8 +12,8 @@ export const masterStore = defineStore('master',{
             return api.post('master-asset',payload)
         },
         async updateMaster (id,payload){
-           const masterUpdate =  await api.put(`master-asset/${id}`,payload)
-            this.message = masterUpdate.data.message
+            return api.put(`master-asset/${id}`,payload)
+            
         }
     }
 })
