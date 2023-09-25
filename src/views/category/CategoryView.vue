@@ -43,7 +43,7 @@
                             </template>
 
                             <div v-else>
-                                <button class="bg-yellow-500 w-20 rounded text-white" @click="restore(item)">
+                                <button @click="onRestore(item)" class="bg-yellow-500 w-20 rounded text-white">
                                     Restore
                                 </button>
                             </div>
@@ -80,6 +80,12 @@ const warnDelete = (message)=>{
     notification.notify({
   title: message,
   type : 'warn'
+});
+}
+const restoreInfo = (message)=>{
+    notification.notify({
+  title: message,
+  type : 'success'
 });
 }
 
@@ -134,6 +140,14 @@ const onUpdate = async (item) => {
     btnUpdate.value = true
     btnAdd.value = false
 }
+const onRestore = (item) => {
+    category.restoreCategory(item.id)
+        .then((res) => {
+            getData()
+            restoreInfo(res.data.message)
+        })
+}
+
 
 const closeModal = (needRefresh) => {
     if (needRefresh) {
