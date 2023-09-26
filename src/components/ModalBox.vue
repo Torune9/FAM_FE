@@ -82,7 +82,6 @@ const success = (message)=>{
        
         await category.addCategory(payload)
         .then((res) => {
-            console.log(res.data.message);
             success(res.data.message)
             close(true)
         })
@@ -93,7 +92,6 @@ const success = (message)=>{
         const id = props.data.id;
         await category.updateCategory(id,payload)
         .then((res) => {
-            console.log(res.data.message);
             info(res.data.message)
             close(true)
         })
