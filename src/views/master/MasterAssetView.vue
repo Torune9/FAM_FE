@@ -119,7 +119,8 @@ watch(() =>  search.value, () => {
         --easy-table-header-font-color: #ffffff;
 
         --easy-table-body-row-background-color : #fdb1b1;
-        --easy-table-body-row-hover-backgorund-color : #ffffff;
+        --easy-table-body-row-hover-background-color: #94b0da;
+        --easy-table-body-row-hover-font-color: white;
 
         --easy-table-border: 1px solid #445269;
         --easy-table-row-border: 1px solid #445269;

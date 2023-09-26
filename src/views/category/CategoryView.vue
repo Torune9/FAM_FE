@@ -43,7 +43,7 @@
                             </template>
 
                             <div v-else>
-                                <button @click="onRestore(item)" class=" bg-green-500 w-20 rounded text-white font-light hover:bg-green-400 transition-all duration-300">
+                                <button @click="onRestore(item)" class=" bg-slate-600 w-20 rounded text-white font-light hover:bg-slate-500 transition-all duration-300">
                                     Restore
                                 </button>
                             </div>
@@ -178,10 +178,11 @@ onMounted(() => {
         --easy-table-header-font-color: #ffffff;
 
         --easy-table-body-row-background-color : #b1d4fd;
-        --easy-table-body-row-hover-background-color: white;
+        --easy-table-body-row-hover-background-color: #e2725b;
+        --easy-table-body-row-hover-font-color: white;
         --easy-table-border: 1px solid #445269;
         --easy-table-row-border: 1px solid #445269;
-        
+
         font-weight: 900;
     }
 </style>
