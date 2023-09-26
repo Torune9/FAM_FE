@@ -17,25 +17,25 @@
 
             <br>
 
-            <div class="flex items-center">
-                <label class="mr-4 text-sm" for="not-active">Not Active</label>
+            <div class="flex items-center w-40 h-6 mb-3">
+                <label class="mr-4 text-sm text-black font-semibold" for="not-active">Not Active</label>
                 <input id="not-active" type="checkbox" v-model="is_deleted">
             </div>
 
             <div>
-                <EasyDataTable :headers="headers" :items="items" :loading="loading" alternating border-cell :rows-per-page=7 :rows-items=[7]  buttons-pagination>
+                <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="items" :loading="loading" alternating border-cell :rows-per-page=7 :rows-items=[7]  buttons-pagination>
                     <template #item-action="item">
                         <div class="flex flex-row gap-2">
                             <template v-if="!item.is_deleted">
                                 
                                 <div @click="onUpdate(item)">
-                                    <button class=" text-white text-[font-size:8px] w-10 rounded bg-blue-400">
+                                    <button class=" hover:bg-blue-600 text-white transition-all duration-300 text-[font-size:8px] font-light w-10 rounded bg-blue-700">
                                         Edit
                                     </button>
                                 </div>
 
                                 <div @click="onDelete(item)">
-                                    <button class=" text-white text-[font-size:8px] w-14 rounded bg-red-500">
+                                    <button class=" hover:bg-red-400 text-white transition-all duration-300 text-[font-size:8px]  font-light w-14 rounded bg-red-500">
                                         Delete
                                     </button>
                                 </div>
@@ -43,7 +43,7 @@
                             </template>
 
                             <div v-else>
-                                <button @click="onRestore(item)" class="bg-yellow-500 w-20 rounded text-white">
+                                <button @click="onRestore(item)" class=" bg-green-500 w-20 rounded text-white font-light hover:bg-green-400 transition-all duration-300">
                                     Restore
                                 </button>
                             </div>
@@ -171,3 +171,17 @@ onMounted(() => {
 
 
 </script>
+
+<style scoped>
+    .customizing-table{
+        --easy-table-header-background-color: #5d91ff;
+        --easy-table-header-font-color: #ffffff;
+
+        --easy-table-body-row-background-color : #b1d4fd;
+        --easy-table-body-row-hover-background-color: white;
+        --easy-table-border: 1px solid #445269;
+        --easy-table-row-border: 1px solid #445269;
+        
+        font-weight: 900;
+    }
+</style>

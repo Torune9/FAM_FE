@@ -14,12 +14,12 @@
             </div>
             <br>
             <div>
-                <EasyDataTable :headers="headers" :items="dataMaster" :loading="loading"  alternating border-cell :rows-per-page=7 :rows-items=[7]  buttons-pagination>
+                <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="dataMaster" :loading="loading"  alternating border-cell :rows-per-page=7 :rows-items=[7]  buttons-pagination>
                     <template #item-action ="item">
                         <div class="flex flex-row gap-2">
                                 <template v-if="!item.is_deleted">
                                     <div @click="onUpdate(item)">
-                                        <button class=" text-white text-[font-size:8px] w-12 rounded bg-blue-400">
+                                        <button class=" hover:bg-blue-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-700">
                                             Edit
                                         </button>
                                     </div>
@@ -112,3 +112,18 @@ watch(() =>  search.value, () => {
     getData()
 })
 </script>
+
+<style scoped>
+    .customizing-table{
+        --easy-table-header-background-color: #ff5d5d;
+        --easy-table-header-font-color: #ffffff;
+
+        --easy-table-body-row-background-color : #fdb1b1;
+        --easy-table-body-row-hover-backgorund-color : #ffffff;
+
+        --easy-table-border: 1px solid #445269;
+        --easy-table-row-border: 1px solid #445269;
+        
+        font-weight: 900;
+    }
+</style>

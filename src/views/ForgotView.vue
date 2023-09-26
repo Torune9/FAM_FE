@@ -17,8 +17,8 @@
                 <div><Button class=" bg-yellow-500 w-40  rounded-md h-10 font-semibold text-sm text-zinc-100">Reset password</Button>
                 </div>
               </form>
-              <div>
-                <button class=" bg-blue-600 rounded-tl-md w-16 text-sm absolute bottom-0 right-0"><router-link to="/">Login</router-link></button>
+              <div class="relative">
+               <small class="before:absolute before:bottom-0 before:contents[''] before:bg-white before:h-[2px] before:w-[34px] before:mr-3 active:text-white before:scale-x-0 hover:before:scale-x-100 before:transition-transform active:scale-x-100 font-semibold"><router-link to="/">Login</router-link></small>
               </div>
            </div>
         </div>
