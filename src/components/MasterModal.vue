@@ -48,17 +48,19 @@ import { useNotification } from "@kyvg/vue3-notification";
 const notification = useNotification()
 
 const master = masterStore()
-const info = (message)=>{
+const InfoError = (message)=>{
     notification.notify({
-        title:message,
-        type :message.includes('updated') ? 'success' : 'error'
+        title:'Failed to updated',
+        text:message,
+        type :'error'
     });
 }
 
-const success = (message)=>{
+const InfoSuccess = (message)=>{
     notification.notify({
-        title: message,
-        type : message.includes('Success') ? 'success' : 'error'
+        title: 'Success',
+        text:message,
+        type :'success'
     });
 }
 
@@ -89,8 +91,11 @@ const add = async ()=>{
        
        await master.addMaster(payload)
        .then((res) => {
-           success(res.data.message)
+           InfoSuccess(res.data.message)
            close(true)
+       }).catch(error => {
+            const {data:{message}} = error.response
+            InfoError(message)
        })
        
    }
@@ -99,8 +104,11 @@ const update = async () =>{
        const id = props.data.id;
        await master.updateMaster(id,payload)
        .then((res) => {
-            info(res.data.message)
-           close(true)
+            InfoSuccess(res.data.message)
+            close(true)
+       }).catch(error =>{
+            const {data:{message}} = error.response
+            InfoError(message)
        })
      
    }

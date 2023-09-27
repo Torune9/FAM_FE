@@ -30,20 +30,21 @@ import {watch, reactive} from "vue";
 
 const notification = useNotification()
 
-const info = (message)=>{
+const InfoError = (message)=>{
     notification.notify({
-        title:message,
-        type :message.includes('updated') ? 'success' : 'error'
+        title:'Failed',
+        text:message,
+        type :'error'
     });
 }
 
-const success = (message)=>{
+const InfoSuccess = (message)=>{
     notification.notify({
-        title: message,
-        type : message.includes('Success') ? 'success' : 'error'
+        title: 'Success',
+        text:message,
+        type :'success'
     });
 }
-
  const props = defineProps({
         modalPop : {
             type : Boolean,
@@ -82,8 +83,12 @@ const success = (message)=>{
        
         await category.addCategory(payload)
         .then((res) => {
-            success(res.data.message)
+            InfoSuccess(res.data.message)
             close(true)
+        })
+        .catch(error => {
+            const {data:{message}} = error.response
+            InfoError(message)
         })
         
     }
@@ -92,8 +97,11 @@ const success = (message)=>{
         const id = props.data.id;
         await category.updateCategory(id,payload)
         .then((res) => {
-            info(res.data.message)
+            InfoSuccess(res.data.message)
             close(true)
+        }).catch(error => {
+            const {data:{message}} = error.response
+            InfoError(message)
         })
       
     }
