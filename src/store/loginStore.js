@@ -44,10 +44,12 @@ export const loginStore = defineStore('login', {
 
     logout() {
       this.token = null;
-      this.user = {};
+      this.user = null;
       this.eror = null
-       
+       setTimeout(()=>{
+        localStorage.clear()
         router.replace("/")
+       },500)
        
     }
   },

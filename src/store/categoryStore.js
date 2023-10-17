@@ -1,5 +1,6 @@
 import api from '../service/api'
 import { defineStore } from 'pinia'
+
 export const categoryStore = defineStore('category', {
     actions: {
         async getCategory(payload){
@@ -7,7 +8,6 @@ export const categoryStore = defineStore('category', {
             .then(res => {
                 return res.data
             })
-            .catch(eror => eror)
         },
         
         async addCategory(payload){

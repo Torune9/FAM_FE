@@ -9,10 +9,9 @@
             <ModalBox :modalPop="showModal" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal" :data="content">
             </ModalBox>
 
-            <div class="mt-4">
-                <input v-model="search" id="search"
-                class="border-2 outline-none focus:border-yellow-300 rounded border-yellow-500 text-center text-sm w-[25%] h-8"
-                placeholder="search" />
+            <div class="flex items-center mt-4">
+                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search"><small>search</small></label>
+                <input v-model="search" class="outline-none border-l-0 focus:border-red-400 border-2 border-red-600 rounded-tr rounded-br w-1/2 h-8 text-center" type="text" id="search">
             </div>
 
             <br>
@@ -178,7 +177,7 @@ onMounted(() => {
         --easy-table-header-font-color: #ffffff;
 
         --easy-table-body-row-background-color : #b1d4fd;
-        --easy-table-body-row-hover-background-color: #e2725b;
+        --easy-table-body-row-hover-background-color: #5b64e2;
         --easy-table-body-row-hover-font-color: white;
         --easy-table-border: 1px solid #445269;
         --easy-table-row-border: 1px solid #445269;

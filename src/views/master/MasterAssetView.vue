@@ -2,15 +2,14 @@
     <MainLayout>
         <div class="flex flex-col p-5">
             <div>
-                <button class="p-2 bg-green-500 rounded hover:bg-green-400 text-white font-semibold" @click="btnCreate"> 
+                <button class="p-2 bg-green-500 rounded hover:bg-green-400 text-white font-semibold mb-4" @click="btnCreate"> 
                     Add Master
                 </button>
             </div>
             <MasterModal :modalPop="showModal" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal" :data="content"></MasterModal>
-            <div class="mt-4">
-                <input v-model="search" id="search"
-                class="border-2 outline-none focus:border-yellow-300 rounded border-yellow-500 text-center text-sm w-[25%] h-8"
-                placeholder="search" />
+            <div class="flex items-center">
+                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search"><small>search</small></label>
+                <input v-model="search" class="outline-none border border-l-0 border-black rounded-tr rounded-br w-1/2 h-8 text-center" type="text" id="search">
             </div>
             <br>
             <div>
@@ -69,9 +68,11 @@ const headers = [
         value : 'action'
     }
 ]
+
 onMounted(()=>{
     getData()
 })
+
 const btnCreate = () => {
     showModal.value = true
     btnUpdate.value = false
@@ -111,6 +112,7 @@ const onUpdate = async (item) => {
 watch(() =>  search.value, () => {
     getData()
 })
+
 </script>
 
 <style scoped>
@@ -119,7 +121,7 @@ watch(() =>  search.value, () => {
         --easy-table-header-font-color: #ffffff;
 
         --easy-table-body-row-background-color : #fdb1b1;
-        --easy-table-body-row-hover-background-color: #94b0da;
+        --easy-table-body-row-hover-background-color: #da9494;
         --easy-table-body-row-hover-font-color: white;
 
         --easy-table-border: 1px solid #445269;

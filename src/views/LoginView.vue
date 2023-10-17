@@ -43,7 +43,7 @@
  import {useVuelidate} from '@vuelidate/core';
  import { required } from '@vuelidate/validators';
  import {loginStore} from '../store/loginStore'
- import { onBeforeMount,reactive, computed } from 'vue';
+ import { onMounted,reactive, computed } from 'vue';
 
  const auth = loginStore()
  
@@ -51,10 +51,10 @@
      username : '',
      password : '',
     })
-    onBeforeMount(()=>{
-        localStorage.removeItem(auth.eror)
+
+    onMounted(()=>{
+        localStorage.clear()
     })
-    
     
  const rules = computed(()=> {
     return {

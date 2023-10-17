@@ -11,6 +11,7 @@ module.exports = {
         'redHunt' : '#FF6969',
         'table' : '#96B6C5',
         'button' : '#7286D3',
+        'blackCurrent' : '#191717'
       }
     },
   },

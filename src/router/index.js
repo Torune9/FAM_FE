@@ -5,6 +5,9 @@ import ResetView from '../views/ResetView.vue'
 import Dashboard from '../views/dashboard/DashboardView.vue'
 import Category from '../views/category/CategoryView.vue'
 import MasterAsset from'../views/master/MasterAssetView.vue'
+import Asset from '../views/asset/AssetView.vue'
+import History from '../views/history/HistoryView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 
 
 const router = createRouter({
@@ -40,6 +43,21 @@ const router = createRouter({
       path : '/master-assets',
       name : 'Master-assets',
       component : MasterAsset
+    },
+    {
+      path : '/assets',
+      name : 'assets',
+      component : Asset
+    },
+    {
+      path : '/history',
+      name : 'history',
+      component : History
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundView,
     },
   ]
 })
