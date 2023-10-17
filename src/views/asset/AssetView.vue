@@ -11,7 +11,6 @@
 
             <AssetModal :modalPop="showAsset" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal" :data="content"/>
 
-            <ConfirmDialogue :show-dialogue="showDialogue" @close="closeDialogue" :confirmData="confirm" :data="content"/>
 
             <div class="flex items-center mt-4">
                 <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search"><small>search</small></label>
@@ -52,10 +51,6 @@
                                 @click="onRestore(item)">
                                     Restore
                                 </button>
-                                <button class="ml-2 bg-red-500 w-20 rounded text-white"
-                                @click="trueDelete(item)">
-                                    Delete
-                                </button>
                         </div>
                         </div>
                                
@@ -74,7 +69,6 @@
     import InspectModal from '../../components/InspectModal.vue';
     import AssetModal from '../../components/AssetModal.vue';
     import { useNotification } from '@kyvg/vue3-notification';
-    import ConfirmDialogue from '../../components/ConfirmDialogue.vue';
 
     const headers = [
         {
@@ -114,33 +108,23 @@ const content = ref()
 const showModal = ref(false)
 const showAsset = ref(false)
 const btnInspect = ref(false)
-const showDialogue = ref(false)
 const search = ref()
 const is_deleted = ref()
 const loading = ref(false)
-const confirm = ref(false)
 const notification = useNotification()
 
 const warnDelete = (message)=>{
     notification.notify({
   title: message,
-  type : 'warn'
+  type : 'error'
 });
 }
 const restoreInfo = (message)=>{
     notification.notify({
   title: message,
-  type : 'success'
 });
 }
 
-
-const infoDelete = (message)=>{
-    notification.notify({
-  title: message,
-  type : 'error'
-});
-}
 const onInspect = (item) => {
     content.value = item
     showModal.value = true
@@ -190,10 +174,7 @@ const onDelete = (item) => {
 }
 
 
-const trueDelete = (item) => {
-    content.value = item
-   showDialogue.value = true
-}
+
 
 const onRestore = (item)=>{
     asset.restoreAsset(item.id)
@@ -202,20 +183,6 @@ const onRestore = (item)=>{
         getAsset()
     })
 
-}
-const closeDialogue = ([needRefresh,isOk]) => {
-    if (needRefresh) {
-        getAsset()
-    }
-
-    if (!isOk) {
-        warnDelete('Asset canceled to delete')
-    }else{
-        getAsset()
-        infoDelete('Asset has been deleted!')
-    }
-
-    showDialogue.value = false
 }
 
 onMounted(()=>{

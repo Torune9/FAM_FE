@@ -78,13 +78,12 @@ const content = ref()
 const warnDelete = (message)=>{
     notification.notify({
   title: message,
-  type : 'warn'
+  type : 'error'
 });
 }
 const restoreInfo = (message)=>{
     notification.notify({
   title: message,
-  type : 'success'
 });
 }
 
