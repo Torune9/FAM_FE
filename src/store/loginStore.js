@@ -10,7 +10,8 @@ export const loginStore = defineStore('login', {
   state: () => ({
     eror: '',
     token: null,
-    user: {}
+    user: {},
+    message : ''
   }),
 
   persist: true,
@@ -20,7 +21,7 @@ export const loginStore = defineStore('login', {
   },
 
   actions: {
-    async signIn(payload) {
+    async signIn(payload,info) {
       const response = await api.post(`api/authentication/login`, payload)
 
       if (response.data.code == 406) {
@@ -30,12 +31,14 @@ export const loginStore = defineStore('login', {
         response.data.message
       }
 
-      const { data: { token } } = response.data
+      const { data: { token},message } = response.data
       const decoded = jwtDecode(token);
       this.token = token
       this.user = decoded
-
+      this.message = message
+      
       if (this.user.username == payload.username) {
+        info()
         return router.push({
           path: '/dashboard'
         })
@@ -51,6 +54,22 @@ export const loginStore = defineStore('login', {
         router.replace("/")
        },500)
        
+    },
+    async signUp(payload,info) {
+      return api.post('api/register',payload)
+      .then(res => {
+        console.log(res.data);
+        if (res.data.status) {
+          this.message = res.data.message
+          info()
+            return router.push({
+              path: '/'
+            })
+        }
+      })
+      .catch(error => {
+       this.eror = error.response.data.message
+      })
     }
   },
 });
