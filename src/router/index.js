@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
+import RegisterView from '../views/RegisterView.vue'
 import ForgotView from '../views/ForgotView.vue'
 import ResetView from '../views/ResetView.vue'
 import Dashboard from '../views/dashboard/DashboardView.vue'
@@ -18,6 +19,12 @@ const router = createRouter({
       alias :'/login',
       name: 'login',
       component: LoginView,
+    },
+    {
+      path: '/register',
+      alias :'/register',
+      name: 'register',
+      component: RegisterView,
     },
     {
       path: '/forgot-password',
