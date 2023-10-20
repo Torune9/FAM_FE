@@ -14,20 +14,35 @@
                     <br>
                     <input v-model="payload.inspector" class="border text-black font-semibold border-black rounded-[2px] text-[10px] w-48 text-center outline-none focus:border-slate-500 h-6" type="text" name="inspector" id="inspector">
                 </div>
-                <div>
+                <div class="mb-2 mt-2">
                     <label for="file">
-                        <small class="font-semibold">File</small>
+                        <div  class="bg-green-500 text-white rounded w-32 h-12 flex justify-center items-center group cursor-pointer hover:bg-green-400 transition-all duration-200 hover:border hover:border-black">
+                            <small>
+                                Select a file
+                            </small>
+                        </div>
                     </label>
-                    <br>
-                    <input ref="file" @change="changeFile" type="file" class="  file:mr-4 file:py-2 file:px-4
-                    file:rounded file:border-0
+                    <input multiple id="file" name="file" ref="file" @change="changeFile" type="file" class="  file:mr-4 file:py-2 file:px-4
+                    file:rounded file:border-0 hidden
                     file:text-[12px] file:font-semibold
                     file:bg-blackCurrent file:text-violet-100
                     hover:file:bg-slate-800 hover:file:cursor-pointer">
                 </div>
+                
+                <div v-show="fileInput && fileInput.length > 0 " class="h-28 overflow-y-auto ">
+                   <ul>
+                    <li class="bg-blue-500/20 relative m-1 pl-2 font-semibold h-8 rounded flex items-center" v-for="(file,index) in fileInput" :key="index">
+                        <small>
+                            {{`${index + 1}. `  + file.name }}
+                        </small>
+                    <div @click="fileInput.splice(index,1)" class=" cursor-pointer hover:bg-red-400 absolute right-2 text-white font-semibold bg-red-600 rounded-full flex justify-center items-center w-5">
+                        <small>x</small>
+                    </div>
+                    </li>
+                   </ul>
+                </div>
                 <div class="mt-2">
                     <textarea v-model="payload.findings" class="border-2 rounded bg-blackCurrent text-[11px] text-white p-4 outline-none" name="attachment" id="attachment" cols="60" rows="5" placeholder="something..."></textarea>
-
                 </div>
                </div>
                 <button type="submit" class="bg-blackCurrent absolute bottom-1 right-1 rounded w-20 text-white text-sm border-2 border-white hover:bg-slate-500
@@ -79,18 +94,21 @@ const infoError = (message)=>{
 }
 const InfoSuccess = (message)=>{
     notification.notify({
-    title : "Failed",
+    title : "success",
     text : message,
     type : 'success'
 })
 }
 
 const close = (needRefresh = false)=>{
+    fileInput.value = ''
+    payload.findings = ''
+    payload.inspector = ''
     emit("close",needRefresh)
 }
 
 const changeFile = ()=>{
-   fileInput.value = file.value.files[0]
+   fileInput.value =[...file.value.files]
 }
 
 const payload = reactive({
@@ -102,19 +120,27 @@ const createAttachment = ()=>{
     const code = props.data.asset_code
     const formData = new FormData();
 
-    formData.append('files',fileInput.value);
-    formData.append('inspector',payload.inspector);
-    formData.append('findings',payload.findings);
+   if (!fileInput.value) {
+    return infoError('Form can be empty')
+   }else{
+       fileInput.value.forEach(file => {
+            formData.append('files',file);
+       });
+       formData.append('inspector',payload.inspector);
+       formData.append('findings',payload.findings);
+       inspect.createAttachment(code,formData)
+       .then((res)=>{
+           close(false)
+           console.log(res);
+           message.value = res.data.message
+           InfoSuccess(message.value)
+       }).catch(error => {
+           message.value = error.response.data.message
+           infoError(message.value)
+       })
+   }
 
-    inspect.createAttachment(code,formData)
-    .then((res)=>{
-        close(false)
-        console.log(res.data);
-        InfoSuccess()
-    }).catch(error => {
-        message.value = error.response.data.message
-        infoError(message.value)
-    })
+
 }
 
 </script>

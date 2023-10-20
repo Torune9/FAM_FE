@@ -50,7 +50,7 @@ const notification = useNotification()
 const master = masterStore()
 const InfoError = (message)=>{
     notification.notify({
-        title:'Failed to updated',
+        title:'Failed',
         text:message,
         type :'error'
     });

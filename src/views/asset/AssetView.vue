@@ -42,7 +42,7 @@
                                     <div>
                                          <button @click="onInspect(item)" class="bg-blue-500 rounded w-14 text-white font-light ">
                                                 Inpect
-                                            </button>
+                                        </button>
                                     </div>
                                     
                             </template>
@@ -184,6 +184,7 @@ const onRestore = (item)=>{
     })
 
 }
+
 
 onMounted(()=>{
     getAsset()

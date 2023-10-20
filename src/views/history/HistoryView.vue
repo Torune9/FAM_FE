@@ -1,8 +1,8 @@
 <template>
     <MainLayout>
         <div class="flex flex-col p-5">
-           <AttachmentModalVue :show-modal="showModal" 
-           @close="closeModal" :data="content"/>
+           <AttachmentModal :show-modal="showModal" 
+           @close="closeModal" :data="content" :show-attachment="attachment"/>
             <h2 class="text-center text-3xl font-semibold text-slate-500">History Inspection</h2>
             <br>
             <div class="flex items-center">
@@ -13,7 +13,7 @@
             <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="datas" :loading="loading" :rows-per-page=10 :rows-items=[10] :fixed-expand="true">
                 <template #item-action="item">
                   <div>
-                    <button @click="showInspect(item)" class="bg-yellow-400 font-semibold w-36 rounded h-6 border-2 border-black text-black hover:bg-yellow-300 transition-all duration-200 hover:border-slate-400">add attachment</button>
+                    <button @click="showInspect(item,true)" class="bg-yellow-400 font-semibold w-36 rounded h-6 border-2 border-black text-black hover:bg-yellow-300 transition-all duration-200 hover:border-slate-400">Create attachment</button>
                   </div>
                 </template>
             </EasyDataTable>
@@ -26,7 +26,8 @@
     import {inspectStore} from '@/store/inspectStore'
     import { categoryStore } from '../../store/categoryStore';
     import {ref,onMounted,watch} from 'vue'
-    import AttachmentModalVue from '../../components/AttachmentModal.vue';
+    import AttachmentModal from '../../components/AttachmentModal.vue';
+    
     const inspect = inspectStore()
     const category = categoryStore()
     const datas = ref([])
@@ -35,7 +36,7 @@
     const loading = ref(false)
     const showModal = ref(false)
     const content  = ref()
-
+    const attachment = ref(false)
     const headers = [
         {
             text :'Asset Code',
@@ -85,9 +86,10 @@
         })
     }
 
-    const showInspect = (item)=>{
+    const showInspect = (item,show)=>{
         content.value = item
         showModal.value = true
+        attachment.value = show
     }
 
     const closeModal = (close)=>{
