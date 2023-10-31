@@ -22,20 +22,21 @@
                             </small>
                         </div>
                     </label>
-                    <input multiple id="file" name="file" ref="file" @change="changeFile" type="file" class="  file:mr-4 file:py-2 file:px-4
+                    <input multiple id="file" name="file" ref="file" @change="changeFile" type="file" class="file:mr-4 file:py-2 file:px-4
                     file:rounded file:border-0 hidden
                     file:text-[12px] file:font-semibold
                     file:bg-blackCurrent file:text-violet-100
                     hover:file:bg-slate-800 hover:file:cursor-pointer">
                 </div>
                 
-                <div v-show="fileInput && fileInput.length > 0 " class="h-28 overflow-y-auto ">
+                <div v-show="fileInput.length > 0 " class=" max-h-28 max-w-[336px] overflow-auto ">
                    <ul>
-                    <li class="bg-blue-500/20 relative m-1 pl-2 font-semibold h-8 rounded flex items-center" v-for="(file,index) in fileInput" :key="index">
+                    <li class="bg-blue-500/20 relative m-1 pl-2 pr-2 border border-black font-semibold min-w-max h-8 rounded flex items-center text-[11px]" v-for="(file,index) in fileInput" :key="index" >
                         <small>
                             {{`${index + 1}. `  + file.name }}
                         </small>
-                    <div @click="fileInput.splice(index,1)" class=" cursor-pointer hover:bg-red-400 absolute right-2 text-white font-semibold bg-red-600 rounded-full flex justify-center items-center w-5">
+                        <p v-if="file.invalidMessage" class="text-red-600"> <small>&nbsp;-&nbsp;{{ file.invalidMessage}}</small></p>
+                    <div @click="fileInput.splice(index,1);uploadFiles.splice(index,1)" class=" cursor-pointer hover:bg-red-400 absolute -right-1 -bottom-1 text-white font-semibold bg-red-600 rounded-full flex justify-center items-center w-4 h-4 border border-black">
                         <small>x</small>
                     </div>
                     </li>
@@ -64,12 +65,13 @@
 </template>
 
 <script setup>
-import { defineProps,defineEmits,reactive,ref } from 'vue';
+import { defineProps,defineEmits,reactive,ref} from 'vue';
 import {inspectStore} from '@/store/inspectStore.js'
 import { useNotification } from '@kyvg/vue3-notification';
 const inspect = inspectStore()
 const file = ref(null)
-const fileInput = ref(null)
+const fileInput = ref([])
+const uploadFiles = ref([])
 const message = ref('')
 const  props = defineProps({
     showModal : {
@@ -104,11 +106,22 @@ const close = (needRefresh = false)=>{
     fileInput.value = ''
     payload.findings = ''
     payload.inspector = ''
+    fileInput.value = []
+    uploadFiles.value = []
     emit("close",needRefresh)
 }
 
 const changeFile = ()=>{
-   fileInput.value =[...file.value.files]
+    const files = [...file.value.files]
+    uploadFiles.value = files
+    fileInput.value =[...files.map(file=>{
+    return {
+        name : file.name,
+        size : file.size,
+        type : file.type,
+        invalidMessage : validateFile(file)
+    }
+   })]
 }
 
 const payload = reactive({
@@ -116,24 +129,41 @@ const payload = reactive({
     findings  :'',
 })
 
+const validateFile = (file)=>{
+    const type = [
+        "image/jpg",
+        "image/jpeg",
+        "image/png",
+        "application/pdf",
+        "application/msword"
+    ]
+    const MAX_SIZE = 1000000
+
+    if (file.size  > MAX_SIZE) {
+        return `Max size is 1mb`
+    }
+    if(!type.includes(file.type)){
+        return `File is not image or .pdf or .doc`
+    }
+}
+
 const createAttachment = ()=>{
     const code = props.data.asset_code
     const formData = new FormData();
 
-   if (!fileInput.value) {
+   if (uploadFiles.value.length <= 0) {
     return infoError('Form can be empty')
    }else{
-       fileInput.value.forEach(file => {
-            formData.append('files',file);
-       });
-       formData.append('inspector',payload.inspector);
-       formData.append('findings',payload.findings);
-       inspect.createAttachment(code,formData)
-       .then((res)=>{
-           close(false)
-           console.log(res);
-           message.value = res.data.message
-           InfoSuccess(message.value)
+      uploadFiles.value.forEach(file => {
+        formData.append('files',file);
+    });
+    formData.append('inspector',payload.inspector);
+    formData.append('findings',payload.findings);
+    inspect.createAttachment(code,formData)
+    .then((res)=>{
+        close(false)
+        message.value = res.data.message
+        InfoSuccess(message.value)
        }).catch(error => {
            message.value = error.response.data.message
            infoError(message.value)
