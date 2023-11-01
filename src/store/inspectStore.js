@@ -2,7 +2,8 @@ import api from '../service/api'
 import {defineStore} from 'pinia'
 
 export const inspectStore = defineStore('inspection',{
-    actions : {
+    actions : 
+    {
         async addInspect(code,payload){
                 return api.post(`asset/${code}/inspection`,payload)
         },
@@ -13,7 +14,13 @@ export const inspectStore = defineStore('inspection',{
             })
         },
         async createAttachment(code,payload){
-            return api.post(`/asset/attachment/${code}`,payload)
+            return api.post(`asset/attachment/${code}`,payload)
+        },
+        async getAttachments(code){
+            return api.get(`asset/attachment/${code}`)
+            .then(res => {
+                return res.data
+            })
         }
     }
 })

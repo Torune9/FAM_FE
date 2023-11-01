@@ -1,10 +1,14 @@
 <template>
-    <div>
-        <NavBar/>
-        <main class=" ml-[20%] h-[536px] w-4/5 mt-14 absolute top-0 overflow-hidden">
+    <div class="fixed h-screen w-screen">
+        <nav>
+            <NavBar/>
+        </nav>
+        <main class="ml-[20%] h-full w-4/5 mt-14 absolute top-0">
             <slot />
         </main>
-        <SideBar/>   
+        <aside>
+            <SideBar/>
+        </aside>   
     </div>
 </template>
 <script setup>

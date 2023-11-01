@@ -1,8 +1,8 @@
 import axios from "axios"
 import { loginStore } from '../store/loginStore'
-
+const VUE_BASE_URL = import.meta.env.VITE_APP_BASE_URL
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: VUE_BASE_URL,
 });
 
 instance.interceptors.request.use(

@@ -1,20 +1,19 @@
-<script setup>
-
-</script>
 <template>
-  <main>
-        <div class=" w-screen h-screen flex justify-center items-center bg-slate-300">
+  <main> 
+    <LoadingSpinner :showLoad="loading"/> 
+    <SuccessInfo :showSuccess="success" :data="data"/>
+        <div class=" w-screen h-screen flex justify-center items-center">
            <div class="rounded-md flex justify-center items-center flex-wrap h-[400px] w-[400px] p-4 shadow-lg bg-slate-800 text-zinc-200 relative">
             <h1 class=" text-2xl font-semibold mb-9">Forgot password</h1>
             <small class=" mb-4">Please provide your email addres that you used when you signed up for your account.</small>
-            <form action="#" method="post" class="flex flex-wrap gap-5">
+            <form @submit.prevent="forgotPw" class="flex flex-wrap gap-5">
                 <div>
                     <label for="email" class=" font-semibold ">Email</label>
                     <br>
-                    <input type="text" id = "email" class=" w-60 h-9 outline-none border border-slate-600 rounded-md text-center text-sm bg-transparent" required placeholder="email">
+                    <input v-model="payload.email" type="text" id = "email" class=" w-60 h-9 outline-none border border-slate-600 rounded-md text-center text-sm bg-transparent" required placeholder="email">
                 </div>
                 <small>We will send you and email that will allow you to reset password.</small>
-                <div><Button class=" bg-yellow-500 w-40  rounded-md h-10 font-semibold text-sm text-zinc-100">Reset password</Button>
+                <div><button class=" bg-yellow-500 w-40  rounded-md h-10 font-semibold text-sm text-zinc-100">Reset password</button>
                 </div>
               </form>
               <div class="relative">
@@ -24,8 +23,47 @@
         </div>
   </main>
 </template>
+
+<script setup>
+import {ref,reactive} from 'vue'
+import { forgotPassword } from '../store/forgotPassword';
+import { useNotification } from '@kyvg/vue3-notification';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
+import SuccessInfo from '../components/SuccessInfo.vue'
+const forgot = forgotPassword()
+const payload = reactive({
+  email  :''
+})
+const loading = ref(false)
+const success = ref(false)
+const data = ref(null)
+const notification = useNotification()
+const infoError = (message)=>{
+  notification.notify({
+    title  : message,
+    type : 'error'
+  })
+}
+
+const forgotPw = ()=>{
+  loading.value = true
+  forgot.sendForgotPassword(payload)
+  .then(res => {
+    success.value = true
+    data.value = res.data
+  })
+  .catch(error => {
+    const {response:{data:{message}}}= error
+    infoError(message)
+  }).finally(()=>{
+    loading.value = false
+  })
+}
+
+</script>
+
 <style> 
- div{
-  font-family: 'Poppins', sans-serif;
+  div {
+    font-family: 'prompt', sans-serif;
   }
 </style>

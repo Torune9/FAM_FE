@@ -1,16 +1,13 @@
 <template>
     <aside>
         <nav class=" bg-redHunt text-zinc-100 w-[20%] p-4 h-screen">
-            <div class=" grid grid-rows-2 gap-3 ">
-                <div class="">
-                    <!-- <img src="https://source.unsplash.com/600x400" alt="" > -->
-                    <br>
-                    <hr>
-                    <hr>
-                </div>
+            <div class="flex flex-col">
+                <h1 class="text-center font-bold text-2xl font-rubik">M&nbsp;E&nbsp;N&nbsp;U</h1>
+                <hr>
+                <hr>
                 <ul class="grid grid-rows-3 font-semibold text-sm">
                     <li v-for="menu, index in menus" :key="index"
-                        class="h-10 flex items-center p-2 before:contents[''] before:bg-red-300 before:h-10 before:w-1 before:mr-3 active:text-black before:scale-y-0 hover:before:scale-y-100 before:transition-transform hover:text-red-100 active:scale-y-100 visited:bg-slate-500">
+                        class="h-10 flex items-center p-2 before:contents[''] before:bg-red-600 before:h-10 before:w-1 before:mr-3 before:scale-y-0 hover:before:scale-y-100 before:transition-transform hover:text-red-600 active:text-red-500 active:scale-y-100 hover:bg-white">
                         
                         <router-link :to="menu.route">{{ menu.title }}</router-link>
                     </li>

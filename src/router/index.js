@@ -9,6 +9,7 @@ import MasterAsset from'../views/master/MasterAssetView.vue'
 import Asset from '../views/asset/AssetView.vue'
 import History from '../views/history/HistoryView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
+import DetailAttachments from '../views/DetailAttachments.vue'
 
 
 const router = createRouter({
@@ -32,7 +33,7 @@ const router = createRouter({
       component: ForgotView,
     },
     {
-      path: '/reset-password',
+      path: '/reset-password/:token',
       name: 'reset-password',
       component: ResetView,
     },
@@ -60,6 +61,11 @@ const router = createRouter({
       path : '/history',
       name : 'history',
       component : History
+    },
+    {
+      path : '/detail/:code',
+      name : 'detail',
+      component : DetailAttachments
     },
     {
       path: '/:pathMatch(.*)*',

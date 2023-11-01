@@ -1,5 +1,6 @@
 <template>
     <main>
+        <LoadingSpinner :show-load="loading" />
         <div class="flex justify-center items-center  w-screen h-screen">
             <div
                 class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-200">
@@ -60,10 +61,12 @@
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { loginStore } from '../store/loginStore'
-import { onMounted, reactive, computed } from 'vue';
+import { onMounted, reactive, computed ,ref} from 'vue';
 import { useNotification } from '@kyvg/vue3-notification';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 const notification = useNotification()
+const loading = ref(false)
 
 const auth = loginStore()
 const InfoSuccess = () => {
@@ -96,7 +99,11 @@ const v$ = useVuelidate(rules, form)
 const register = () => {
     v$.value.$touch()
     if (v$.value.$invalid) return
+    loading.value = true
     auth.signUp(form, InfoSuccess)
+    .finally(()=>{
+        loading.value = false
+    })
 }
 
 </script>

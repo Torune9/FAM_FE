@@ -2,7 +2,7 @@
     <MainLayout>
         <div class="flex flex-col p-5">
            <AttachmentModal :show-modal="showModal" 
-           @close="closeModal" :data="content" :show-attachment="attachment"/>
+           @close="closeModal" :data="content" :show-attachment="attachment" ref="test"/>
             <h2 class="text-center text-3xl font-semibold text-slate-500">History Inspection</h2>
             <br>
             <div class="flex items-center">
@@ -12,9 +12,14 @@
             <br>
             <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="datas" :loading="loading" :rows-per-page=10 :rows-items=[10] :fixed-expand="true">
                 <template #item-action="item">
-                  <div>
-                    <button @click="showInspect(item,true)" class="bg-yellow-400 font-semibold w-36 rounded h-6 border-2 border-black text-black hover:bg-yellow-300 transition-all duration-200 hover:border-slate-400">Create attachment</button>
-                  </div>
+                    <div>
+                        <button @click="showInspect(item,true)" class="bg-yellow-400 font-semibold w-36 rounded h-6 border-2 border-black text-black hover:bg-yellow-300 transition-all duration-200 hover:border-slate-400">Create attachment</button>
+                    </div>
+                </template>
+                <template #item-code="{ asset_code }">
+                    <router-link :to="routes(asset_code)" class="text-blue-700 font-bold hover:underline hover:underline-offset-4 transition-all duration-500 hover:decoration-2 font-barlow ring-1 ring-blue-500 p-1 rounded">
+                        {{ asset_code }}
+                    </router-link>
                 </template>
             </EasyDataTable>
         </div>
@@ -37,10 +42,14 @@
     const showModal = ref(false)
     const content  = ref()
     const attachment = ref(false)
+
+    const routes = (code)=>{
+        return `detail/${code}`
+    }
     const headers = [
         {
             text :'Asset Code',
-            value : 'asset_code',
+            value : 'code',
             width : 100
         },
         {
@@ -63,9 +72,7 @@
             value : 'action',
             width : 200
         },
-    ]
-
-    
+    ]    
     const getData = ()=>{
         loading.value = true
         const payload = {
@@ -92,13 +99,10 @@
         attachment.value = show
     }
 
-    const closeModal = (close)=>{
-        if (close) {
-            console.log('wkkw');
-        }
+    const closeModal = ()=>{
         showModal.value = false
     }
-
+    
     watch(()=>search.value,()=>{
         getData()
     })
@@ -113,14 +117,12 @@
         #191717;
         --easy-table-header-font-color: white;
 
-        --easy-table-body-row-background-color : #626262;
-        --easy-table-body-row-hover-background-color: #9e9e9e;
-        --easy-table-body-row-hover-font-color: white;
-        --easy-table-body-row-font-color: #ffffff;
-
-        --easy-table-body-row-font-size : 11px;
-
         
-       
+        --easy-table-body-row-hover-background-color: #d5d5d5;
+        --easy-table-body-row-font-color: black;
+
+        --easy-table-body-row-font-size : 12px;    
+
+        font-weight: 900;
     }
 </style>

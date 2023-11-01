@@ -11,11 +11,7 @@
                     <div>
                         <label class="text-white font-semibold text-sm" for="status">Status</label>
                         <br>
-                        <select style="overflow-wrap: break-word;" v-model="payload.status" id="status"
-                            class="outline-none bg-black text-white w-60  h-8 rounded text-sm text-center focus:border-yellow-500 focus:border-2">
-                            <option disabled value="">Please select status</option>
-                            <option :value="data.status" v-for="data of status" :key="data">{{ data.status }}</option>
-                        </select>
+                        <input v-model="payload.status" type="text" name="status" id="status" class="w-48 rounded h-8 bg-blackCurrent border-slate-300 border-2 text-white text-sm text-center outline-none  focus:border-slate-400">
                     </div>
                     <div>
                         <label class="text-white font-semibold text-sm" for="desc"> information</label>
@@ -40,12 +36,10 @@
 
 import { reactive } from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
-import { ref, onMounted } from 'vue'
-import { assetStore } from "../store/assetStore";
 import { inspectStore } from '../store/inspectStore'
 
 const notification = useNotification()
-const asset = assetStore()
+
 const inspect = inspectStore()
 
 
@@ -64,8 +58,7 @@ const InfoSuccess = (message) => {
         type: 'success'
     });
 }
-const status = ref([])
-const choice = ref('')
+
 const props = defineProps({
     modalPop: {
         type: Boolean,
@@ -87,17 +80,10 @@ const emit = defineEmits(['close'])
 
 
 const payload = reactive({
-    status: choice.value,
+    status: '',
     information: '',
 })
 
-
-const getStatus = () => {
-    asset.getStatus()
-        .then(res => {
-            status.value = res.result.data
-        })
-}
 
 const create = async () => {
     const code = props.data.asset_code
@@ -117,11 +103,10 @@ const create = async () => {
 
 
 const close = (needRefresh = false) => {
+    payload.information = ''
+    payload.status = ''
     emit("close", needRefresh)
 }
-onMounted(() => {
-    getStatus()
-})
 
 </script>
 <style scoped>
