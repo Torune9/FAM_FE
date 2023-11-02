@@ -28,10 +28,10 @@
 
 <script setup>
     import MainLayout from '../../layout/MainLayout.vue';
-    import {inspectStore} from '@/store/inspectStore'
-    import { categoryStore } from '../../store/categoryStore';
+    import {inspectStore} from '@/store/AssetStore/inspectStore'
+    import { categoryStore } from '@/store/AssetStore/categoryStore';
     import {ref,onMounted,watch} from 'vue'
-    import AttachmentModal from '../../components/AttachmentModal.vue';
+    import AttachmentModal from '../../components/modal/AttachmentModal.vue';
     
     const inspect = inspectStore()
     const category = categoryStore()

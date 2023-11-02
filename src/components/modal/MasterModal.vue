@@ -1,35 +1,27 @@
 <template>
     <Transition name="master-modal">
         <main v-if="modalPop" class="h-screen w-screen fixed z-10">
-            <div class=" absolute bottom-24 bg-blue-500 w-72 h-96 flex flex-col text-white  justify-center items-center rounded" >
-                <div class="mt-4" v-if="showAdd" >
+            <div class=" absolute bottom-24 bg-blue-500 w-72 h-60 flex flex-col text-white items-center rounded" >
+                <div class="mt-4">
                     <label for="name" class="font-semibold text-sm">Name</label>
                     <br>
                     <input v-model="payload.name" id="name" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div>
-                    <label for="quantity" class="font-semibold text-sm">Quantity</label>
+                    <label for="code" class="font-semibold text-sm">Code</label>
                     <br>
-                    <input v-model="payload.quantity" id="quantity" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
+                    <input v-model="payload.code" id="code" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div v-if="showAdd">
-                    <label for="created" class="font-semibold text-sm">CreatedBy</label>
+                    <label for="price" class="font-semibold text-sm">Price</label>
                     <br>
-                    <input v-model="payload.created_by" id="created" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
+                    <input v-model="payload.price" id="price" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div v-else>
                     <label for="status" class="font-semibold text-sm">Status</label>
                     <br>
                     <input v-model="payload.status" id="status" type="text" class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
-                <br>
-                <div v-if="showAdd">
-                    <select v-model="payload.code" name="category" id="category" class="w-full outline-none focus:border-slate-700 focus:border-2 h-8 text-sm rounded bg-slate-600 text-white border-slate-800 border-2">
-                        <option value="" disabled>Please select category</option>
-                        <option :value="category.category_code" v-for="category of category" :key="category">{{ category.category_name }}</option>
-                    </select>
-                </div>
-              
                 <div v-if="showAdd">
                     <button @click="add" class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
                         create
@@ -49,19 +41,16 @@
     </Transition>
 </template>
 <script setup>
+import { masterStore } from '@/store/AssetStore/masterAssetStore';
 import { reactive,watch} from 'vue';
 import { useNotification } from "@kyvg/vue3-notification";
-import { assetStore } from '../store/assetStore';
-import { categoryStore } from '../store/categoryStore';
-import {onMounted,ref} from 'vue'
-const notification = useNotification()
-const categories = categoryStore()
-const category = ref([])
 
-const asset = assetStore()
+const notification = useNotification()
+
+const master = masterStore()
 const InfoError = (message)=>{
     notification.notify({
-        title:'Failed to add',
+        title:'Failed',
         text:message,
         type :'error'
     });
@@ -92,29 +81,19 @@ const props = defineProps({
             }
         }
     })
-   
 const payload = reactive({
     code : '',
     name : '',
-    quantity : '',
-    status : '',
-    created_by : ''
+    price : '',
+    status: ''
     })
-
-    const getCategory = ()=>{
-            categories.getCategory().then(res => {
-                category.value = res.result.content
-            })
-    }
-    
 const add = async ()=>{
        
-       await asset.addAsset(payload)
+       await master.addMaster(payload)
        .then((res) => {
            InfoSuccess(res.data.message)
            close(true)
        }).catch(error => {
-        console.log(error);
             const {data:{message}} = error.response
             InfoError(message)
        })
@@ -123,28 +102,27 @@ const add = async ()=>{
 const update = async () =>{
 
        const id = props.data.id;
-       await asset.updateAsset(id,payload)
+       await master.updateMaster(id,payload)
        .then((res) => {
             InfoSuccess(res.data.message)
             close(true)
        }).catch(error =>{
-            
             const {data:{message}} = error.response
             InfoError(message)
        })
      
    }
-
 const emit = defineEmits(['close'])
+
 const handleShowUpdate = ()=> {
         if(props.showUpdate){
-                payload.quantity = props.data.quantity
+                payload.name = props.data.name
+                payload.code = props.data.category_code
                 payload.status = props.data.status
             }else{
-    
+                payload.code = ''
                 payload.name = ''
-                payload.created_by = ''
-                payload.quantity = ''
+                payload.price = ''
             }
     }
 
@@ -152,9 +130,6 @@ const close = (needRefresh = false) => {
             emit("close", needRefresh)
         }
 watch(()=> props.modalPop,handleShowUpdate )
-onMounted(()=>{
-    getCategory()
-})
 </script>
 
 <style scoped>

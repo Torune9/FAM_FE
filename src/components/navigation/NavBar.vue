@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-  import {loginStore} from '../store/loginStore'
+  import {loginStore} from '@/store/UserStore/loginStore'
   import {reactive} from 'vue'
   
   const auth = loginStore()

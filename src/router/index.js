@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import ForgotView from '../views/ForgotView.vue'
-import ResetView from '../views/ResetView.vue'
+import LoginView from '../views/login/LoginView.vue'
+import RegisterView from '../views/login/RegisterView.vue'
+import ForgotView from '../views/login/ForgotView.vue'
+import ResetView from '../views/login/ResetView.vue'
 import Dashboard from '../views/dashboard/DashboardView.vue'
 import Category from '../views/category/CategoryView.vue'
 import MasterAsset from'../views/master/MasterAssetView.vue'
 import Asset from '../views/asset/AssetView.vue'
 import History from '../views/history/HistoryView.vue'
-import NotFoundView from '../views/NotFoundView.vue'
-import DetailAttachments from '../views/DetailAttachments.vue'
+import NotFoundView from '../views/notFound/NotFoundView.vue'
+import DetailAttachments from '../views/history/DetailAttachments.vue'
 
 
 const router = createRouter({

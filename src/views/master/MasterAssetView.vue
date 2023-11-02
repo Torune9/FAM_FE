@@ -42,9 +42,9 @@
 
 <script setup>
 import MainLayout from '../../layout/MainLayout.vue';
-import { masterStore } from '../../store/masterAssetStore';
+import { masterStore } from '@/store/AssetStore/masterAssetStore';
 import { onMounted,ref,watch }from "vue"
-import MasterModal from '../../components/MasterModal.vue';
+import MasterModal from '../../components/modal/MasterModal.vue';
 
 const master = masterStore()
 const dataMaster = ref([])

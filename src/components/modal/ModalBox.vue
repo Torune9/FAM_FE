@@ -25,7 +25,7 @@
 <script setup>
 import {watch, reactive} from "vue";
 
- import { categoryStore } from '../store/categoryStore';
+ import { categoryStore } from '@/store/AssetStore/categoryStore';
  import { useNotification } from "@kyvg/vue3-notification";
 
 const notification = useNotification()

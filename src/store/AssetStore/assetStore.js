@@ -1,4 +1,4 @@
-import api from '../service/api'
+import api from '../../service/api'
 import {defineStore} from 'pinia'
 
 export const assetStore = defineStore('asset',{

@@ -36,7 +36,7 @@
 
 import { reactive } from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
-import { inspectStore } from '../store/inspectStore'
+import { inspectStore } from '@/store/AssetStore/inspectStore'
 
 const notification = useNotification()
 

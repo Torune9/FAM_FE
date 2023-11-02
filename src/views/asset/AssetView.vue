@@ -65,9 +65,9 @@
 
     import MainLayout from '../../layout/MainLayout.vue';
     import {ref,onMounted,watch} from 'vue'
-    import {assetStore} from '@/store/assetStore'
-    import InspectModal from '../../components/InspectModal.vue';
-    import AssetModal from '../../components/AssetModal.vue';
+    import {assetStore} from '@/store/AssetStore/assetStore'
+    import InspectModal from '../../components/modal/InspectModal.vue';
+    import AssetModal from '../../components/modal/AssetModal.vue';
     import { useNotification } from '@kyvg/vue3-notification';
 
     const headers = [

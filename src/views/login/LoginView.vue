@@ -56,7 +56,7 @@
 <script setup>
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
-import { loginStore } from '../store/loginStore'
+import { loginStore } from '@/store/UserStore/loginStore'
 import { onMounted, reactive, computed } from 'vue';
 import { useNotification } from '@kyvg/vue3-notification';
 const notification = useNotification()

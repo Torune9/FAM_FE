@@ -30,11 +30,11 @@
 </template>
 
 <script setup>
-  import { forgotPassword } from '../store/forgotPassword';
+  import { forgotPassword } from '@/store/UserStore/forgotPassword';
   import { reactive,ref} from 'vue';
   import { useRoute,useRouter } from 'vue-router';
   import { useNotification } from '@kyvg/vue3-notification';
-  import LoadingSpinner from '../components/LoadingSpinner.vue';
+  import LoadingSpinner from '../../components/utilComponent/LoadingSpinner.vue';
 
   const notification = useNotification()
   const route = useRoute()

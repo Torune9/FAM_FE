@@ -14,7 +14,7 @@
 
 import MainLayout from '../../layout/MainLayout.vue';
 
-import { loginStore } from "@/store/loginStore"
+import { loginStore } from "@/store/UserStore/loginStore"
 import {onBeforeMount} from 'vue'
 import { useRouter } from "vue-router";
 const router = useRouter()

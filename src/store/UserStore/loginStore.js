@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 
-import router from '../router';
+import router from '../../router';
 
 import jwtDecode from 'jwt-decode';
-import api from '../service/api'
+import api from '../../service/api'
 
 
 export const loginStore = defineStore('login', {

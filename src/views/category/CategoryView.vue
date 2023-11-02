@@ -57,8 +57,8 @@
 <script setup>
 import MainLayout from '../../layout/MainLayout.vue';
 
-import { categoryStore } from "@/store/categoryStore"
-import ModalBox from '../../components/ModalBox.vue';
+import { categoryStore } from "@/store/AssetStore/categoryStore"
+import ModalBox from '../../components/modal/ModalBox.vue';
 
 import { onMounted, ref, watch } from 'vue';
 import { useNotification } from "@kyvg/vue3-notification";

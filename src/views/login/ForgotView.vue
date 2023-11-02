@@ -26,10 +26,10 @@
 
 <script setup>
 import {ref,reactive} from 'vue'
-import { forgotPassword } from '../store/forgotPassword';
+import { forgotPassword } from '@/store/UserStore/forgotPassword';
 import { useNotification } from '@kyvg/vue3-notification';
-import LoadingSpinner from '../components/LoadingSpinner.vue';
-import SuccessInfo from '../components/SuccessInfo.vue'
+import LoadingSpinner from '../../components/utilComponent/LoadingSpinner.vue';
+import SuccessInfo from '../../components/utilComponent/SuccessInfo.vue'
 const forgot = forgotPassword()
 const payload = reactive({
   email  :''

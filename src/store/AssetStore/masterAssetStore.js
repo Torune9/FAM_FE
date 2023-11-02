@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import api from '../service/api'
+import api from '../../service/api'
 
 export const masterStore = defineStore('master',{
     actions :{

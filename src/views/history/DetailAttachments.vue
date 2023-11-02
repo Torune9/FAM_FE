@@ -54,8 +54,8 @@
 </template>
 
 <script setup>
-import MainLayout from '../layout/MainLayout.vue';
-import { inspectStore } from '../store/inspectStore';
+import MainLayout from '../../layout/MainLayout.vue';
+import { inspectStore } from '@/store/AssetStore/inspectStore';
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 

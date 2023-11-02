@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { loginStore } from '../store/loginStore';
+import { loginStore } from '@/store/UserStore/loginStore';
 import {ref,onMounted} from "vue"
 
 
