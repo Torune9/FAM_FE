@@ -45,16 +45,6 @@ export const loginStore = defineStore('login', {
       }
     },
 
-    logout() {
-      this.token = null;
-      this.user = null;
-      this.eror = null
-       setTimeout(()=>{
-        localStorage.clear()
-        router.replace("/")
-       },500)
-       
-    },
     async signUp(payload,info) {
       return api.post('api/register',payload)
       .then(res => {
@@ -62,14 +52,24 @@ export const loginStore = defineStore('login', {
         if (res.data.status) {
           this.message = res.data.message
           info()
-            return router.push({
-              path: '/'
+          return router.push({
+            path: '/'
             })
         }
       })
       .catch(error => {
-       this.eror = error.response.data.message
+        this.eror = error.response.data.message
       })
     }
   },
+    logout() {
+      this.token = null;
+      this.user = null;
+      this.eror = null
+      setTimeout(()=>{
+        localStorage.clear()
+        router.replace("/")
+      },500)
+      
+    },
 });
