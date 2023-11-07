@@ -1,11 +1,11 @@
 import axios from "axios"
 import { loginStore } from '../store/UserStore/loginStore'
 const VUE_BASE_URL = import.meta.env.VITE_APP_BASE_URL
-const instance = axios.create({
+const api = axios.create({
   baseURL: VUE_BASE_URL,
 });
 
-instance.interceptors.request.use(
+api.interceptors.request.use(
   (set) => {
      if (loginStore().isLogged) {
        set.headers = { 
@@ -17,7 +17,7 @@ instance.interceptors.request.use(
       (error) => Promise.reject(error)
 )
 
-instance.interceptors.response.use(
+api.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -29,4 +29,4 @@ instance.interceptors.response.use(
   }
 )
 
-export default instance;
+export default api;

@@ -5,8 +5,9 @@
  </div>
 </template>
 
-  <script>
-  </script>
+<script setup>
+</script>
+
 <style>
 header{
   font-family: 'Poppins', sans-serif;

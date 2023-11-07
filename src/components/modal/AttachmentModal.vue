@@ -84,6 +84,7 @@ const  props = defineProps({
         }
     }
 })
+const loading = ref(false)
 
 const emit = defineEmits(['close'])
 const notification = useNotification()
@@ -102,7 +103,7 @@ const InfoSuccess = (message)=>{
 })
 }
 
-const close = (needRefresh = false)=>{
+const close = (needRefresh)=>{
     fileInput.value = ''
     payload.findings = ''
     payload.inspector = ''
@@ -150,24 +151,25 @@ const validateFile = (file)=>{
 const createAttachment = ()=>{
     const code = props.data.asset_code
     const formData = new FormData();
-
-   if (uploadFiles.value.length <= 0) {
-    return infoError('Form can be empty')
-   }else{
-      uploadFiles.value.forEach(file => {
-        formData.append('files',file);
-    });
-    formData.append('inspector',payload.inspector);
-    formData.append('findings',payload.findings);
-    inspect.createAttachment(code,formData)
-    .then((res)=>{
+    
+    if (uploadFiles.value.length <= 0) {
+        return infoError('Form can be empty')
+    }else{
+        uploadFiles.value.forEach(file => {
+            formData.append('files',file);
+        });
+        formData.append('inspector',payload.inspector);
+        formData.append('findings',payload.findings);
+        inspect.createAttachment(code,formData)
+        .then((res)=>{
+        loading.value = true
         close(false)
         message.value = res.data.message
         InfoSuccess(message.value)
        }).catch(error => {
            message.value = error.response.data.message
            infoError(message.value)
-       })
+       }).finally(()=>loading.value = false)
    }
 
 

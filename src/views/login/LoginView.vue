@@ -1,6 +1,6 @@
 <template>
+    <LoadingSpinner :show-load="loading"/>
     <main>
-        <LoadingSpinner :show-load="loading"/>
         <div class="flex justify-center items-center  w-screen h-screen">
             <div
                 class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100">

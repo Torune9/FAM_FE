@@ -44,7 +44,7 @@
     const attachment = ref(false)
 
     const routes = (code)=>{
-        return `detail/${code}`
+        return `/detail/${code}`
     }
     const headers = [
         {

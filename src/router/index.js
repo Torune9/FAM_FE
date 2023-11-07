@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory} from 'vue-router'
 import LoginView from '../views/login/LoginView.vue'
 import RegisterView from '../views/login/RegisterView.vue'
 import ForgotView from '../views/login/ForgotView.vue'
@@ -10,20 +10,19 @@ import Asset from '../views/asset/AssetView.vue'
 import History from '../views/history/HistoryView.vue'
 import NotFoundView from '../views/notFound/NotFoundView.vue'
 import DetailAttachments from '../views/history/DetailAttachments.vue'
-
+import navGuard from '../service/navigationGuard'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      alias :'/login',
+      alias : '/login',
       name: 'login',
       component: LoginView,
     },
     {
       path: '/register',
-      alias :'/register',
       name: 'register',
       component: RegisterView,
     },
@@ -38,34 +37,40 @@ const router = createRouter({
       component: ResetView,
     },
     {
-      path : '/dashboard',
-      name : 'dashboard',
-      component : Dashboard
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard,
+      meta: { requiresAuth: true },
     },
     {
-      path : '/category-assets/',
-      name : 'category-assets',
-      component : Category,
+      path: '/category-assets/',
+      name: 'category-assets',
+      component: Category,
+      meta: { requiresAuth: true },
     },
     {
-      path : '/master-assets',
-      name : 'Master-assets',
-      component : MasterAsset
+      path: '/master-assets',
+      name: 'Master-assets',
+      component: MasterAsset,
+      meta: { requiresAuth: true },
     },
     {
-      path : '/assets',
-      name : 'assets',
-      component : Asset
+      path: '/assets',
+      name: 'assets',
+      component: Asset,
+      meta: { requiresAuth: true },
     },
     {
-      path : '/history',
-      name : 'history',
-      component : History
+      path: '/history',
+      name: 'history',
+      component: History,
+      meta: { requiresAuth: true },
     },
     {
-      path : '/detail/:code',
-      name : 'detail',
-      component : DetailAttachments
+      path: '/detail/:code',
+      name: 'detail',
+      component: DetailAttachments,
+      meta: { requiresAuth: true },
     },
     {
       path: '/:pathMatch(.*)*',
@@ -73,6 +78,8 @@ const router = createRouter({
       component: NotFoundView,
     },
   ]
-})
+});
 
-export default router
+router.beforeEach(navGuard)
+export default router;
+

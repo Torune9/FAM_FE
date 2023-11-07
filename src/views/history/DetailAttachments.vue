@@ -3,9 +3,14 @@
         <main class="h-full w-full flex flex-col p-5">
             <div v-if="datas">
                 <div class="text-3xl font-barlow flex items-center p-8">
-                    <h1 class="font-bold"> {{ datas.asset_code }}&nbsp;:&nbsp;
+                    <h1 class="font-bold"> 
+                        <span class="underline">
+                            <router-link to="/history">
+                            {{ datas.asset_code }}
+                        </router-link>
+                        </span>
                         <span class="font-light">
-                            {{ histories.information }}
+                            &nbsp;:&nbsp;{{ histories.information }}
                         </span>
                     </h1>
                 </div>
@@ -35,7 +40,7 @@
                             <ul class="w-full text-white max-h-24 overflow-y-auto">
                                 <li v-for="(file, i) of datas.file" :key="i"
                                     class="bg-white/30 rounded mt-2 text-sm pl-2 hover:bg-white/40">
-                                    <small>
+                                    <small class="underline">
                                         <a :href="getUrl(file)">
                                             {{ i + 1 }}. {{ file }}
                                         </a>
@@ -46,8 +51,8 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="w-full h-full flex justify-center items-center text-2xl font-bold text-slate-300">
-                <h1 class="p-2 italic">Attachment has not been created</h1>
+            <div v-else class="w-full h-full flex justify-center items-center text-2xl font-bold text-slate-400">
+                <h1 class="p-2 italic animate-pulse">Attachment has not been created</h1>
             </div>
         </main>
     </MainLayout>
