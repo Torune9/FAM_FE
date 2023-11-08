@@ -127,6 +127,7 @@ const search = ref()
 const is_deleted = ref()
 const loading = ref(false)
 const notification = useNotification()
+const items = ref([])
 
 const warnDelete = (message) => {
     notification.notify({
@@ -158,8 +159,6 @@ const closeModal = (needRefresh) => {
     showModal.value = false
     showAsset.value = false
 }
-
-const items = ref([])
 const getAsset = () => {
     const payload = {
         search: search.value,
@@ -174,7 +173,6 @@ const getAsset = () => {
             loading.value = false
         })
 }
-
 const onUpdate = async (item) => {
     content.value = item
     showAsset.value = true
@@ -188,19 +186,13 @@ const onDelete = (item) => {
             getAsset()
         })
 }
-
-
-
-
 const onRestore = (item) => {
     asset.restoreAsset(item.id)
         .then(res => {
             restoreInfo(res.message)
             getAsset()
         })
-
 }
-
 
 onMounted(() => {
     getAsset()
@@ -223,4 +215,5 @@ watch(() => [is_deleted.value, search.value], () => {
     --easy-table-row-border: 1px solid #445269;
 
     font-weight: 900;
-}</style>
+}
+</style>
