@@ -81,6 +81,18 @@ import InspectModal from '../../components/modal/InspectModal.vue';
 import AssetModal from '../../components/modal/AssetModal.vue';
 import { useNotification } from '@kyvg/vue3-notification';
 
+const asset = assetStore()
+const btnUpdate = ref(false)
+const btnAdd = ref(false)
+const content = ref()
+const showModal = ref(false)
+const showAsset = ref(false)
+const btnInspect = ref(false)
+const search = ref()
+const is_deleted = ref()
+const loading = ref(false)
+const notification = useNotification()
+const items = ref([])
 const headers = [
     {
         text: "Name",
@@ -115,20 +127,6 @@ const headers = [
         value: 'countdown'
     }
 ]
-
-const asset = assetStore()
-const btnUpdate = ref(false)
-const btnAdd = ref(false)
-const content = ref()
-const showModal = ref(false)
-const showAsset = ref(false)
-const btnInspect = ref(false)
-const search = ref()
-const is_deleted = ref()
-const loading = ref(false)
-const notification = useNotification()
-const items = ref([])
-
 const warnDelete = (message) => {
     notification.notify({
         title: message,
