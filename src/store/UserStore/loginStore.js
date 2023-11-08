@@ -47,7 +47,6 @@ export const loginStore = defineStore('login', {
     async signUp(payload,info) {
       return api.post('api/register',payload)
       .then(res => {
-        console.log(res.data);
         if (res.data.status) {
           this.message = res.data.message
           info()
