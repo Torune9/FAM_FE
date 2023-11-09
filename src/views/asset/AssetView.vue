@@ -60,8 +60,8 @@
                             </div>
                         </div>
                     </template>
-                    <template #item-countdown="item">
-                        <div v-for="item of item.Histories" :key="item.id" class="p-1">
+                    <template #item-countdown="include">
+                        <div v-for="item of include.Histories" :key="item.id" class="p-1">
                             <vue3-flip-countdown mainColor="#FCF5ED" secondFlipColor="#F4BF96"
                                 :deadlineISO="item.inspection_date" labelSize="10px" countdownSize="15px" />
                         </div>
