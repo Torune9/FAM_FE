@@ -62,13 +62,11 @@
     loading.value = true
     forgot.resetPassword(route.params.token,payload)
     .then(res => {
-      console.log(res);
       infoSuccess(res.data.message)
       router.replace({
         path : '/'
       })
     }).catch(error => {
-      console.log(error);
       infoError(error.response.data.message)
     }).finally(()=>{
       loading.value = false

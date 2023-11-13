@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 import router from './router'
-import pinia from './store'
+import pinia from './service'
 
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
