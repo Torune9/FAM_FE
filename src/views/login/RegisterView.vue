@@ -27,7 +27,7 @@
                     <div>
                         <label class="font-bold" for="password">password</label>
                         <br>
-                        <input :minlength="10" type="password" name="password" id="password"
+                        <input :minlength="6" type="password" name="password" id="password"
                             class="w-[250px] text-center text-sm border-2 h-8 rounded-md border-white bg-transparent outline-none focus:border-2 focus:border-slate-700"
                             v-model.trim="form.password">
                         <div v-for="error of v$.password.$errors" :key="error.$uid">
