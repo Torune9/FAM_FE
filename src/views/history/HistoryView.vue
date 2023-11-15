@@ -18,7 +18,7 @@
                 </template>
                 <template #item-info="{ information,asset_code }">
                    <router-link :to="routes(asset_code)">
-                    {{ information.slice(0,40) }}...
+                    {{ information.slice(0,40) }}<span>.&nbsp;.&nbsp;.</span>
                    </router-link>
                 </template>
                 <template #item-action="item">
