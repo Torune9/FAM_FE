@@ -11,15 +11,20 @@
             </div>
             <br>
             <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="datas" :loading="loading" :rows-per-page=10 :rows-items=[10] :fixed-expand="true">
-                <template #item-action="item">
-                    <div>
-                        <button @click="showInspect(item,true)" class="bg-yellow-400 font-semibold w-36 rounded h-6 border-2 border-black text-black hover:bg-yellow-300 transition-all duration-200 hover:border-slate-400">Create attachment</button>
-                    </div>
-                </template>
                 <template #item-code="{ asset_code }">
                     <router-link :to="routes(asset_code)" class="text-blue-700 font-bold hover:underline hover:underline-offset-4 transition-all duration-500 hover:decoration-2 font-barlow ring-1 ring-blue-500 p-1 rounded">
                         {{ asset_code }}
                     </router-link>
+                </template>
+                <template #item-info="{ information,asset_code }">
+                   <router-link :to="routes(asset_code)">
+                    {{ information.slice(0,40) }}...
+                   </router-link>
+                </template>
+                <template #item-action="item">
+                    <div>
+                        <button @click="showInspect(item,true)" class="bg-yellow-400 font-semibold w-36 rounded h-6 border-2 border-black text-black hover:bg-yellow-300 transition-all duration-200 hover:border-slate-400">Create attachment</button>
+                    </div>
                 </template>
             </EasyDataTable>
         </div>
@@ -64,7 +69,7 @@
         },
         {
             text :'Information',
-            value : 'information',
+            value : 'info',
             width : 200
         },
         {
@@ -73,7 +78,7 @@
             width : 200
         },
     ]    
-    const getData = ()=>{
+    const getHistory = ()=>{
         loading.value = true
         const payload = {
             search : search.value
@@ -86,8 +91,10 @@
         .finally(()=>{
             loading.value = false
         })
-
-       category.getCategory()
+    }
+    
+    const getCategories = ()=>{
+        category.getCategory()
         .then(res=>{
             assets.value = res.result.content
         })
@@ -104,10 +111,11 @@
     }
     
     watch(()=>search.value,()=>{
-        getData()
+       getHistory()
     })
     onMounted(()=>{
-        getData()
+       getHistory()
+       getCategories()
     })
 </script>
 

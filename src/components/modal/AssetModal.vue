@@ -103,7 +103,20 @@ const payload = reactive({
 
     const getCategory = ()=>{
             categories.getCategory().then(res => {
-                category.value = res.result.content
+                const categories = res.result.content
+                const sortCategories = categories.sort((a,b)=>{
+                    let fa = a.category_name.toLowerCase(),
+                        fb = b.category_name.toLowerCase();
+
+                        if (fa < fb) {
+                            return -1;
+                        }
+                        if (fa > fb) {
+                            return 1;
+                        }
+                        return 0;
+                })
+                return category.value = sortCategories
             })
     }
     
