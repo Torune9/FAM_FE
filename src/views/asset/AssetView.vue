@@ -60,11 +60,17 @@
                             </div>
                         </div>
                     </template>
-                    <template #item-countdown="include">
-                        <div v-for="item of include.Histories" :key="item.id" class="p-1">
-                            <vue3-flip-countdown mainColor="#FCF5ED" secondFlipColor="#F4BF96"
-                                :deadlineISO="item.inspection_date" labelSize="10px" countdownSize="15px" />
+                    <template #item-countdown="items">
+                        <div v-if="items.Histories.length > 0">
+                            <div v-for="item of items.Histories" :key="item.id" class="p-1">
+                                <vue3-flip-countdown
+                                    mainColor="#FCF5ED"    secondFlipColor="#F4BF96"
+                                    :deadlineISO="item.inspection_date" labelSize="10px" countdownSize="15px" />
+                            </div>
                         </div>
+                       <div v-else class="flex justify-center items-center">
+                        <font-awesome-icon icon="fa-regular fa-square-check" size="2xl"/>
+                       </div>
                     </template>
                 </EasyDataTable>
             </div>
@@ -207,8 +213,6 @@ watch(() => [is_deleted.value, search.value], () => {
     --easy-table-header-font-color: #000000;
 
     --easy-table-body-row-background-color: #fff759;
-    --easy-table-body-row-hover-background-color: #f5ff33;
-    --easy-table-body-row-hover-font-color: black;
     --easy-table-border: 1px solid #445269;
     --easy-table-row-border: 1px solid #445269;
 
