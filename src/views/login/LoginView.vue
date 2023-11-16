@@ -1,9 +1,8 @@
 <template>
-    <LoadingSpinner :show-load="loading"/>
+    <LoadingSpinner :show-load="loading" />
     <main>
         <div class="flex justify-center items-center  w-screen h-screen">
-            <div
-                class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100">
+            <div class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
                 <div class=" w-[20%]  mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4"
                     v-if="auth.eror">
                     <small class=" font-bold">{{ auth.eror }}</small>
@@ -58,7 +57,7 @@
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { loginStore } from '@/store/UserStore/loginStore'
-import { onMounted,reactive,computed,ref } from 'vue';
+import { onMounted, reactive, computed, ref } from 'vue';
 import { useNotification } from '@kyvg/vue3-notification';
 import LoadingSpinner from '../../components/utilComponent/LoadingSpinner.vue';
 const notification = useNotification()
@@ -94,8 +93,8 @@ const login = async () => {
     v$.value.$touch()
     if (v$.value.$invalid) return
     loading.value = true
-    auth.signIn(form,infoSuccess)
-    .finally(()=> loading.value=false)
+    auth.signIn(form, infoSuccess)
+        .finally(() => loading.value = false)
 }
 
 </script>
