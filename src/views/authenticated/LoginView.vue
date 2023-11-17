@@ -2,7 +2,8 @@
     <LoadingSpinner :show-load="loading" />
     <main>
         <div class="flex justify-center items-center  w-screen h-screen">
-            <div class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
+            <div
+                class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
                 <div class=" w-[20%]  mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4"
                     v-if="auth.eror">
                     <small class=" font-bold">{{ auth.eror }}</small>
@@ -11,22 +12,24 @@
 
                 <form @submit.prevent="login" class="grid grid-rows-3 h-44 gap-10 justify-items-center">
 
-                    <div>
-                        <label class="font-bold" for="username">username</label>
+                    <div class="relative">
+                        <label class="absolute top-7 left-2" for="username"><span><font-awesome-icon
+                                    icon="fa-solid fa-user" /></span></label>
                         <br>
-                        <input type="text" name="username" id="username"
-                            class="h-8 w-[250px] text-center text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
+                        <input placeholder="username" type="text" name="username" id="username"
+                            class="h-8 w-[250px] hover:border-slate-600 pl-8 placeholder-white text-white text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
                             v-model.trim.trim="form.username">
                         <div v-for="error of v$.username.$errors" :key="error.$uid">
                             <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
                         </div>
                     </div>
 
-                    <div>
-                        <label class="font-bold" for="password">password</label>
+                    <div class="relative">
+                        <label class="absolute top-7 left-2" for="password"><span><font-awesome-icon
+                                    icon="fa-solid fa-lock" /></span></label>
                         <br>
-                        <input type="password" name="password" id="password"
-                            class="w-[250px] text-center text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
+                        <input placeholder="password" type="password" name="password" id="password"
+                            class="w-[250px] hover:border-slate-600 pl-8 placeholder-white text-white text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
                             v-model.trim="form.password">
                         <div v-for="error of v$.password.$errors" :key="error.$uid">
                             <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
