@@ -11,7 +11,8 @@
                     <div>
                         <label class="text-white font-semibold text-sm" for="status">Status</label>
                         <br>
-                        <input v-model="payload.status" type="text" name="status" id="status" class="w-48 rounded h-8 bg-blackCurrent border-slate-300 border-2 text-white text-sm text-center outline-none  focus:border-slate-400">
+                        <input v-model="payload.status" type="text" name="status" id="status"
+                            class="w-48 rounded h-8 bg-blackCurrent border-slate-300 border-2 text-white text-sm text-center outline-none  focus:border-slate-400">
                     </div>
                     <div>
                         <label class="text-white font-semibold text-sm" for="desc"> information</label>
@@ -41,7 +42,6 @@ import { inspectStore } from '@/store/AssetStore/inspectStore'
 const notification = useNotification()
 
 const inspect = inspectStore()
-
 
 const InfoError = (message) => {
     notification.notify({
@@ -116,4 +116,5 @@ const close = (needRefresh = false) => {
 
 .modal-enter-from {
     transform: scale(0)
-}</style>
+}
+</style>

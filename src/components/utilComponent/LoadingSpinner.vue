@@ -21,21 +21,20 @@
 </template>
 
 <script setup>
-import {defineProps} from 'vue'
 defineProps({
-    showLoad : {
-        type : Boolean,
+    showLoad: {
+        type: Boolean,
     }
 })
 </script>
 <style>
 .loading-enter-active,
 .loading-leave-active {
-  transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
 }
 
 .loading-enter-from,
 .loading-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
 </style>
