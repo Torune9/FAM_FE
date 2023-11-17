@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { defineProps,defineEmits,reactive,ref} from 'vue';
+import {reactive,ref} from 'vue';
 import {inspectStore} from '@/store/AssetStore/inspectStore.js'
 import { useNotification } from '@kyvg/vue3-notification';
 const inspect = inspectStore()

@@ -8,7 +8,7 @@
                 <ul class="grid grid-rows-3 font-semibold text-sm">
                     <li v-for="menu, index in menus" :key="index"
                         class="h-10 flex items-center p-2 before:contents[''] before:bg-red-600 before:h-10 before:w-1 before:mr-3 before:scale-y-0 hover:before:scale-y-100 before:transition-transform hover:text-red-600 active:text-red-500 active:scale-y-100 hover:bg-white">
-                        
+
                         <router-link :to="menu.route">{{ menu.title }}</router-link>
                     </li>
                 </ul>
@@ -19,7 +19,7 @@
 
 <script setup>
 import { loginStore } from '@/store/UserStore/loginStore';
-import {ref,onMounted} from "vue"
+import { ref, onMounted } from "vue"
 
 
 const auth = loginStore()
@@ -36,25 +36,25 @@ const links = [
     },
     {
         title: "Master Data Asset",
-        route: {path : '/master-assets'},
-        name : 'master'
+        route: { path: '/master-assets' },
+        name: 'master'
     },
     {
         title: "Asset",
-        route: {path : '/assets'},
-        name : 'asset'
+        route: { path: '/assets' },
+        name: 'asset'
     },
     {
         title: "History Inspection",
-        route: {path : '/history'},
-        name : 'history'
+        route: { path: '/history' },
+        name: 'history'
     },
 ]
-onMounted(()=>{
+onMounted(() => {
     if (auth.user.role === "ADMIN") {
-       return menus.value = links
-    }else{
-        menus.value = links.filter(link => link.name != 'master' )
+        return menus.value = links
+    } else {
+        menus.value = links.filter(link => link.name != 'master')
     }
 })
 
