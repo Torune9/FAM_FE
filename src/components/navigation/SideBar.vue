@@ -1,6 +1,6 @@
 <template>
     <aside>
-        <nav class=" bg-redHunt text-zinc-100 w-[20%] p-4 h-screen">
+        <nav class="fixed top-0 bg-redHunt text-zinc-100 w-[20%] p-4 h-screen z-50">
             <div class="flex flex-col">
                 <h1 class="text-center font-bold text-2xl font-rubik">M&nbsp;E&nbsp;N&nbsp;U</h1>
                 <hr>
@@ -51,7 +51,7 @@ const links = [
     },
 ]
 onMounted(() => {
-    if (auth.user.role === "ADMIN") {
+    if (auth.user.role === 'ADMIN' || auth.user.role == 'SYSADMIN') {
         return menus.value = links
     } else {
         menus.value = links.filter(link => link.name != 'master')

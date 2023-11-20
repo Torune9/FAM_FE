@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="absolute right-0 bg-blueHunt top-0 w-4/5 flex justify-end h-16 items-center">
+    <nav class="fixed right-0 bg-blueHunt top-0 w-4/5 flex justify-end h-16 items-center">
       <div class="flex flex-wrap justify-center items-center gap-4 w-[30%]">
         <h1 class=" text-white font-semibold" v-text="user.username ? user.username : 'User'"></h1>
         <div class="w-14 h-14 overflow-hidden flex justify-center items-center">

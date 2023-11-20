@@ -1,18 +1,15 @@
 <template>
     <MainLayout>
         <div class="flex flex-col p-5">
+            <InspectModal :modalPop="showModal" :showAdd="btnInspect" @close="closeModal" :data="content" />
+
+            <AssetModal :modalPop="showAsset" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal"
+                :data="content" />
             <div>
                 <button class="p-2 bg-green-500 rounded hover:bg-green-400 text-white font-semibold" @click="btnCreate">
                     Add Asset
                 </button>
             </div>
-
-            <InspectModal :modalPop="showModal" :showAdd="btnInspect" @close="closeModal" :data="content" />
-
-            <AssetModal :modalPop="showAsset" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal"
-                :data="content" />
-
-
             <div class="flex items-center mt-4">
                 <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white"
                     for="search"><small>search</small></label>
@@ -28,7 +25,7 @@
 
             <div>
                 <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="items" :loading="loading"
-                    alternating border-cell :rows-per-page=6 :rows-items=[6] buttons-pagination>
+                    alternating border-cell :rows-per-page=rows :rows-items=[rows] buttons-pagination>
                     <template #item-action="item">
                         <div class="flex flex-row gap-2">
                             <template v-if="!item.is_deleted">
@@ -99,6 +96,7 @@ const is_deleted = ref()
 const loading = ref(false)
 const notification = useNotification()
 const items = ref([])
+const rows = 5
 const headers = [
     {
         text: "Name",
