@@ -161,7 +161,7 @@ const createAttachment = () => {
     const formData = new FormData();
 
     if (uploadFiles.value.length <= 0) {
-        return infoError('Form can be empty')
+        return infoError('File can be empty')
     } else {
         uploadFiles.value.forEach(file => {
             formData.append('files', file);
