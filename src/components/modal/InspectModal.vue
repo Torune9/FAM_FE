@@ -15,31 +15,36 @@
                             class="w-48 rounded h-8 bg-blackCurrent border-slate-300 border-2 text-white text-sm text-center outline-none  focus:border-slate-400">
                     </div>
                     <div>
-                        <label class="text-white font-semibold text-sm" for="desc"> information</label>
+                        <label class="text-white font-semibold text-sm" for="desc">Information</label>
                         <br>
-                        <textarea v-model="payload.information"
-                            class="outline-none ring-2 ring-slate-700 focus:border-slate-600 focus:border-2 rounded p-2 text-sm text-black"
+                        <textarea maxlength="255" v-model="payload.information" spellcheck="false"
+                            class="outline-none ring-2 ring-slate-700 focus:border-slate-600 focus:border-2 rounded p-2 text-sm text-black font-bold"
                             id="desc" cols="40" rows="5"></textarea>
-                    </div>
-                    <button @click="create"
+                            <div class="text-sm -mt-2">
+                                <small class="text-yellow-500 animate-pulse">&#42;{{ warnInfo }}</small>
+                            </div>
+                        </div>
+                        <button @click="create"
                         class="absolute bottom-2 right-2 bg-yellow-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-yellow-500 transition-all">create</button>
-
-                    <button
+                        
+                        <button
                         class="absolute -top-2 -left-2 text-white font-bold w-7 h-7 rounded-full bg-red-600 hover:bg-red-500"
                         @click="close(false)">x</button>
+                    </div>
                 </div>
-            </div>
         </main>
     </Transition>
 </template>
 
 <script setup>
 
-import { reactive } from "vue";
+import { reactive,ref, watchEffect } from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
 import { inspectStore } from '@/store/AssetStore/inspectStore'
 
 const notification = useNotification()
+
+const warnInfo = ref('')
 
 const inspect = inspectStore()
 
@@ -107,6 +112,12 @@ const close = (needRefresh = false) => {
     payload.status = ''
     emit("close", needRefresh)
 }
+
+watchEffect(()=>{
+    if (payload.information.length > 100) {
+        warnInfo.value = 'Max is 255 character!'
+    } else {warnInfo.value = ''}
+})
 
 </script>
 <style scoped>
