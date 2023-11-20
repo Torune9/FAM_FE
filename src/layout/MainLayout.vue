@@ -1,15 +1,13 @@
 <template>
-    <div class="fixed h-screen w-screen">
-        <nav>
-            <NavBar/>
-        </nav>
-        <main class="ml-[20%] h-full w-4/5 mt-14 absolute top-0">
-            <slot />
-        </main>
-        <aside>
-            <SideBar/>
-        </aside>   
-    </div>
+    <nav>
+        <NavBar/>
+    </nav>
+    <main class="ml-[20%] mt-[5%] -z-10">
+        <slot />
+    </main>
+    <aside>
+        <SideBar/>
+    </aside>   
 </template>
 <script setup>
     import NavBar from '@/components/navigation/NavBar.vue'
@@ -17,5 +15,7 @@
 </script>
 
 <style>
-
+::-webkit-scrollbar{
+    widows: 200px;
+}
 </style>
