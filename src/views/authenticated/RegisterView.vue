@@ -17,7 +17,7 @@
                                     icon="fa-solid fa-user" /></span></label>
                         <br>
                         <input placeholder="username" type="text" name="username" id="username"
-                            class="h-8 w-[270px] pl-7 pr-2 text-sm border-2 rounded-md text-black bg-transparent placeholder-black font-bold border-black outline-none hover:border-white/50"
+                            class="h-8 w-[270px] pl-7 pr-2 text-sm border-2 rounded-md text-black bg-transparent placeholder-black/70 font-bold border-black outline-none hover:border-white/50"
                             v-model.trim.trim="form.username">
                         <div class=" text-end text-sm text-yellow-300" v-for="error of v$.username.$errors"
                             :key="error.$uid">
@@ -31,7 +31,7 @@
                         <br>
                         <div class="flex justify-center items-center group">
                             <input placeholder="password" name="password" :type="type" id="password"
-                                class="w-[236px] pl-7 pr-2 text-sm border-2 h-8 rounded-tl-md font-bold text-black bg-transparent placeholder-black rounded-bl-md border-black outline-none group-hover:border-white/50"
+                                class="w-[236px] pl-7 pr-2 text-sm border-2 h-8 rounded-tl-md font-bold text-black bg-transparent placeholder-black/70 rounded-bl-md border-black outline-none group-hover:border-white/50"
                                 v-model.trim="form.password">
                             <button type="button" @click="showHide"
                                 class="h-8 w-8 rounded-tr-md border-l-0 rounded-br-md border-2 border-black group-hover:border-white/50">
@@ -50,7 +50,7 @@
                                     icon="fa-solid fa-envelope" /></span></label>
                         <br>
                         <input placeholder="email address" type="email" name="email" id="email"
-                            class="w-[270px] pl-7 pr-2 text-sm border-2 h-8 rounded-md text-black bg-transparent placeholder-black font-bold border-black outline-none hover:border-white/50"
+                            class="w-[270px] pl-7 pr-2 text-sm border-2 h-8 rounded-md text-black bg-transparent placeholder-black/70 font-bold border-black outline-none hover:border-white/50"
                             v-model.trim="form.email">
                         <div class="text-end text-sm text-yellow-300" v-for="error of v$.email.$errors" :key="error">
                             <small>{{ '*' + error.$message }}</small>

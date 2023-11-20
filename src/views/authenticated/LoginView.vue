@@ -10,14 +10,14 @@
                 </div>
                 <p class="text-center w-full font-extrabold text-2xl">Login Form</p>
 
-                <form @submit.prevent="login" class="grid grid-rows-3 h-44 gap-10 justify-items-center">
+                <form @submit.prevent="login" class="grid grid-rows-2 h-44 gap-y-12 justify-items-center">
 
                     <div class="relative">
                         <label class="absolute top-7 left-2" for="username"><span><font-awesome-icon
                                     icon="fa-solid fa-user" /></span></label>
                         <br>
                         <input placeholder="username" type="text" name="username" id="username"
-                            class="h-8 w-[250px] hover:border-slate-600 pl-8 placeholder-white text-white text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
+                            class="h-8 w-[250px] hover:border-slate-600 pl-8 placeholder-white/70 text-white text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
                             v-model.trim.trim="form.username">
                         <div v-for="error of v$.username.$errors" :key="error.$uid">
                             <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
@@ -29,7 +29,7 @@
                                     icon="fa-solid fa-lock" /></span></label>
                         <br>
                         <input placeholder="password" type="password" name="password" id="password"
-                            class="w-[250px] hover:border-slate-600 pl-8 placeholder-white text-white text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
+                            class="w-[250px] hover:border-slate-600 pl-8 placeholder-white/70 text-white text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
                             v-model.trim="form.password">
                         <div v-for="error of v$.password.$errors" :key="error.$uid">
                             <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
