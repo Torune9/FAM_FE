@@ -10,17 +10,18 @@
                 <input v-model="search" class="outline-none border-2 border-l-0 border-red-600 focus:border-red-400 rounded-tr rounded-br w-1/2 h-8 text-center" type="text" id="search">
             </div>
             <br>
-            <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="datas" :loading="loading" :rows-per-page=10 :rows-items=[10] :fixed-expand="true">
+            <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="datas" :loading="loading" :rows-per-page=rows :rows-items=[rows] :fixed-expand="true">
                 <template #item-code="{ asset_code }">
                     <router-link :to="routes(asset_code)" class="text-blue-700 font-bold hover:underline hover:underline-offset-4 transition-all duration-500 hover:decoration-2 font-barlow ring-1 ring-blue-500 p-1 rounded">
                         {{ asset_code }}
                     </router-link>
                 </template>
-                <template #item-info="{ information,asset_code }">
-                   <router-link :to="routes(asset_code)">
-                    {{ information.slice(0,40) }}<span>.&nbsp;.&nbsp;.</span>
-                   </router-link>
-                </template>
+                <template #expand="item">
+                    <h1 class="font-barlow text-blue-500" >Information&nbsp;&#58;</h1>
+                    <div class="p-2 font-rubik font-light">
+                        {{ item.information }}
+                    </div>
+    </template>
                 <template #item-action="item">
                     <div>
                         <button @click="showInspect(item,true)" class="bg-yellow-400 font-semibold w-36 rounded h-6 border-2 border-black text-black hover:bg-yellow-300 transition-all duration-200 hover:border-slate-400">Create attachment</button>
@@ -47,6 +48,7 @@
     const showModal = ref(false)
     const content  = ref()
     const attachment = ref(false)
+    const rows = ref(8) 
 
     const routes = (code)=>{
         return `/detail/${code}`
@@ -66,11 +68,6 @@
             text :'Status',
             value : 'status',
             width : 100
-        },
-        {
-            text :'Information',
-            value : 'info',
-            width : 200
         },
         {
             text :'Attachment',
