@@ -1,15 +1,15 @@
 <template>
     <aside>
-        <nav class="fixed top-0 bg-redHunt text-zinc-100 w-[20%] p-4 h-screen z-50">
-            <div class="flex flex-col">
+        <nav class="fixed top-0 bg-greyHunt text-zinc-100 w-[20%] p-4 h-screen z-50">
+            <div class="flex flex-col gap-2">
                 <h1 class="text-center font-bold text-2xl font-rubik">M&nbsp;E&nbsp;N&nbsp;U</h1>
                 <hr>
                 <hr>
                 <ul class="grid grid-rows-3 font-semibold text-sm">
                     <li v-for="menu, index in menus" :key="index"
-                        class="h-10 flex items-center p-2 before:contents[''] before:bg-red-600 before:h-10 before:w-1 before:mr-3 before:scale-y-0 hover:before:scale-y-100 before:transition-transform hover:text-red-600 active:text-red-500 active:scale-y-100 hover:bg-white">
+                    class="h-10 flex items-center p-2 before:contents[''] before:bg-white before:h-10 before:w-1 before:mr-3 before:scale-y-0 hover:before:scale-y-100 before:transition-transform hover:text-zinc-200">
 
-                        <router-link :to="menu.route">{{ menu.title }}</router-link>
+                        <router-link active-class="bg-white text-black font-barlow hover:bg-black hover:text-white  transition-all duration-300 p-2 rounded" :to="menu.route">{{ menu.title }}</router-link>
                     </li>
                 </ul>
             </div>
@@ -48,6 +48,11 @@ const links = [
         title: "History Inspection",
         route: { path: '/history' },
         name: 'history'
+    },
+    {
+        title: "Users",
+        route: { path: '/users' },
+        name: 'user'
     },
 ]
 onMounted(() => {

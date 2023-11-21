@@ -44,7 +44,7 @@ export const loginStore = defineStore('login', {
         })
       }
     },
-    async signUp(payload,info) {
+    signUp(payload,info) {
       return api.post('api/register',payload)
       .then(res => {
         if (res.data.status) {

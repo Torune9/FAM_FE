@@ -2,7 +2,7 @@
     <MainLayout>
         <div class="flex flex-col p-5">
             <div>
-                <button class="p-2 bg-green-500 rounded hover:bg-green-400 text-white font-semibold mb-4" @click="btnCreate"> 
+                <button class="p-2 bg-pencil rounded hover:bg-slate-400 text-white font-semibold mb-4" @click="btnCreate"> 
                     Add Master
                 </button>
             </div>
@@ -117,16 +117,8 @@ watch(() =>  search.value, () => {
 
 <style scoped>
     .customizing-table{
-        --easy-table-header-background-color: #ff5d5d;
-        --easy-table-header-font-color: #ffffff;
-
-        --easy-table-body-row-background-color : #fdb1b1;
-        --easy-table-body-row-hover-background-color: #da9494;
-        --easy-table-body-row-hover-font-color: white;
-
-        --easy-table-border: 1px solid #445269;
-        --easy-table-row-border: 1px solid #445269;
-        
+        --easy-table-header-background-color: #183D3D;
+        --easy-table-header-font-color: #ffff;
         font-weight: 900;
     }
 </style>

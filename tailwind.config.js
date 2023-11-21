@@ -7,11 +7,14 @@ module.exports = {
   theme: {
     extend: {
       backgroundColor : {
-        'blueHunt' : '#3A98B9',
-        'redHunt' : '#FF6969',
-        'table' : '#96B6C5',
+        'greyHunt' : '#393E46',
+        'redHunt' : '#D65A31',
+        'darkHunt' : '#2C3639',
+        'greenHunt' : '#116D6E',
+        'pencil' : '#334756',
+        'table' : '#EEEEEE',
         'button' : '#7286D3',
-        'blackCurrent' : '#191717'
+        'blackCurrent' : '#222831'
       },
       fontFamily: {
        'codensed'  : '"Roboto Condensed",sans-serif',

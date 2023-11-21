@@ -10,6 +10,7 @@ import Asset from '../views/asset/AssetView.vue'
 import History from '../views/history/HistoryView.vue'
 import NotFoundView from '../views/notFound/NotFoundView.vue'
 import DetailAttachments from '../views/history/DetailAttachments.vue'
+import UserView from '../views/user/UserView.vue'
 import navGuard from '../service/navigationGuard'
 
 const router = createRouter({
@@ -71,6 +72,11 @@ const router = createRouter({
       name: 'detail',
       component: DetailAttachments,
       meta: { requiresAuth: true },
+    },
+    {
+      path: '/users',
+      name: 'user',
+      component: UserView,
     },
     {
       path: '/:pathMatch(.*)*',

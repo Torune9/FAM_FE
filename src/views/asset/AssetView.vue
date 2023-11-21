@@ -6,7 +6,7 @@
             <AssetModal :modalPop="showAsset" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal"
                 :data="content" />
             <div>
-                <button class="p-2 bg-green-500 rounded hover:bg-green-400 text-white font-semibold" @click="btnCreate">
+                <button class="p-2 bg-pencil rounded hover:bg-slate-400 text-white font-semibold" @click="btnCreate">
                     Add Asset
                 </button>
             </div>
@@ -207,13 +207,8 @@ watch(() => [is_deleted.value, search.value], () => {
 
 <style scoped>
 .customizing-table {
-    --easy-table-header-background-color: #f6cd00;
-    --easy-table-header-font-color: #000000;
-
-    --easy-table-body-row-background-color: #fff759;
-    --easy-table-border: 1px solid #445269;
-    --easy-table-row-border: 1px solid #445269;
-
+    --easy-table-header-background-color: #272121;
+    --easy-table-header-font-color: #ffff;
     font-weight: 900;
 }
 </style>

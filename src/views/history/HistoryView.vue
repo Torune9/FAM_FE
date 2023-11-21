@@ -118,16 +118,8 @@
 
 <style scoped>
     .customizing-table{
-        --easy-table-header-background-color: 
-        #191717;
+        --easy-table-header-background-color:#272121;
         --easy-table-header-font-color: white;
-
-        
-        --easy-table-body-row-hover-background-color: #d5d5d5;
-        --easy-table-body-row-font-color: black;
-
-        --easy-table-body-row-font-size : 12px;    
-
         font-weight: 900;
     }
 </style>

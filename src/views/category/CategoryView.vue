@@ -2,7 +2,7 @@
     <MainLayout>
         <div class="flex flex-col p-5">
             <div>
-                <button class="p-2 bg-green-500 rounded text-white font-semibold hover:bg-green-400" @click="btnCreate"> Add Category
+                <button class="p-2 bg-pencil rounded text-white font-semibold hover:bg-slate-400" @click="btnCreate"> Add Category
                 </button>
             </div>
 
@@ -172,15 +172,8 @@ onMounted(() => {
 
 <style scoped>
     .customizing-table{
-        --easy-table-header-background-color: #5d91ff;
-        --easy-table-header-font-color: #ffffff;
-
-        --easy-table-body-row-background-color : #b1d4fd;
-        --easy-table-body-row-hover-background-color: #5b64e2;
-        --easy-table-body-row-hover-font-color: white;
-        --easy-table-border: 1px solid #445269;
-        --easy-table-row-border: 1px solid #445269;
-
+        --easy-table-header-background-color: #346751;
+        --easy-table-header-font-color: #ffff;
         font-weight: 900;
     }
 </style>

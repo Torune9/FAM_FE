@@ -2,27 +2,27 @@
     <Transition name="master-modal">
         <main v-if="modalPop" class="h-screen w-screen fixed z-10">
             <div
-                class=" absolute bottom-24 bg-blue-500 w-72 h-96 flex flex-col text-white  justify-center items-center rounded">
+                class=" absolute bottom-24 bg-white w-72 h-96 flex flex-col justify-center items-center rounded border border-black">
                 <div class="mt-4" v-if="showAdd">
-                    <label for="name" class="font-semibold text-sm">Name</label>
+                    <label for="name" class="font-bold font-barlow text-sm">Name</label>
                     <br>
                     <input v-model="payload.name" id="name" type="text"
                         class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div>
-                    <label for="quantity" class="font-semibold text-sm">Quantity</label>
+                    <label for="quantity" class="font-bold font-barlow text-sm">Quantity</label>
                     <br>
                     <input v-model="payload.quantity" id="quantity" type="text"
                         class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div v-if="showAdd">
-                    <label for="created" class="font-semibold text-sm">CreatedBy</label>
+                    <label for="created" class="font-bold font-barlow text-sm">CreatedBy</label>
                     <br>
                     <input v-model="payload.created_by" id="created" type="text"
                         class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div v-else>
-                    <label for="status" class="font-semibold text-sm">Status</label>
+                    <label for="status" class="font-bold font-barlow text-sm">Status</label>
                     <br>
                     <input v-model="payload.status" id="status" type="text"
                         class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
@@ -45,11 +45,11 @@
                 </div>
                 <div v-else>
                     <button @click="update"
-                        class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">update</button>
+                        class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">update</button>
                 </div>
 
                 <div>
-                    <button class="bg-slate-700 rounded-full w-7 h-7 absolute -top-2 -left-2 font-bold"
+                    <button class="text-white bg-slate-700 rounded-full w-7 h-7 absolute -top-2 -left-2 font-bold"
                         @click="close(false)">
                         x
                     </button>

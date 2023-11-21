@@ -3,16 +3,16 @@
         <main v-if="modalPop" class="h-screen w-screen fixed z-10">
             <div class="absolute bottom-24" v-show="modalPop">
                 <div v-if="modalPop"
-                    class=" bg-blueHunt w-80 h-60 rounded-md relative flex content-center justify-items-center shadow-lg flex-wrap">
+                    class=" bg-white border border-black w-80 h-60 rounded-md relative flex content-center justify-items-center shadow-lg flex-wrap">
                     <div class="flex justify-center flex-wrap mb-2">
-                        <label for="name" class="text-sm font-semibold text-white">Category name</label>
+                        <label for="name" class="text-sm font-barlow font-bold">Category name</label>
                         <input v-model="payload.name" type="text" id="name"
-                            class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-600">
+                            class="outline-none text-center border-2 border-black text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-800">
                     </div>
                     <div class="flex justify-center flex-wrap">
-                        <label for="code" class="text-sm font-semibold text-white">Category code</label>
+                        <label for="code" class="text-sm font-barlow font-bold">Category code</label>
                         <input v-model="payload.code" type="text" id="code"
-                            class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-600">
+                            class="outline-none text-center border-2 border-black text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-800">
                     </div>
                     <button v-if="showAdd" @click="add"
                         class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">create</button>
