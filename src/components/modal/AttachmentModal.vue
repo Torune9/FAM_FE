@@ -1,6 +1,6 @@
 <template>
     <Transition name="attachment">
-        <main v-if="showModal" class="absolute w-screen h-screen z-10">
+        <main v-if="showModal" class="absolute z-10">
             <div class="relative bg-white rounded shadow-lg overflow-hidden w-fit top-24 left-52">
                 <div class="flex justify-center items-center bg-red-600 w-full h-8 text-sm text-white">
                     <h1>Create Attachment</h1>
@@ -40,7 +40,8 @@
                                         {{ `${index + 1}. ` + file.name }}
                                     </small>
                                     <p v-if="file.invalidMessage" class="text-red-600">
-                                        <small>&nbsp;-&nbsp;{{ file.invalidMessage }}</small></p>
+                                        <small>&nbsp;-&nbsp;{{ file.invalidMessage }}</small>
+                                    </p>
                                     <div @click="fileInput.splice(index, 1); uploadFiles.splice(index, 1)"
                                         class=" cursor-pointer hover:bg-red-400 absolute -right-1 -bottom-1 text-white font-semibold bg-red-600 rounded-full flex justify-center items-center w-4 h-4 border border-black">
                                         <small>x</small>
@@ -196,4 +197,5 @@ const createAttachment = () => {
 
 .attachment-enter-to {
     transform: translateY(0px);
-}</style>
+}
+</style>

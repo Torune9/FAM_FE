@@ -1,6 +1,9 @@
 <template>
     <MainLayout>
         <div class="flex flex-col p-5">
+            <div class="text-center text-3xl font-semibold text-slate-500">
+                <h1>Master Asset</h1>
+            </div>
             <div>
                 <button class="p-2 bg-pencil rounded hover:bg-slate-400 text-white font-semibold mb-4" @click="btnCreate"> 
                     Add Master

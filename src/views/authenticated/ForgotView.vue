@@ -13,7 +13,7 @@
                     <input v-model="payload.email" type="text" id = "email" class=" w-60 h-9 outline-none border border-slate-600 rounded-md text-center text-sm bg-transparent" required placeholder="email">
                 </div>
                 <small>We will send you and email that will allow you to reset password.</small>
-                <div><button class=" bg-yellow-500 w-40  rounded-md h-10 font-semibold text-sm text-zinc-100">Reset password</button>
+                <div><button class=" bg-yellow-500 w-40  rounded-md h-10 font-semibold text-sm text-zinc-100">Send</button>
                 </div>
               </form>
               <div class="relative">

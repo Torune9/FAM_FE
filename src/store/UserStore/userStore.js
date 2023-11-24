@@ -9,6 +9,9 @@ export const useUser = defineStore('User', {
           return api.get('/api/listUser')
           .then(res => res.data)
           .catch(err => console.log(err))
+        },
+        async updateUser(id,role){
+          return api.put(`/api/update/${id}`,role)
         }
     }
 })

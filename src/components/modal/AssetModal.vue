@@ -164,7 +164,6 @@ const handleShowUpdate = () => {
         payload.quantity = props.data.quantity
         payload.status = props.data.status
     } else {
-
         payload.name = ''
         payload.created_by = ''
         payload.quantity = ''

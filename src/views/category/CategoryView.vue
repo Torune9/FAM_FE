@@ -1,6 +1,9 @@
 <template>
     <MainLayout>
         <div class="flex flex-col p-5">
+            <div class="text-center text-3xl font-semibold text-slate-500">
+                <h1>Categories</h1>
+            </div>
             <div>
                 <button class="p-2 bg-pencil rounded text-white font-semibold hover:bg-slate-400" @click="btnCreate"> Add Category
                 </button>

@@ -5,6 +5,10 @@
 
             <AssetModal :modalPop="showAsset" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal"
                 :data="content" />
+            
+            <div class="text-center text-3xl font-semibold text-slate-500">
+                <h1>Assets</h1>
+            </div>
             <div>
                 <button class="p-2 bg-pencil rounded hover:bg-slate-400 text-white font-semibold" @click="btnCreate">
                     Add Asset

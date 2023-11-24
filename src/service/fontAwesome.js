@@ -5,6 +5,8 @@ import {
     faLock,
     faUser,
     faEnvelope,
+    faRectangleXmark,
+    faGear
 } from '@fortawesome/free-solid-svg-icons'
 import { faSquareCheck} from '@fortawesome/free-regular-svg-icons'
 
@@ -17,6 +19,8 @@ export default {
             faUser,
             faLock,
             faEnvelope,
+            faRectangleXmark,
+            faGear
             )
     }
 }

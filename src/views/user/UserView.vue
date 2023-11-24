@@ -1,9 +1,16 @@
 <template>
     <MainLayout>
+        <ChangRoleModal :show-change="showChange" :users="datas" @close="closeModal"/>
         <main class="flex flex-col p-5">
-            <EasyDataTable table-class-name="customize" :headers="headers" :items="users" :loading="loading">
+            <div class="text-center text-3xl font-semibold text-slate-500">
+                <h1>List User</h1>
+            </div>
+            <br>
+            <EasyDataTable table-class-name="customize" :headers="headers" :items="users" :loading="loading" :rows-per-page= page :rows-items=[page]>
                 <template #item-action="items">
-                    <button class="bg-pencil w-16 h-5 rounded text-white font-semibold">Edit</button>
+                    <ContainerDropDownVue>
+                        <ContentItem @show-modal="showModal(showChange,items)" :show="showChange"/>
+                    </ContainerDropDownVue>
                 </template>
             </EasyDataTable>
         </main>
@@ -11,11 +18,17 @@
 </template>
 <script setup>
 import MainLayout from '../../layout/MainLayout.vue'
+import ContainerDropDownVue from '../../components/dropdown/ContainerDropDown.vue';
+import ContentItem from '../../components/dropdown/ContentItem.vue';
+import ChangRoleModal from '../../components/modal/ChangRoleModal.vue';
+import { onMounted,ref} from 'vue';
 import {useUser} from '@/store/UserStore/userStore'
-import { onMounted,ref } from 'vue';
 
 const user = useUser()
 const users = ref([])
+const datas = ref()
+const showChange = ref()
+const page = ref(10)
 const loading = ref(false)
 const headers = [
     {
@@ -32,9 +45,18 @@ const headers = [
     },
     {
         text : 'Action',
-        value : 'action'
+        value : 'action',
     }
 ]
+
+const showModal = (value,items)=>{
+    showChange.value = !value
+    datas.value = items
+}
+const closeModal = (needRefresh)=>{
+    if (needRefresh) return getUser()
+    showChange.value = false
+} 
 const getUser = ()=>{
     loading.value = true
     user.getUser()

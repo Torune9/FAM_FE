@@ -3,7 +3,7 @@
     <main>
         <div class="flex justify-center items-center  w-screen h-screen">
             <div
-                class="h-[400px] w-[400px] bg-blueHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
+                class="h-[400px] w-[400px] bg-greyHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
                 <div class=" w-[20%]  mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4"
                     v-if="auth.eror">
                     <small class=" font-bold">{{ auth.eror }}</small>
@@ -38,7 +38,7 @@
 
                     <div class="flex justify-center items-center">
                         <button
-                            class=" bg-redHunt w-[250px] h-9 mt-20 rounded-md text-white font-semibold hover:bg-red-400">Login</button>
+                            class=" bg-indigo-600 w-[250px] h-9 mt-20 rounded-md text-white font-semibold hover:bg-indigo-500">Login</button>
                     </div>
 
                 </form>
@@ -47,7 +47,7 @@
                         <p class="text-sm"><router-link to="/forgot-password">Forgot password ?</router-link></p>
                     </div>
                     <div
-                        class="bg-blackCurrent w-20 h-8 flex justify-center items-center rounded hover:bg-white duration-300 transition-all hover:text-black ">
+                        class="bg-blackCurrent w-20 h-8 flex justify-center items-center rounded hover:bg-white duration-300 transition-all hover:text-black font-bold ">
                         <p class="text-sm"><router-link to="/register">Register</router-link></p>
                     </div>
                 </div>
