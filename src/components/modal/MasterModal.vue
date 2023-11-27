@@ -1,7 +1,7 @@
 <template>
-    <Transition name="master-modal">
-        <main v-if="modalPop" class="h-screen w-screen fixed z-10">
-            <div class=" absolute bottom-24 bg-white  w-72 h-60 flex flex-col border border-black items-center rounded">
+    <BaseModal :showing="modalPop" @close="close">
+        <main v-if="modalPop" class="z-10">
+            <div class="bg-white flex flex-col border items-center rounded">
                 <div class="mt-4">
                     <label for="name" class="font-bold font-barlow text-sm">Name</label>
                     <br>
@@ -36,21 +36,16 @@
                     <button @click="update"
                         class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">update</button>
                 </div>
-
-                <div>
-                    <button class="text-white bg-slate-700 rounded-full w-7 h-7 absolute -top-2 -left-2 font-bold"
-                        @click="close(false)">
-                        x
-                    </button>
-                </div>
             </div>
         </main>
-    </Transition>
+    </BaseModal>
 </template>
 <script setup>
 import { masterStore } from '@/store/AssetStore/masterAssetStore';
 import { reactive, watch } from 'vue';
 import { useNotification } from "@kyvg/vue3-notification";
+
+import BaseModal from './BaseModal.vue';
 
 const notification = useNotification()
 
@@ -138,12 +133,3 @@ const close = (needRefresh = false) => {
 }
 watch(() => props.modalPop, handleShowUpdate)
 </script>
-
-<style scoped>
-.master-modal-enter-active {
-    transition: 0.2s ease-in;
-}
-
-.master-modal-enter-from {
-    transform: scale(0)
-}</style>

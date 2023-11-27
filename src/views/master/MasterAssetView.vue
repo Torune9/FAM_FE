@@ -9,7 +9,6 @@
                     Add Master
                 </button>
             </div>
-            <MasterModal :modalPop="showModal" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal" :data="content"></MasterModal>
             <div class="flex items-center">
                 <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search"><small>search</small></label>
                 <input v-model="search" class="outline-none border border-l-0 border-black rounded-tr rounded-br w-1/2 h-8 text-center" type="text" id="search">
@@ -40,6 +39,7 @@
                 </EasyDataTable>
             </div>
         </div>
+        <MasterModal :modalPop="showModal" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal" :data="content" />
     </MainLayout>
 </template>
 
