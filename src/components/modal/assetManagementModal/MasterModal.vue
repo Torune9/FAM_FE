@@ -1,8 +1,8 @@
 <template>
-    <BaseModal :showing="modalPop" @close="close">
+    <BaseModal :showing="modalPop" :showAdd="showAdd" @close="close" :buttonText="text" @add="add" @update="update" :loading="loading">
         <main v-if="modalPop" class="z-10">
-            <div class="bg-white flex flex-col border items-center rounded">
-                <div class="mt-4">
+            <div class="flex p-2 flex-col border items-center rounded max-[450px]:w-full">
+                <div>
                     <label for="name" class="font-bold font-barlow text-sm">Name</label>
                     <br>
                     <input v-model="payload.name" id="name" type="text"
@@ -26,33 +26,20 @@
                     <input v-model="payload.status" id="status" type="text"
                         class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
-                <div v-if="showAdd">
-                    <button @click="add"
-                        class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
-                       <p v-if="!loading">create</p>
-                       <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin" v-else/>
-                    </button>
-                </div>
-                <div v-else>
-                    <button @click="update"
-                        class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
-                        <p v-if="!loading">update</p>
-                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin" v-else/>
-                    </button>
-                </div>
             </div>
         </main>
     </BaseModal>
 </template>
 <script setup>
 import { masterStore } from '@/store/AssetStore/masterAssetStore';
-import { reactive, watch,ref } from 'vue';
+import { reactive, watch,ref, watchEffect } from 'vue';
 import { useNotification } from "@kyvg/vue3-notification";
 
-import BaseModal from './BaseModal.vue';
+import BaseModal from './../BaseModal.vue';
 
 const notification = useNotification()
 const loading = ref(false)
+const text = ref('')
 
 const master = masterStore()
 const InfoError = (message) => {
@@ -115,6 +102,7 @@ const update = async () => {
             InfoSuccess(res.data.message)
             close(true)
         }).catch(error => {
+            console.log(error.response);
             const { data: { message } } = error.response
             InfoError(message)
         }).finally(()=> loading.value = false)
@@ -122,20 +110,22 @@ const update = async () => {
 }
 const emit = defineEmits(['close'])
 
-const handleShowUpdate = () => {
-    if (props.showUpdate) {
-        payload.name = props.data.name
-        payload.code = props.data.category_code
-        payload.status = props.data.status
-    } else {
-        payload.code = ''
-        payload.name = ''
-        payload.price = ''
-    }
-}
 
 const close = (needRefresh = false) => {
     emit("close", needRefresh)
 }
-watch(() => props.modalPop, handleShowUpdate)
+watch(props,(a) => {
+    if(a.showAdd){
+        text.value = 'Submit'
+        payload.code = ''
+        payload.name = ''
+        payload.price = ''
+    }else{
+        text.value = 'Update'
+        payload.name = props.data.name
+        payload.code = props.data.category_code
+        payload.status = props.data.status
+    }
+})
+watchEffect(() => props.modalPop)
 </script>

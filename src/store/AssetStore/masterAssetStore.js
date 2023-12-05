@@ -13,7 +13,6 @@ export const masterStore = defineStore('master',{
         },
         async updateMaster (id,payload){
             return api.put(`master-asset/${id}`,payload)
-            
         }
     }
 })
