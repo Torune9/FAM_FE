@@ -29,12 +29,16 @@
                 <div v-if="showAdd">
                     <button @click="add"
                         class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
-                        create
+                       <p v-if="!loading">create</p>
+                       <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin" v-else/>
                     </button>
                 </div>
                 <div v-else>
                     <button @click="update"
-                        class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">update</button>
+                        class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
+                        <p v-if="!loading">update</p>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin" v-else/>
+                    </button>
                 </div>
 
                 <div>
@@ -49,10 +53,11 @@
 </template>
 <script setup>
 import { masterStore } from '@/store/AssetStore/masterAssetStore';
-import { reactive, watch } from 'vue';
+import { reactive, watch,ref } from 'vue';
 import { useNotification } from "@kyvg/vue3-notification";
 
 const notification = useNotification()
+const loading = ref(false)
 
 const master = masterStore()
 const InfoError = (message) => {
@@ -95,6 +100,7 @@ const payload = reactive({
     status: ''
 })
 const add = async () => {
+    loading.value = true
 
     await master.addMaster(payload)
         .then((res) => {
@@ -103,11 +109,11 @@ const add = async () => {
         }).catch(error => {
             const { data: { message } } = error.response
             InfoError(message)
-        })
+        }).finally(()=> loading.value = false)
 
 }
 const update = async () => {
-
+    loading.value = true
     const id = props.data.id;
     await master.updateMaster(id, payload)
         .then((res) => {
@@ -116,7 +122,7 @@ const update = async () => {
         }).catch(error => {
             const { data: { message } } = error.response
             InfoError(message)
-        })
+        }).finally(()=> loading.value = false)
 
 }
 const emit = defineEmits(['close'])

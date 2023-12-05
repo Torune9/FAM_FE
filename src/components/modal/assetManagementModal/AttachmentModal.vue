@@ -1,7 +1,7 @@
 <template>
     <Transition name="attachment">
         <main v-if="showModal" class="absolute z-10">
-            <div class="relative bg-white rounded shadow-lg overflow-hidden w-fit top-24 left-52">
+            <div class="relative bg-white rounded shadow-lg overflow-hidden sm:w-fit top-24 md:left-52 min-[300px]:left-0 min-[300px]:w-3/4  min-[300px]:top-32">
                 <div class="flex justify-center items-center bg-red-600 w-full h-8 text-sm text-white">
                     <h1>Create Attachment</h1>
                 </div>
@@ -57,9 +57,10 @@
                     </div>
                     <button type="submit" class="bg-blackCurrent absolute bottom-1 right-1 rounded w-20 text-white text-sm border-2 border-white hover:bg-slate-500
                 transition-all duration-200">
-                        <small>
+                        <small v-if="!loading">
                             create
                         </small>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class=" animate-spin" v-else/>
                     </button>
                     <button type="button" @click="close(false)" class="bg-red-600 absolute bottom-1 right-24 rounded w-20 text-white text-sm border-2
                 hover:bg-red-400 transition-all duration-200 border-white">
@@ -141,11 +142,10 @@ const payload = reactive({
 
 const validateFile = (file) => {
     const type = [
-        "image/jpg",
-        "image/jpeg",
-        "image/png",
         "application/pdf",
-        "application/msword"
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.template"
     ]
     const MAX_SIZE = 1000000
 
@@ -153,15 +153,17 @@ const validateFile = (file) => {
         return `Max size is 1mb`
     }
     if (!type.includes(file.type)) {
-        return `File is not image or .pdf or .doc`
+        return `File is not .pdf or .doc`
     }
 }
 
 const createAttachment = () => {
     const code = props.data.asset_code
     const formData = new FormData();
+    loading.value = true
 
     if (uploadFiles.value.length <= 0) {
+        loading.value = false
         return infoError('File can be empty')
     } else {
         uploadFiles.value.forEach(file => {
@@ -169,9 +171,9 @@ const createAttachment = () => {
         });
         formData.append('inspector', payload.inspector);
         formData.append('findings', payload.findings);
+        
         inspect.createAttachment(code, formData)
             .then((res) => {
-                loading.value = true
                 close(false)
                 message.value = res.data.message
                 InfoSuccess(message.value)

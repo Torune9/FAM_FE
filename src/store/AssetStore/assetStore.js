@@ -35,7 +35,7 @@ export const assetStore = defineStore('asset',{
             })
         },
         async restoreAsset(id){
-            return api.put(`asset/restore/${id}`)
+            return api.put(`asset/${id}/restore`)
             .then(res => {
                 return res.data
             })

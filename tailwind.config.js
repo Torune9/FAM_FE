@@ -21,7 +21,7 @@ module.exports = {
        'rubik' : 'Rubik,sans-serif',
        'barlow' : 'Barlow,sans-serif' 
       }
-    },
+    }
   },
   plugins: [],
 }

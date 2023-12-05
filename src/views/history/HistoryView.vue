@@ -1,6 +1,6 @@
 <template>
     <MainLayout>
-        <div class="flex flex-col p-5">
+        <div class="flex flex-col">
            <AttachmentModal :show-modal="showModal" 
            @close="closeModal" :data="content" :show-attachment="attachment" ref="test"/>
             <h2 class="text-center text-3xl font-semibold text-slate-500">History Inspection</h2>
@@ -17,14 +17,25 @@
                     </router-link>
                 </template>
                 <template #expand="item">
-                    <h1 class="font-barlow text-blue-500" >Information&nbsp;&#58;</h1>
-                    <div class="p-2 font-rubik font-light">
-                        {{ item.information }}
-                    </div>
-    </template>
+                    <header>
+                        <h1 class="font-barlow text-blue-500">Information&nbsp;&#58;</h1>
+                        <p>{{ item.information }}</p>
+                    </header>
+                    <section>
+                        <h1 class="font-barlow text-blue-500">Image</h1>
+                        <details>
+                            <summary>file</summary>
+                            <a :href="link(item.file)" class="bg-blue-600 p-1 rounded text-white font-barlow font-light w-fit text-[10px]">
+                                {{ item.file }}
+                            </a>
+                        </details>
+                    </section>
+                </template>
                 <template #item-action="item">
                     <div>
-                        <button @click="showInspect(item,true)" class="bg-yellow-400 font-semibold w-36 rounded h-6 border-2 border-black text-black hover:bg-yellow-300 transition-all duration-200 hover:border-slate-400">Create attachment</button>
+                        <button @click="showInspect(item,true)" class="bg-yellow-400 font-semibold w-20 flex justify-center items-center rounded h-6 border-2 text-black/80 hover:bg-yellow-300 transition-all duration-200 hover:border-slate-400 p-3">
+                            <font-awesome-icon icon="fa-solid fa-square-plus" size="xl" />
+                        </button>
                     </div>
                 </template>
             </EasyDataTable>
@@ -37,7 +48,7 @@
     import {inspectStore} from '@/store/AssetStore/inspectStore'
     import { categoryStore } from '@/store/AssetStore/categoryStore';
     import {ref,onMounted,watch} from 'vue'
-    import AttachmentModal from '../../components/modal/AttachmentModal.vue';
+    import AttachmentModal from '../../components/modal/assetManagementModal/AttachmentModal.vue';
     
     const inspect = inspectStore()
     const category = categoryStore()
@@ -49,10 +60,12 @@
     const content  = ref()
     const attachment = ref(false)
     const rows = ref(8) 
+    const url = import.meta.env.VITE_APP_BASE_URL
 
     const routes = (code)=>{
         return `/detail/${code}`
     }
+    const link = (file) => url + 'resources/' + file
     const headers = [
         {
             text :'Asset Code',
@@ -67,6 +80,11 @@
         {
             text :'Status',
             value : 'status',
+            width : 100
+        },
+        {
+            text :'Inspector',
+            value : 'inspector',
             width : 100
         },
         {

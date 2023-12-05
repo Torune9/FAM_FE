@@ -1,15 +1,20 @@
 <template>
     <aside>
         <nav class="fixed top-0 bg-greyHunt text-zinc-100 w-[20%] p-4 h-screen z-50">
-            <div class="flex flex-col gap-2">
-                <h1 class="text-center font-bold text-2xl font-rubik">M&nbsp;E&nbsp;N&nbsp;U</h1>
-                <hr>
-                <hr>
-                <ul class="grid grid-rows-3 font-semibold text-sm">
+            <div class="flex flex-col gap-2 justify-center items-center">
+                <h1 class="text-center font-bold xl:text-2xl font-rubik min-[300px]:text-[10px] sm:text-xl">M&nbsp;E&nbsp;N&nbsp;U</h1>
+                
+                <ul class="flex flex-col font-semibold p-2">
                     <li v-for="menu, index in menus" :key="index"
-                    class="h-10 flex items-center p-2 before:contents[''] before:bg-white before:h-10 before:w-1 before:mr-3 before:scale-y-0 hover:before:scale-y-100 before:transition-transform hover:text-zinc-200">
-
-                        <router-link active-class="bg-white/70 text-black font-barlow hover:bg-black hover:text-white  transition-all duration-300 p-2 rounded" :to="menu.route">{{ menu.title }}</router-link>
+                    class="h-10 flex items-center min-[300px]:text-[8px] sm:text-[10px] md:text-[12px] lg:text-sm w-48 hover:bg-white/10 hover:rounded p-2 group">
+                        <router-link active-class="transition-all duration-300 flex items-center text-green-600 group-hover:text-black" :to="menu.route" class="flex items-center">
+                            <span class="mr-2">
+                        <figure>
+                            <font-awesome-icon :icon="menu.icon" size="lg"/>
+                        </figure>
+                       </span>
+                            {{ menu.title }}
+                        </router-link>
                     </li>
                 </ul>
             </div>
@@ -28,31 +33,39 @@ const menus = ref([])
 const links = [
     {
         title: "Dashboard",
-        route: { path: '/dashboard' }
+        route: { path: '/dashboard' },
+        name : 'dashboard',
+        icon : 'fa-solid fa-house'
     },
     {
         title: "Category Assets",
-        route: { path: '/category-assets' }
+        route: { path: '/category-assets' },
+        name : 'category_asset',
+        icon : 'fa-solid fa-table-list'
     },
     {
         title: "Master Data Asset",
         route: { path: '/master-assets' },
-        name: 'master'
+        name: 'master',
+        icon : 'fa-solid fa-suitcase'
     },
     {
         title: "Asset",
         route: { path: '/assets' },
-        name: 'asset'
+        name: 'asset',
+        icon : 'fa-solid fa-window-maximize'
     },
     {
         title: "History Inspection",
         route: { path: '/history' },
-        name: 'history'
+        name: 'history',
+        icon : 'fa-solid fa-shoe-prints'
     },
     {
         title: "Users",
         route: { path: '/users' },
-        name: 'user'
+        name: 'user',
+        icon : 'fa-solid fa-users'
     },
 ]
 onMounted(() => {

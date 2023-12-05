@@ -1,6 +1,6 @@
 <template>
     <MainLayout>
-        <main class="h-full w-full flex flex-col p-5">
+        <main class="h-full w-full flex flex-col">
             <div v-if="datas">
                 <div class="text-3xl font-barlow flex items-center p-8">
                     <h1 class="font-bold"> 
@@ -15,7 +15,7 @@
                     </h1>
                 </div>
                 <hr>
-                <div class="w-3/4 font-codensed">
+                <div class="sm:w-3/4 font-codensed min[300px]:w-full">
                     <h1 class=" text-xl">Inspector&nbsp;&#x25B8;&nbsp;{{ datas.inspector }}</h1>
                     <h1 class=" text-xl">Status asset&nbsp;&#x25B8;&nbsp;{{ histories.status }}</h1>
                     <hr>
@@ -39,7 +39,7 @@
                             <summary>Attachments</summary>
                             <ul class="w-full text-white max-h-24 overflow-y-auto">
                                 <li v-for="(file, i) of datas.file" :key="i"
-                                    class="bg-white/30 rounded mt-2 text-sm pl-2 hover:bg-white/40">
+                                    class="bg-white/30 rounded mt-2 text-sm pl-2 hover:bg-white/40 w-1/2">
                                     <small class="underline">
                                         <a :href="getUrl(file)">
                                             {{ i + 1 }}. {{ file }}
@@ -69,7 +69,7 @@ const datas = ref(null)
 const histories = ref([])
 const url = import.meta.env.VITE_APP_BASE_URL
 const getUrl = (file) => {
-    return url + 'uploads/' + file
+  return url + 'resources/' + file
 }
 const inspect = inspectStore()
 

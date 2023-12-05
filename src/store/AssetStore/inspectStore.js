@@ -21,6 +21,6 @@ export const inspectStore = defineStore('inspection',{
             .then(res => {
                 return res.data
             })
-        }
+        },
     }
 })

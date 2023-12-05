@@ -1,6 +1,6 @@
 <template>
     <MainLayout>
-        <div class="flex flex-col p-5">
+        <div class="flex flex-col">
             <InspectModal :modalPop="showModal" :showAdd="btnInspect" @close="closeModal" :data="content" />
 
             <AssetModal :modalPop="showAsset" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal"
@@ -36,27 +36,27 @@
                                 <div @click="onUpdate(item)">
                                     <button
                                         class=" hover:bg-blue-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-700">
-                                        Edit
+                                        <font-awesome-icon icon="fa-solid fa-pen-to-square" />
                                     </button>
                                 </div>
 
                                 <div @click="onDelete(item)">
                                     <button
                                         class="hover:bg-red-500 transition-all duration-300 text-white font-light text-[font-size:8px] w-14 rounded  bg-red-600">
-                                        Delete
+                                        <font-awesome-icon icon="fa-solid fa-trash-can" />
                                     </button>
                                 </div>
 
                                 <div>
                                     <button @click="onInspect(item)"
                                         class="bg-blue-500 rounded w-14 text-white font-light ">
-                                        Inpect
+                                        <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                                     </button>
                                 </div>
                             </template>
                             <div v-else>
-                                <button class="bg-indigo-700 w-20 rounded text-white" @click="onRestore(item)">
-                                    Restore
+                                <button class="bg-blue-600 hover:bg-blue-500 transition-all duration-300 w-20 rounded text-white" @click="onRestore(item)">
+                                    <font-awesome-icon icon="fa-solid fa-trash-can-arrow-up" />
                                 </button>
                             </div>
                         </div>
@@ -84,8 +84,8 @@
 import MainLayout from '../../layout/MainLayout.vue';
 import { ref, onMounted, watch } from 'vue'
 import { assetStore } from '@/store/AssetStore/assetStore'
-import InspectModal from '../../components/modal/InspectModal.vue';
-import AssetModal from '../../components/modal/AssetModal.vue';
+import InspectModal from '../../components/modal/assetManagementModal/InspectModal.vue';
+import AssetModal from '../../components/modal/assetManagementModal/AssetModal.vue';
 import { useNotification } from '@kyvg/vue3-notification';
 
 const asset = assetStore()

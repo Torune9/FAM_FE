@@ -44,9 +44,10 @@ export const loginStore = defineStore('login', {
         })
       }
     },
-    signUp(payload,info) {
+    async signUp(payload,info) {
       return api.post('api/register',payload)
       .then(res => {
+        console.log(res);
         if (res.data.status) {
           this.message = res.data.message
           info()
@@ -56,6 +57,7 @@ export const loginStore = defineStore('login', {
         }
       })
       .catch(error => {
+        console.log(error);
        this.eror = error.response.data.message
       })
     },

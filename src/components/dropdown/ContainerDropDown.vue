@@ -16,7 +16,7 @@
     </main>
 </template>
 <script setup>
-import { ref, provide } from 'vue'
+import { ref, provide} from 'vue'
 
 const isActive = ref(false)
 const isDrop = () => {

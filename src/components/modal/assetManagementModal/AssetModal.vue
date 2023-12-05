@@ -12,7 +12,7 @@
                 <div>
                     <label for="quantity" class="font-bold font-barlow text-sm">Quantity</label>
                     <br>
-                    <input v-model="payload.quantity" id="quantity" type="text"
+                    <input v-model="payload.quantity" id="quantity" type="number"
                         class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div v-if="showAdd">
@@ -40,12 +40,16 @@
                 <div v-if="showAdd">
                     <button @click="add"
                         class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
-                        create
+                        <p v-if="!loading">create</p>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class=" animate-spin" v-else/>
                     </button>
                 </div>
                 <div v-else>
                     <button @click="update"
-                        class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">update</button>
+                        class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">
+                        <p v-if="!loading">update</p>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class=" animate-spin" v-else/>
+                    </button>
                 </div>
 
                 <div>
@@ -67,6 +71,7 @@ import { onMounted, ref } from 'vue'
 const notification = useNotification()
 const categories = categoryStore()
 const category = ref([])
+const loading = ref(false)
 
 const asset = assetStore()
 const InfoError = (message) => {
@@ -131,7 +136,7 @@ const getCategory = () => {
 }
 
 const add = async () => {
-
+    loading.value = true
     await asset.addAsset(payload)
         .then((res) => {
             InfoSuccess(res.data.message)
@@ -141,20 +146,21 @@ const add = async () => {
             const { data: { message } } = error.response
             InfoError(message)
         })
+        .finally(()=> loading.value = false)
 
 }
 const update = async () => {
-
+    loading.value = true
     const id = props.data.id;
     await asset.updateAsset(id, payload)
         .then((res) => {
             InfoSuccess(res.data.message)
             close(true)
         }).catch(error => {
-
             const { data: { message } } = error.response
             InfoError(message)
         })
+        .finally(()=>loading.value = false)
 
 }
 

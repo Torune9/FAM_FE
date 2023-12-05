@@ -1,6 +1,6 @@
 <template>
     <MainLayout>
-        <div class="flex flex-col p-5">
+        <div class="flex flex-col">
             <div class="text-center text-3xl font-semibold text-slate-500">
                 <h1>Categories</h1>
             </div>
@@ -32,21 +32,21 @@
                                 
                                 <div @click="onUpdate(item)">
                                     <button class=" hover:bg-blue-600 text-white transition-all duration-300 text-[font-size:8px] font-light w-10 rounded bg-blue-700">
-                                        Edit
+                                        <font-awesome-icon icon="fa-solid fa-pen-to-square" />
                                     </button>
                                 </div>
 
                                 <div @click="onDelete(item)">
                                     <button class=" hover:bg-red-400 text-white transition-all duration-300 text-[font-size:8px]  font-light w-14 rounded bg-red-500">
-                                        Delete
+                                        <font-awesome-icon icon="fa-solid fa-trash-can" />
                                     </button>
                                 </div>
 
                             </template>
 
                             <div v-else>
-                                <button @click="onRestore(item)" class=" bg-slate-600 w-20 rounded text-white font-light hover:bg-slate-500 transition-all duration-300">
-                                    Restore
+                                <button @click="onRestore(item)" class=" bg-blue-600 w-20 rounded text-white font-light hover:bg-blue-500 transition-all duration-300">
+                                    <font-awesome-icon icon="fa-solid fa-trash-can-arrow-up" />
                                 </button>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
 import MainLayout from '../../layout/MainLayout.vue';
 
 import { categoryStore } from "@/store/AssetStore/categoryStore"
-import ModalBox from '../../components/modal/ModalBox.vue';
+import ModalBox from '../../components/modal/assetManagementModal/ModalBox.vue';
 
 import { onMounted, ref, watch } from 'vue';
 import { useNotification } from "@kyvg/vue3-notification";

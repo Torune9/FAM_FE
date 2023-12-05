@@ -6,7 +6,21 @@ import {
     faUser,
     faEnvelope,
     faRectangleXmark,
-    faGear
+    faGear,
+    faImages,
+    faCircleXmark,
+    faPenToSquare,
+    faTrashCan,
+    faMagnifyingGlass,
+    faSquarePlus,
+    faTrashCanArrowUp,
+    faSpinner,
+    faHouse,
+    faSuitcase,
+    faUsers,
+    faShoePrints,
+    faTableList,
+    faWindowMaximize
 } from '@fortawesome/free-solid-svg-icons'
 import { faSquareCheck} from '@fortawesome/free-regular-svg-icons'
 
@@ -20,7 +34,21 @@ export default {
             faLock,
             faEnvelope,
             faRectangleXmark,
-            faGear
+            faGear,
+            faImages,
+            faCircleXmark,
+            faPenToSquare,
+            faTrashCan,
+            faMagnifyingGlass,
+            faSquarePlus,
+            faTrashCanArrowUp,
+            faSpinner,
+            faHouse,
+            faSuitcase,
+            faUsers,
+            faShoePrints,
+            faTableList,
+            faWindowMaximize
             )
     }
 }

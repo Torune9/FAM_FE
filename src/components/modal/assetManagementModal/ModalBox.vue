@@ -3,7 +3,7 @@
         <main v-if="modalPop" class="h-screen w-screen fixed z-10">
             <div class="absolute bottom-24" v-show="modalPop">
                 <div v-if="modalPop"
-                    class=" bg-white border border-black w-80 h-60 rounded-md relative flex content-center justify-items-center shadow-lg flex-wrap">
+                    class=" bg-white border border-black sm:w-80 h-60 rounded-md relative flex content-center justify-items-center shadow-lg flex-wrap min-[300px]:w-72">
                     <div class="flex justify-center flex-wrap mb-2">
                         <label for="name" class="text-sm font-barlow font-bold">Category name</label>
                         <input v-model="payload.name" type="text" id="name"
@@ -15,10 +15,16 @@
                             class="outline-none text-center border-2 border-black text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-800">
                     </div>
                     <button v-if="showAdd" @click="add"
-                        class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">create</button>
+                        class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
+                        <p v-if="!loading">create</p>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin" v-else/>
+                    </button>
 
                     <button v-else @click="update"
-                        class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">update</button>
+                        class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">
+                        <p v-if="!loading">create</p>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin" v-else/>
+                    </button>
 
                     <button class="absolute -top-2 -left-2 text-white font-bold w-7 h-7 rounded-full bg-slate-900"
                         @click="close(false)">x</button>
@@ -29,11 +35,12 @@
 </template>
 
 <script setup>
-import { watch, reactive } from "vue";
+import { watch, reactive,ref } from "vue";
 import { categoryStore } from '@/store/AssetStore/categoryStore';
 import { useNotification } from "@kyvg/vue3-notification";
 
 const notification = useNotification()
+const loading = ref(false)
 
 const InfoError = (message) => {
     notification.notify({
@@ -85,6 +92,7 @@ const handleShowUpdate = () => {
 }
 
 const add = async () => {
+    loading.value = true
 
     await category.addCategory(payload)
         .then((res) => {
@@ -94,11 +102,11 @@ const add = async () => {
         .catch(error => {
             const { data: { message } } = error.response
             InfoError(message)
-        })
+        }).finally(() => loading.value = false)
 
 }
 const update = async () => {
-
+    loading.value = true
     const id = props.data.id;
     await category.updateCategory(id, payload)
         .then((res) => {
@@ -107,7 +115,7 @@ const update = async () => {
         }).catch(error => {
             const { data: { message } } = error.response
             InfoError(message)
-        })
+        }).finally(() => loading.value = false)
 
 }
 
