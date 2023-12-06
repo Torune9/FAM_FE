@@ -84,16 +84,18 @@ import { onMounted, reactive, computed, ref } from 'vue';
 import { useNotification } from '@kyvg/vue3-notification';
 import LoadingSpinner from '../../components/utilComponent/LoadingSpinner.vue';
 
+const auth = loginStore()
 const notification = useNotification()
 const loading = ref(false)
 const type = ref('password')
+
 const showHide = () => {
     type.value = type.value === "password" ? "text" : "password"
     eye.value = eye.value === "fa-solid fa-eye" ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"
 }
+
 const eye = ref("fa-solid fa-eye")
 
-const auth = loginStore()
 const InfoSuccess = () => {
     notification.notify({
         text: auth.message,
@@ -107,11 +109,6 @@ const form = reactive({
     email: ''
 })
 
-onMounted(() => {
-    localStorage.clear()
-    auth.eror = null
-})
-
 const rules = computed(() => {
     return {
         username: { required },
@@ -122,6 +119,7 @@ const rules = computed(() => {
         email: { required }
     }
 })
+
 const v$ = useVuelidate(rules, form)
 
 const register = () => {
@@ -134,4 +132,8 @@ const register = () => {
         })
 }
 
+onMounted(() => {
+    localStorage.clear()
+    auth.eror = null
+})
 </script>

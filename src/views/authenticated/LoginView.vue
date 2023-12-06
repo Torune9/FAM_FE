@@ -7,7 +7,7 @@
                 <small class=" font-bold">{{ auth.eror }}</small>
             </div>
             <div
-                class="h-[400px] w-[400px] max-[450px]:w-[300px] max-[450px]:h-[300px] bg-greyHunt rounded-md flex flex-col justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
+                class="h-[400px] w-[400px] max-[450px]:w-[350px] max-[450px]:h-[350px] bg-greyHunt rounded-md flex flex-col justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
                 <p class="text-center w-full font-extrabold text-2xl">
                     Login Form
                 </p>
