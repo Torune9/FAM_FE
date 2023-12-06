@@ -1,7 +1,7 @@
 <template>
     <nav class="fixed w-4/5 right-0 bg-darkHunt top-0 flex justify-end h-[10%] items-center z-50">
       <div class="flex flex-wrap sm:justify-center items-center gap-4 sm:w-1/2 lg:w-[30%] min-[300px]:w-full min-[300px]: justify-around">
-        <h1 @click="isShowDrop" class=" text-white font-semibold cursor-pointer" v-text="user.username ? user.username : 'User'"></h1>
+        <h1 @click="authDropDown" class=" text-white font-semibold cursor-pointer" v-text="user.username ? user.username : 'User'"></h1>
         <div class="border rounded-full w-10 h-10 flex justify-center items-center">
           <font-awesome-icon icon="fa-solid fa-user" size="lg" />
         </div>
@@ -27,6 +27,11 @@ const user = reactive({
 })
 const isActive = ref(false)
 const isShowDrop = ()=> isActive.value = !isActive.value
+const authDropDown =()=>{
+  if (auth.user.role != 'SYSADMIN') return 
+  isShowDrop()
+} 
+
 
 if (auth) {
   user.username = auth.user.username
