@@ -1,70 +1,76 @@
 <template>
+    <LoadingSpinner :show-load="loading" />
     <main>
-        <LoadingSpinner :show-load="loading" />
-        <div class="flex justify-center items-center  w-screen h-screen">
+        <div class="flex justify-center items-center w-screen h-screen">
+            <div class=" w-[20%] mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4"
+                v-if="auth.eror">
+                <small class=" font-bold">{{ auth.eror }}</small>
+            </div>
             <div
-                class="h-[400px] w-[400px] shadow-lg shadow-black/60 bg-indigo-500 rounded-md flex flex-wrap justify-center items-center text-black">
-                <div class=" w-[20%]  mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4"
-                    v-if="auth.eror">
-                    <small class=" font-bold">{{ auth.eror }}</small>
-                </div>
-
-                <p class="text-center text-white w-full font-extrabold text-2xl ">Register</p>
-                <form @submit.prevent="register" class="grid grid-rows-4 h-44 gap-12 justify-items-center">
-
-                    <div class="relative">
-                        <label class="font-bold absolute top-7 left-2" for="username"><span><font-awesome-icon
-                                    icon="fa-solid fa-user" /></span></label>
-                        <br>
-                        <input placeholder="username" type="text" name="username" id="username"
-                            class="h-8 w-[270px] pl-7 pr-2 text-sm border-2 rounded-md text-black bg-transparent placeholder-black/70 font-bold border-black outline-none hover:border-white/50"
-                            v-model.trim.trim="form.username">
-                        <div class=" text-end text-sm text-yellow-300" v-for="error of v$.username.$errors"
-                            :key="error.$uid">
-                            <small>{{ '*' + error.$message }}</small>
-                        </div>
-                    </div>
-
-                    <div class="relative">
-                        <label class="font-bold absolute top-7 left-2" for="password"><span><font-awesome-icon
-                                    icon="fa-solid fa-lock" /></span></label>
-                        <br>
-                        <div class="flex justify-center items-center group">
-                            <input placeholder="password" name="password" :type="type" id="password"
-                                class="w-[236px] pl-7 pr-2 text-sm border-2 h-8 rounded-tl-md font-bold text-black bg-transparent placeholder-black/70 rounded-bl-md border-black outline-none group-hover:border-white/50"
-                                v-model.trim="form.password">
-                            <button type="button" @click="showHide"
-                                class="h-8 w-8 rounded-tr-md border-l-0 rounded-br-md border-2 border-black group-hover:border-white/50">
-                                <span>
-                                    <font-awesome-icon :icon="eye" />
-                                </span>
+                class="h-[400px] w-[400px] max-[450px]:w-[350px] max-[450px]:h-[350px] bg-greyHunt rounded-md flex flex-col justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
+                <p class="text-center w-full font-extrabold text-2xl  max-[450px]:text-lg">
+                    Register
+                </p>
+                <br>
+                <form @submit.prevent="login">
+                   <section class="flex flex-col">
+                        <div>
+                            <div class="h-14 relative group">
+                                <label for="username" class="absolute top-[5px] left-2 group-hover:text-slate-300">
+                                    <span>
+                                        <font-awesome-icon
+                                        icon="fa-solid fa-user" />
+                                    </span>
+                                </label>
+                            <input type="text" id="username" name="username" v-model.trim="form.username" class="bg-transparent border border-slate-400 outline-none rounded-md w-64 h-9 pl-7 pr-2 text-[11px] text-white font-semibold group-hover:border-slate-600" placeholder="username"> 
+                            <p class="text-[11px] text-center text-red-500 font-bold placeholder-white/70" v-for="error,index of v$.username.$errors" :key="index" >
+                                {{ `*${error.$message}` }}
+                            </p>
+                            </div>
+                            <div class="h-14 relative group">
+                                <label for="password" class="absolute top-[5px] left-2 group-hover:text-slate-300">
+                                    <span>
+                                        <font-awesome-icon
+                                        icon="fa-solid fa-envelope" />
+                                    </span>
+                                </label>
+                            <input type="email" id="email" name="email" v-model.trim="form.email" class="bg-transparent border border-slate-400 outline-none rounded-md w-64 h-9 pl-7 pr-2 text-[11px] text-white font-semibold group-hover:border-slate-600" placeholder="email"> 
+                            <p class="text-[11px] text-center text-red-500 font-bold placeholder-white/70" v-for="error,index of v$.email.$errors" :key="index" >
+                                {{ `*${error.$message}` }}
+                                </p>
+                            </div>
+                            <div class="h-14 relative group flex w-64 flex-wrap gap-x-1">
+                                <label for="password" class="absolute top-[5px] left-2 group-hover:text-slate-300">
+                                    <span>
+                                        <font-awesome-icon
+                                        icon="fa-solid fa-lock" />
+                                    </span>
+                                </label>
+                            <input :type="type" id="password" name="password" v-model.trim="form.password" class="bg-transparent border border-slate-400 outline-none rounded-md w-[218px] h-9 pl-7 pr-2 text-[11px] text-white font-semibold group-hover:border-slate-600" placeholder="password">
+                            <button @click="showHide" class="inline-block border border-slate-400 hover:text-slate-300 w-8 h-9 rounded-md">
+                                <font-awesome-icon :icon="eye"/>
                             </button>
+                            <p class="text-[11px] w-full text-center text-red-500 font-bold placeholder-white/70" v-for="error,index of v$.password.$errors" :key="index" >
+                                {{ `*${error.$message}` }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="text-end text-sm text-yellow-300" v-for="error of v$.password.$errors"
-                            :key="error.$uid">
-                            <small>{{ '*' + error.$message }}</small>
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <label class="font-bold absolute top-7 left-2" for="email"><span><font-awesome-icon
-                                    icon="fa-solid fa-envelope" /></span></label>
                         <br>
-                        <input placeholder="email address" type="email" name="email" id="email"
-                            class="w-[270px] pl-7 pr-2 text-sm border-2 h-8 rounded-md text-black bg-transparent placeholder-black/70 font-bold border-black outline-none hover:border-white/50"
-                            v-model.trim="form.email">
-                        <div class="text-end text-sm text-yellow-300" v-for="error of v$.email.$errors" :key="error">
-                            <small>{{ '*' + error.$message }}</small>
+                        <div>
+                            <div class="flex justify-center">
+                                <button @click="register" class="h-9 bg-indigo-600 w-full rounded hover:bg-indigo-500 font-semibold transition-all">
+                                    Register
+                                </button>
+                            </div>
+                            <br>
+                            <p class="w-full text-center max-[450px]:text-sm hover:text-blue-300 font-bold underline">
+                                <router-link to="/login">
+                                    Back
+                                </router-link>
+                            </p>
                         </div>
-                    </div>
-
-                    <div class="flex justify-center items-center">
-                        <button
-                            class=" bg-blackCurrent w-[270px] h-9 mt-20 rounded-md text-white font-semibold hover:bg-slate-800">submit</button>
-                    </div>
-
+                   </section>
                 </form>
-                <p class=" w-full text-center text-sm font-bold underline underline-offset-2 text-white"><router-link
-                        to="/">Login</router-link></p>
             </div>
         </div>
     </main>

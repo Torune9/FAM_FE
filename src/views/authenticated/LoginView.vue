@@ -1,56 +1,69 @@
 <template>
     <LoadingSpinner :show-load="loading" />
     <main>
-        <div class="flex justify-center items-center  w-screen h-screen">
+        <div class="flex justify-center items-center w-screen h-screen">
+            <div class=" w-[20%] mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4"
+                v-if="auth.eror">
+                <small class=" font-bold">{{ auth.eror }}</small>
+            </div>
             <div
-                class="h-[400px] w-[400px] bg-greyHunt rounded-md flex flex-wrap justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
-                <div class=" w-[20%]  mt-6 rounded-md bg-red-300 flex justify-center items-center text-red-600 h-8 absolute top-4"
-                    v-if="auth.eror">
-                    <small class=" font-bold">{{ auth.eror }}</small>
-                </div>
-                <p class="text-center w-full font-extrabold text-2xl">Login Form</p>
-
-                <form @submit.prevent="login" class="grid grid-rows-2 h-44 gap-y-12 justify-items-center">
-
-                    <div class="relative">
-                        <label class="absolute top-7 left-2" for="username"><span><font-awesome-icon
-                                    icon="fa-solid fa-user" /></span></label>
-                        <br>
-                        <input placeholder="username" type="text" name="username" id="username"
-                            class="h-8 w-[250px] hover:border-slate-600 pl-8 placeholder-white/70 text-white text-sm border-2 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
-                            v-model.trim.trim="form.username">
-                        <div v-for="error of v$.username.$errors" :key="error.$uid">
-                            <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
+                class="h-[400px] w-[400px] max-[450px]:w-[300px] max-[450px]:h-[300px] bg-greyHunt rounded-md flex flex-col justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
+                <p class="text-center w-full font-extrabold text-2xl">
+                    Login Form
+                </p>
+                <br>
+                <br>
+                <form @submit.prevent="login">
+                   <section class="flex flex-col">
+                        <div>
+                            <div class="h-14 relative group">
+                                <label for="username" class="absolute top-[5px] left-2 group-hover:text-slate-300">
+                                    <span>
+                                        <font-awesome-icon
+                                        icon="fa-solid fa-user" />
+                                    </span>
+                                </label>
+                            <input type="text" id="username" name="username" v-model.trim="form.username" class="bg-transparent border border-slate-400 outline-none rounded-md w-64 h-9 pl-7 pr-2 text-[11px] text-white font-semibold group-hover:border-slate-600" placeholder="username"> 
+                            <p class="text-[11px] text-center text-red-500 font-bold placeholder-white/70" v-for="error,index of v$.username.$errors" :key="index" >
+                                {{ `*${error.$message}` }}
+                            </p>
+                            </div>
+                            <div class="h-14 relative group">
+                                <label for="password" class="absolute top-[5px] left-2 group-hover:text-slate-300">
+                                    <span>
+                                        <font-awesome-icon
+                                        icon="fa-solid fa-lock" />
+                                    </span>
+                                </label>
+                            <input type="password" id="password" name="password" v-model.trim="form.password" class="bg-transparent border border-slate-400 outline-none rounded-md w-64 h-9 pl-7 pr-2 text-[11px] text-white font-semibold group-hover:border-slate-600" placeholder="password"> 
+                            <p class="text-[11px] text-center text-red-500 font-bold placeholder-white/70" v-for="error,index of v$.password.$errors" :key="index" >
+                                {{ `*${error.$message}` }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="relative">
-                        <label class="absolute top-7 left-2" for="password"><span><font-awesome-icon
-                                    icon="fa-solid fa-lock" /></span></label>
                         <br>
-                        <input placeholder="password" type="password" name="password" id="password"
-                            class="w-[250px] hover:border-slate-600 pl-8 placeholder-white/70 text-white text-sm border-2 h-8 rounded-md border-slate-200 bg-transparent outline-none focus:border-2 focus:border-slate-800"
-                            v-model.trim="form.password">
-                        <div v-for="error of v$.password.$errors" :key="error.$uid">
-                            <div class=" text-red-600"><small>{{ '*' + error.$message }}</small></div>
+                        <div>
+                            <div class="flex justify-center">
+                                <button @click="login" class="h-9 bg-indigo-600 w-full rounded hover:bg-indigo-500 font-semibold transition-all">
+                                    Login
+                                </button>
+                            </div>
+                            <br>
+                            <div class="flex flex-row justify-center items-center gap-x-10">
+                                <p class="text-[10px] font-semibold hover:text-blue-500">
+                                    <router-link to="forgot-password">
+                                        Forgot password&#63;
+                                    </router-link>
+                                </p>
+                                <button class="bg-blackCurrent text-[12px] p-2 font-semibold hover:bg-white hover:text-black rounded w-24 transition-all duration-300">
+                                    <router-link to="/register">
+                                        Register
+                                    </router-link>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="flex justify-center items-center">
-                        <button
-                            class=" bg-indigo-600 w-[250px] h-9 mt-20 rounded-md text-white font-semibold hover:bg-indigo-500">Login</button>
-                    </div>
-
+                   </section>
                 </form>
-                <div class="w-full flex justify-center gap-x-4 items-center">
-                    <div>
-                        <p class="text-sm"><router-link to="/forgot-password">Forgot password ?</router-link></p>
-                    </div>
-                    <div
-                        class="bg-blackCurrent w-20 h-8 flex justify-center items-center rounded hover:bg-white duration-300 transition-all hover:text-black font-bold ">
-                        <p class="text-sm"><router-link to="/register">Register</router-link></p>
-                    </div>
-                </div>
             </div>
         </div>
     </main>
