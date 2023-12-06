@@ -17,17 +17,19 @@
                     <button v-if="showAdd" @click="add"
                         class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
                         <p v-if="!loading">create</p>
-                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin" v-else/>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin text-white/40" size="xl" v-else/>
                     </button>
 
                     <button v-else @click="update"
                         class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">
                         <p v-if="!loading">create</p>
-                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin" v-else/>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin text-white/40" size="xl"  v-else/>
                     </button>
 
-                    <button class="absolute -top-2 -left-2 text-white font-bold w-7 h-7 rounded-full bg-slate-900"
-                        @click="close(false)">x</button>
+                    <button class="absolute top-2 left-2 text-black/40 hover:text-red-700"
+                        @click="close(false)">
+                        <font-awesome-icon icon="fa-solid fa-rectangle-xmark" size="lg"/>
+                    </button>
                 </div>
             </div>
         </main>

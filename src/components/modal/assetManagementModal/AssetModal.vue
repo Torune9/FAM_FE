@@ -41,21 +41,21 @@
                     <button @click="add"
                         class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
                         <p v-if="!loading">create</p>
-                        <font-awesome-icon icon="fa-solid fa-spinner" class=" animate-spin" v-else/>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin text-white/40" size="xl" v-else/>
                     </button>
                 </div>
                 <div v-else>
                     <button @click="update"
                         class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">
                         <p v-if="!loading">update</p>
-                        <font-awesome-icon icon="fa-solid fa-spinner" class=" animate-spin" v-else/>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin text-white/40" size="xl" v-else/>
                     </button>
                 </div>
 
                 <div>
-                    <button class="text-white bg-slate-700 rounded-full w-7 h-7 absolute -top-2 -left-2 font-bold"
+                    <button class="absolute top-2 left-2 hover:text-red-700 text-black/40"
                         @click="close(false)">
-                        x
+                        <font-awesome-icon icon="fa-solid fa-rectangle-xmark" size="xl"/>
                     </button>
                 </div>
             </div>
