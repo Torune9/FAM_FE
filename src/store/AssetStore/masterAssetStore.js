@@ -13,6 +13,18 @@ export const masterStore = defineStore('master',{
         },
         async updateMaster (id,payload){
             return api.put(`master-asset/${id}`,payload)
+        },
+        async deleteMaster(id){
+            return api.delete(`master-asset/${id}`)
+            .then(res => {
+                return res.data
+            })
+        },
+        async restoreMaster(id){
+            return api.put(`master-asset/${id}/restore`)
+            .then(res => {
+                return res.data
+            })
         }
     }
 })
