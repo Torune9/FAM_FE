@@ -16,10 +16,12 @@
             </div>
             <div class="flex items-center mt-4">
                 <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white"
-                    for="search"><small>search</small></label>
+                    for="search">
+                    <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                </label>
                 <input v-model="search"
-                    class="outline-none border-2 focus:border-red-400 border-l-0 border-red-600 rounded-tr rounded-br w-1/2 h-8 text-center"
-                    type="text" id="search">
+                    class="outline-none border-2 focus:border-red-400 border-l-0 border-red-600 rounded-tr rounded-br w-1/2 h-8 pl-5"
+                    type="text" id="search" placeholder="search asset...">
             </div>
             <br>
             <div class="flex items-center w-40 h-6 mb-3">
@@ -35,22 +37,22 @@
                             <template v-if="!item.is_deleted">
                                 <div @click="onUpdate(item)">
                                     <button
-                                        class=" hover:bg-blue-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-700">
+                                        class=" hover:bg-blue-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-700 p-1">
                                         <font-awesome-icon icon="fa-solid fa-pen-to-square" />
                                     </button>
                                 </div>
 
                                 <div @click="onDelete(item)">
                                     <button
-                                        class="hover:bg-red-500 transition-all duration-300 text-white font-light text-[font-size:8px] w-14 rounded  bg-red-600">
+                                        class=" hover:bg-red-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-red-700 p-1">
                                         <font-awesome-icon icon="fa-solid fa-trash-can" />
                                     </button>
                                 </div>
 
                                 <div>
                                     <button @click="onInspect(item)"
-                                        class="bg-blue-500 rounded w-14 text-white font-light ">
-                                        <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                                        class=" hover:bg-sky-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-sky-700 p-1">
+                                        <font-awesome-icon icon="fa-solid fa-file-circle-question" />
                                     </button>
                                 </div>
                             </template>
