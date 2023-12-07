@@ -10,10 +10,16 @@
                 </button>
             </div>
             <div class="flex items-center">
-                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search"><small>search</small></label>
-                <input v-model="search" class="outline-none border-2 border-l-0 border-red-600 focus:border-red-400 rounded-tr rounded-br w-1/2 h-8 text-center" type="text" id="search">
+                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search">
+                    <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                </label>
+                <input v-model="search" class="outline-none border-2 border-l-0 border-red-600 focus:border-red-400 rounded-tr rounded-br w-1/2 h-8 pl-5" type="text" id="search" placeholder="search master...">
             </div>
             <br>
+            <div class="flex items-center w-40 h-6 mb-3">
+                <label class="mr-4 text-sm text-black font-semibold" for="not-active">Not Active</label>
+                <input id="not-active" type="checkbox" v-model="is_deleted">
+            </div>
             <div>
                 <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="dataMaster" :loading="loading"  alternating border-cell :rows-per-page=7 :rows-items=[7]  buttons-pagination>
                     <template #item-action ="item">
@@ -25,15 +31,19 @@
                                         </button>
                                     </div>
 
-                                    <!-- <div @click="onDelete(item)">
-                                        <button class=" text-white text-[font-size:8px] w-14 rounded bg-red-500">
-                                            Delete
+                                    <div @click="onDelete(item)">
+                                        <button class="hover:bg-red-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-red-700 p-1">
+                                            <font-awesome-icon icon="fa-solid fa-trash-can" />
                                         </button>
-                                    </div> -->
+                                    </div>
 
                                 </template>
-                                <!-- <div v-else><button class="bg-yellow-500 w-20 rounded text-white"
-                                    @click="restore(item)">Restore</button></div> -->
+                                <div v-else>
+                                    <button class="hover:bg-blue-500 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-400 p-1"
+                                    @click="onRestore(item)">
+                                        <font-awesome-icon icon="fa-solid fa-trash-can-arrow-up" />
+                                    </button>
+                                </div>
                             </div>
                     </template>
                 </EasyDataTable>
@@ -48,6 +58,7 @@ import MainLayout from '../../layout/MainLayout.vue';
 import { masterStore } from '@/store/AssetStore/masterAssetStore';
 import { onMounted,ref,watch }from "vue"
 import MasterModal from '../../components/modal/assetManagementModal/MasterModal.vue';
+import { useNotification } from '@kyvg/vue3-notification';
 
 const master = masterStore()
 const dataMaster = ref([])
@@ -57,6 +68,7 @@ const showModal = ref(false)
 const btnAdd = ref(false)
 const btnUpdate = ref(false)
 const content = ref()
+const is_deleted = ref()
 const headers = [
     {   text : 'Name',
         value : 'name'
@@ -72,9 +84,20 @@ const headers = [
     }
 ]
 
-onMounted(()=>{
-    getData()
-})
+const notification = useNotification()
+
+const warnDelete = (message) => {
+    notification.notify({
+        title: message,
+        type: 'error'
+    });
+}
+const restoreInfo = (message) => {
+    notification.notify({
+        title: message,
+    });
+}
+
 
 const btnCreate = () => {
     showModal.value = true
@@ -87,6 +110,7 @@ const getData = ()=>{
     loading.value = true
     const payload = {
         search: search.value,
+        status : is_deleted.value
     }
     
     master.getMasterData(payload)
@@ -112,10 +136,28 @@ const onUpdate = async (item) => {
     btnAdd.value = false
 }
 
-watch(() =>  search.value, () => {
+const onDelete = (item) => {
+    master.deleteMaster(item.id)
+        .then((res) => {
+            warnDelete(res.message)
+            getData()
+        })
+        .catch(error => console.log(error))
+}
+const onRestore = (item) => {
+    master.restoreMaster(item.id)
+        .then(res => {
+            restoreInfo(res.message)
+            getData()
+        })
+}
+watch(() =>[is_deleted.value,search.value], () => {
     getData()
 })
 
+onMounted(()=>{
+    getData()
+})
 </script>
 
 <style scoped>
