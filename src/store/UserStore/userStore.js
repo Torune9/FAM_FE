@@ -10,8 +10,5 @@ export const useUser = defineStore('User', {
           .then(res => res.data)
           .catch(err => console.log(err))
         },
-        async updateUser(id,role){
-          return api.put(`/api/update/${id}`,role)
-        }
     }
 })
