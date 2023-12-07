@@ -20,8 +20,8 @@
                             <small>save</small>
                         </button>
                     </div>
-                    <div v-else-if="title == 'Deactivate Account'">
-                        <small class="font-barlow text-[11px]">Deactivate account for user {{ users.username }},userID&nbsp;({{ users.id }})&nbsp;&#63;</small>
+                    <div v-else-if="title == 'Deactivated Account' || title == 'Activated Account'">
+                        <small class="font-barlow text-[11px]">{{ label }} account for user {{ users.username }},userID&nbsp;({{ users.id }})&nbsp;&#63;</small>
                         <div class="flex items-center gap-5">
                             <label for="active" class="w-32">
                                 <p>{{ label }}</p>
@@ -38,7 +38,7 @@
                         <label for="reset">
                             <input v-model="payload.newPassword" class="outline-none rounded border border-black p-1 text-center" type="password" name="reset" id="reset">
                         </label>
-                        <p v-for="error,i of v$.password.$errors" :key="i" class="text-red-600 text-[12px] font-bold">
+                        <p v-for="error,i of v$.newPassword.$errors" :key="i" class="text-red-600 text-[12px] font-bold">
                             *{{ error.$message }}
                         </p>
                        </div>
@@ -57,28 +57,29 @@
 </template>
 
 <script setup>
-    import {useUser} from '@/store/UserStore/userStore'
     import {sysAdminStore} from '@/store/UserStore/sysAdmin'
     import { reactive,computed,watch,ref} from 'vue';
     import { useVuelidate } from '@vuelidate/core';
     import { required, minLength } from '@vuelidate/validators';
+    import { useNotification } from '@kyvg/vue3-notification';
     const options = ["USER","ADMIN","AUDITHOR","SYSADMIN","INSPECTOR"]
-    const user = useUser()
+    const notification = useNotification()
     const sysAdmin = sysAdminStore()
     const rules = computed(() => {
     return {
-        password: {
+        newPassword: {
             required,
             minLength: minLength(8)
-        },
-    }
-})
-const toggle = ref(false)
-const label = ref('')
-const payload = reactive({
-    newPassword : ''
-})
-const v$ = useVuelidate(rules, payload)
+            },
+        }
+    })
+
+    const toggle = ref(false)
+    const label = ref('')
+    const payload = reactive({
+        newPassword : ''
+    })
+    const v$ = useVuelidate(rules, payload)
 
     const props = defineProps({
         showChange : {
@@ -101,12 +102,27 @@ const v$ = useVuelidate(rules, payload)
         payload.newPassword = ''
         toggle.value = false
     }
+    const infoSuccess = (message)=>{
+        notification.notify({
+            title : 'Success',
+            text : message,
+            type : 'success'
+        })
+    }
+    const infoFailed = (message)=>{
+        notification.notify({
+            title : 'Failed',
+            text : message,
+            type : 'danger'
+        })
+    }
     const changeRole = ()=>{
-        user.updateUser(props.users.id,role)
+        sysAdmin.updateUser(props.users.id,role)
         .then(res => {
-            console.log(res);
+            infoSuccess(res.message)
             close(true)
-        }).catch(err => console.log(err))
+        })
+        .catch(error => infoFailed(error))
         .finally(()=>close(false))
     }
     const changePassword = (id)=>{
@@ -114,10 +130,10 @@ const v$ = useVuelidate(rules, payload)
         if (v$.value.$invalid) return
         sysAdmin.resetPassword(id,payload)
         .then(res =>{
-            console.log(res.message);
+           infoSuccess(res.message)
             close(true)
         })
-        .catch(error => console.log(error))
+        .catch(error => infoFailed(error))
         .finally(()=>close(false))
     }
     const deactivateAccount = (id)=>{
@@ -125,20 +141,20 @@ const v$ = useVuelidate(rules, payload)
             toggle.value = !toggle.value
         }
         sysAdmin.deactivateAccount(id,toggle.value)
-        .then(res => {
-            console.log(res)
+        .then((res) => {
+            infoSuccess(res.message)
             close(true)
         })
-        .catch(error => console.log(error))
+        .catch(error => infoFailed(error))
         .finally(()=>close(false))
     }
 
 watch(props,(newVal)=> {
     if (!newVal.users.active) {
-        label.value = 'Activated'
+        label.value = 'Activate'
     }else{
 
-        label.value = 'Deactivated'
+        label.value = 'Deactivate'
     }
 })
 </script>
