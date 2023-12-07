@@ -67,7 +67,7 @@
 
 <script setup>
 
-import { reactive,ref, watchEffect,watch } from "vue";
+import { reactive,ref, watchEffect} from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
 import { inspectStore } from '@/store/AssetStore/inspectStore'
 
@@ -170,8 +170,6 @@ watchEffect(()=>{
         warnInfo.value = 'Max is 255 character!'
     } else {warnInfo.value = ''}
 })
-
-watch(fileUpload,(a,b)=> console.log(a.length,b.length))
 
 </script>
 <style scoped>

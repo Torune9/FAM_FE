@@ -142,7 +142,6 @@ const add = async () => {
             InfoSuccess(res.data.message)
             close(true)
         }).catch(error => {
-            console.log(error);
             const { data: { message } } = error.response
             InfoError(message)
         })

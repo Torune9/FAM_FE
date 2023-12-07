@@ -8,59 +8,49 @@
                     </li>
                 </ul>
             </ItemDropDown>
-            <!-- <ItemDropDown @click="showRoleModal($event)">
-                Change Role Account
-            </ItemDropDown>
-            <ItemDropDown>
-                Deactivate Account
-            </ItemDropDown>
-            <ItemDropDown @click="showReset($event)">
-                Reset Password
-            </ItemDropDown> -->
         </main>
     </Transition>
 </template>
 <script setup>
-import { inject, ref } from 'vue'
+import { inject , watchEffect ,ref} from 'vue'
 import ItemDropDown from './ItemDropDown.vue'
 
 const active = inject('isActive')
-const data = ref({})
-const value = ref(false)
-defineProps({
+const props = defineProps({
     datas : {
         type : Object,
         default : ()=>{}
     },
 })
+const role = ref(false)
 
-const emits = defineEmits(['showRoleModal', 'showResetModal', 'showDeactivateAccount'])
-// const showRoleModal = (event) => {
-//     emits('showRoleModal',event,value,data)
-// }
-// const showReset = (event) => {
-//     emits('showResetModal',event,value,data)
-// }
+const emits = defineEmits(['showRoleModal'])
 const items = [
     {
         menu : 'Change Role Account',
         method : (event) => {
-        emits('showRoleModal',event,value,data)
+        emits('showRoleModal',event)
         }
     },
     {
-        menu : 'Deactivate Account',
+        menu : '',
         method : (event) => {
-            emits('showRoleModal',event,value,data)
+            emits('showRoleModal',event)
         }
     },
     {
         menu : 'Reset Password',
         method : (event) => {
-            emits('showResetModal',event,value,data)
+            emits('showRoleModal',event)
         }
     }
 ]
+
+watchEffect(()=>{
+    role.value = props.datas[0].active
+    role.value == true ? items[1].menu = 'Deactivated Account' :  items[1].menu = 'Activated Account'
+    
+})  
 
 </script>
 <style scoped>
