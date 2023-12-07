@@ -13,10 +13,14 @@
             </ModalBox>
 
             <div class="flex items-center mt-4">
-                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search"><small>search</small></label>
-                <input v-model="search" class="outline-none border-l-0 focus:border-red-400 border-2 border-red-600 rounded-tr rounded-br w-1/2 h-8 text-center" type="text" id="search">
+                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white"
+                    for="search">
+                    <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                </label>
+                <input v-model="search"
+                    class="outline-none border-2 focus:border-red-400 border-l-0 border-red-600 rounded-tr rounded-br w-1/2 h-8 pl-5"
+                    type="text" id="search" placeholder="search category...">
             </div>
-
             <br>
 
             <div class="flex items-center w-40 h-6 mb-3">
@@ -31,13 +35,13 @@
                             <template v-if="!item.is_deleted">
                                 
                                 <div @click="onUpdate(item)">
-                                    <button class=" hover:bg-blue-600 text-white transition-all duration-300 text-[font-size:8px] font-light w-10 rounded bg-blue-700">
+                                    <button class=" hover:bg-blue-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-700 p-1">
                                         <font-awesome-icon icon="fa-solid fa-pen-to-square" />
                                     </button>
                                 </div>
 
                                 <div @click="onDelete(item)">
-                                    <button class=" hover:bg-red-400 text-white transition-all duration-300 text-[font-size:8px]  font-light w-14 rounded bg-red-500">
+                                    <button class=" hover:bg-red-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-red-700 p-1">
                                         <font-awesome-icon icon="fa-solid fa-trash-can" />
                                     </button>
                                 </div>
@@ -45,7 +49,7 @@
                             </template>
 
                             <div v-else>
-                                <button @click="onRestore(item)" class=" bg-blue-600 w-20 rounded text-white font-light hover:bg-blue-500 transition-all duration-300">
+                                <button @click="onRestore(item)" class=" hover:bg-blue-500 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-400 p-1">
                                     <font-awesome-icon icon="fa-solid fa-trash-can-arrow-up" />
                                 </button>
                             </div>
