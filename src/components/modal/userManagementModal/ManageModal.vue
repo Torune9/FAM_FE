@@ -7,7 +7,7 @@
                         <h1>{{ title }}</h1>
                     </div>
                     <hr>
-                    <div v-if="title == 'Change Role Account'">
+                    <div v-if= "id == 1">
                         <small class="font-barlow">Change role for user {{ users.username }},userID&nbsp;({{ users.id }})&nbsp;&#63;</small>
                         <label for="role">
                             <select @change="show" v-model="role.roleId" name="role" id="role" class="border border-slate-500 w-28 rounded font-bold text-sm">
@@ -20,7 +20,7 @@
                             <small>save</small>
                         </button>
                     </div>
-                    <div v-else-if="title == 'Deactivated Account' || title == 'Activated Account'">
+                    <div v-else-if="id == 2">
                         <small class="font-barlow text-[11px]">{{ label }} account for user {{ users.username }},userID&nbsp;({{ users.id }})&nbsp;&#63;</small>
                         <div class="flex items-center gap-5">
                             <label for="active" class="w-32">
@@ -32,7 +32,7 @@
                             <small>save</small>
                         </button>
                     </div>
-                    <div v-else-if="title == 'Reset Password'">
+                    <div v-else-if="id == 3">                      
                         <small class="font-barlow text-[11px]">Reset password for user {{ users.username }},userID&nbsp;({{ users.id }})&nbsp;&#63;</small>
                        <div>
                         <label for="reset">
@@ -91,6 +91,9 @@
         },
         title : {
             default : ''
+        },
+        id :{
+            type : Number
         }
     })
     const role = reactive({

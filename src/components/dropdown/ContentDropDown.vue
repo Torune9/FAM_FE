@@ -3,7 +3,7 @@
         <main v-if="active" class="absolute z-10 right-[20%] top-6">
             <ItemDropDown>
                 <ul>
-                    <li class=" border-b p-1 cursor-pointer" v-for="item,i of items" :key="i" @click="item.method($event)">
+                    <li :id="item.id" class=" border-b p-1 cursor-pointer" v-for="item,i of items" :key="i" @click="item.method($event)">
                         {{ item.menu }}
                     </li>
                 </ul>
@@ -28,19 +28,22 @@ const emits = defineEmits(['showRoleModal'])
 const items = [
     {
         menu : 'Change Role Account',
-        method : (event) => {
+        id : 1,
+        method : function (event) {
         emits('showRoleModal',event)
         }
     },
     {
         menu : '',
-        method : (event) => {
+        id : 2,
+        method : function(event) {
             emits('showRoleModal',event)
         }
     },
     {
         menu : 'Reset Password',
-        method : (event) => {
+        id : 3,
+        method :function (event) {
             emits('showRoleModal',event)
         }
     }

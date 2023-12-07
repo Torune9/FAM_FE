@@ -67,6 +67,7 @@ const headers = [
 ]
 
 const showModal = (event,value,items)=>{
+    id.value = parseInt(event.target.id,10)
     title.value = event.target.innerText
     showChange.value = !value
     datas.value = items
