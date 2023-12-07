@@ -102,7 +102,6 @@ const update = async () => {
             InfoSuccess(res.data.message)
             close(true)
         }).catch(error => {
-            console.log(error.response);
             const { data: { message } } = error.response
             InfoError(message)
         }).finally(()=> loading.value = false)
