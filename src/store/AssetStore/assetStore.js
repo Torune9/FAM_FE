@@ -28,12 +28,6 @@ export const assetStore = defineStore('asset',{
                 return res.data
             })
         },
-        async trueDeleted(id){
-            return api.delete(`asset/${id}/deleted`)
-            .then(res => {
-                return res.data
-            })
-        },
         async restoreAsset(id){
             return api.put(`asset/${id}/restore`)
             .then(res => {
