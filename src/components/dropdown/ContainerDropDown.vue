@@ -1,26 +1,31 @@
 <template>
     <main class="relative">
-        <div class="flex justify-center items-center">
+        <div>
             <button @click="isDrop" type="button"
-                class="inline bg-indigo-700 text-indigo-300 font-bold text-[10px] p-1 rounded-tl rounded-bl hover:bg-indigo-800 cursor-pointer">
-                    Manage
+                class=" hover:bg-indigo-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-indigo-700 p-1">
+                <font-awesome-icon icon="fa-solid fa-gear" size="lg" />
             </button>
-            <span>
-                <button @click="isDrop" type="button"
-                    class="bg-indigo-600 w-6 h-[23px] rounded-tr rounded-br hover:bg-indigo-500 text-indigo-200 flex justify-center items-center">
-                    <font-awesome-icon icon="fa-solid fa-gear" />
-                </button>
-            </span>
         </div>
-        <slot />
+        <slot/>
     </main>
 </template>
 <script setup>
-import { ref, provide} from 'vue'
+import { provide,ref, watch} from 'vue'
 
 const isActive = ref(false)
+const props = defineProps({
+    closeDrop : {
+        type : Boolean
+    }
+})
+
 const isDrop = () => {
     isActive.value = !isActive.value
 }
+watch(props,(p)=>{
+    if (!p.closeDrop) {
+        isActive.value = false
+    }
+})
 provide('isActive', isActive)
 </script>
