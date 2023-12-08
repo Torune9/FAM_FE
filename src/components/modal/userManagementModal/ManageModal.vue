@@ -60,7 +60,7 @@
     import {sysAdminStore} from '@/store/UserStore/sysAdmin'
     import { reactive,computed,watch,ref} from 'vue';
     import { useVuelidate } from '@vuelidate/core';
-    import { required, minLength } from '@vuelidate/validators';
+    import { required } from '@vuelidate/validators';
     import { useNotification } from '@kyvg/vue3-notification';
     const options = ["USER","ADMIN","AUDITHOR","SYSADMIN","INSPECTOR"]
     const notification = useNotification()
@@ -69,7 +69,6 @@
     return {
         newPassword: {
             required,
-            minLength: minLength(8)
             },
         }
     })
