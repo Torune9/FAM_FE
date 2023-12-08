@@ -1,6 +1,6 @@
 <template>
     <Transition name="item">
-        <main v-if="active" class="absolute z-10 right-[20%] top-6">
+        <main v-if="active" class="absolute z-10 right-[30%] top-6">
             <ItemDropDown>
                 <ul>
                     <li :id="item.id" class=" border-b p-1 cursor-pointer" v-for="item,i of items" :key="i" @click="item.method($event)">
@@ -52,7 +52,6 @@ const items = [
 watchEffect(()=>{
     role.value = props.datas[0].active
     role.value == true ? items[1].menu = 'Deactivated Account' :  items[1].menu = 'Activated Account'
-    
 })  
 
 </script>
