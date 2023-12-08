@@ -20,7 +20,7 @@
             <br>
             <EasyDataTable table-class-name="customize" :headers="headers" :items="users" :loading="loading" :rows-per-page= page :rows-items=[page]>
                 <template #item-action="items">
-                    <ContainerDropDownVue>
+                    <ContainerDropDownVue :close-drop="showChange">
                         <ContentDropDown :datas="users" @showRoleModal="showModal($event,showChange,items)"/>
                     </ContainerDropDownVue>
                 </template>
@@ -35,6 +35,7 @@ import ContentDropDown from '../../components/dropdown/ContentDropDown.vue';
 import ManageModal from '../../components/modal/userManagementModal/ManageModal.vue';
 import { onMounted,ref, watch} from 'vue';
 import {useUser} from '@/store/UserStore/userStore'
+
 
 const user = useUser()
 const id = ref()
