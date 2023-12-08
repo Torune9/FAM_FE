@@ -16,6 +16,16 @@
                     </div>
                     <div class="flex flex-col items-center group h-10">
                        <div class="flex items-center">
+                        <label for="email" class="border border-black rounded-tl rounded-bl w-8 text-center">
+                            <font-awesome-icon icon="fa-slid fa-envelope" size="sm"/>
+                        </label>
+                        <input v-model="payload.email" class="border border-l-0 group-hover:border-blue-700 p-2 text-black font-bold h-[26px] text-[11px] border-black outline-none w-48 rounded-tr rounded-br" type="email" name="email" id="email">
+                       </div>
+                        <p v-for="error,i of v$.email.$errors" :key="i" class="text-red-600 text-[10px]">
+                            {{ error.$message }}</p>
+                    </div>
+                    <div class="flex flex-col items-center group h-10">
+                       <div class="flex items-center">
                         <label for="password" class="border border-black rounded-tl rounded-bl w-8 text-center">
                             <font-awesome-icon icon="fa-slid fa-lock" size="sm"/>
                         </label>
@@ -65,12 +75,13 @@ const close = (value)=>{
 const payload = reactive({
     username : '',
     password : '',
-    email : 'new@gmail.com',
+    email : '',
 })
 const rules = computed(()=>{
     return {
         password : {required},
-        username : {required}
+        username : {required},
+        email : {required}
     }
 })
 const v$ = useVuelidate(rules,payload)
