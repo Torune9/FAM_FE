@@ -8,7 +8,7 @@
             </NavBar>
             <SideBar/>
         </nav>
-        <div class="-z-10 max-h-screen pl-[21%] pr-2 pt-[6%] min-[300px]:pt-20 ">
+        <div class="-z-10 max-[800px]:pl-[32%] max-h-screen pl-[21%] pr-2 pt-[6%] min-[300px]:pt-20 ">
             <CreateAccount :isActive="showCreate" @close="closeModal"/>
             <slot/>
         </div>
@@ -23,7 +23,6 @@
     const showCreate = ref(false)
     const create = (data) => {
         showCreate.value = !data.value
-        console.log(showCreate.value);
     }
     const closeModal = () => {
         showCreate.value = false
