@@ -58,7 +58,7 @@ import MainLayout from '../../layout/MainLayout.vue';
 import { masterStore } from '@/store/AssetStore/masterAssetStore';
 import { onMounted,ref,watch }from "vue"
 import MasterModal from '../../components/modal/assetManagementModal/MasterModal.vue';
-import { useNotification } from '@kyvg/vue3-notification';
+import { info, infoWarning } from '../../service/notification';
 
 const master = masterStore()
 const dataMaster = ref([])
@@ -83,21 +83,6 @@ const headers = [
         value : 'action'
     }
 ]
-
-const notification = useNotification()
-
-const warnDelete = (message) => {
-    notification.notify({
-        title: message,
-        type: 'error'
-    });
-}
-const restoreInfo = (message) => {
-    notification.notify({
-        title: message,
-    });
-}
-
 
 const btnCreate = () => {
     showModal.value = true
@@ -139,7 +124,7 @@ const onUpdate = async (item) => {
 const onDelete = (item) => {
     master.deleteMaster(item.id)
         .then((res) => {
-            warnDelete(res.message)
+            infoWarning(res.message)
             getData()
         })
         .catch(error => console.log(error))
@@ -147,7 +132,7 @@ const onDelete = (item) => {
 const onRestore = (item) => {
     master.restoreMaster(item.id)
         .then(res => {
-            restoreInfo(res.message)
+            info(res.message)
             getData()
         })
 }
