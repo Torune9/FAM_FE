@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { infoError,infoSuccess } from '../../service/notification';
 
 import router from '../../router';
 
@@ -8,10 +9,11 @@ import api from '../../service/api'
 
 export const loginStore = defineStore('login', {
   state: () => ({
-    eror: '',
+    error: '',
     token: null,
     user: {},
-    message : ''
+    id : '',
+    profile:''
   }),
 
   persist: true,
@@ -21,56 +23,71 @@ export const loginStore = defineStore('login', {
   },
 
   actions: {
-    async signIn(payload,info) {
-      const response = await api.post(`api/authentication/login`, payload)
+    async signIn(payload) {
+      try {
+        const response = await api.post(`api/authentication/login`, payload)
+        const { data: 
+          { token,
+            user : {id,image} 
+          },
+          message,
+        } = response.data
+        const decoded = jwtDecode(token);
 
-      if (response.data.code == 406) {
-        this.eror = response.data.message
-        return this.eror
-      }else{
-        response.data.message
+        this.token = token
+        this.user = decoded
+        this.id = id
+        this.profile = image
+        
+        if (this.user.username == payload.username) {
+        infoSuccess(message)
+          return router.push({
+            path: '/dashboard'
+          })
+        }
+        
+      } catch (error) {
+          const err = error.response.data.message
+          infoError(err)
+          return error
       }
 
-      const { data: { token},message } = response.data
-      const decoded = jwtDecode(token);
-      this.token = token
-      this.user = decoded
-      this.message = message
-      
-      if (this.user.username == payload.username) {
-        info()
-        return router.push({
-          path: '/dashboard'
-        })
-      }
+
     },
-    async signUp(payload,info) {
+    async signUp(payload) {
       return api.post('api/register',payload)
       .then(res => {
-        console.log(res);
         if (res.data.status) {
           this.message = res.data.message
-          info()
-            return router.push({
+          infoSuccess(this.message)
+          return router.push({
               path: '/'
             })
         }
       })
       .catch(error => {
-        console.log(error);
-       this.eror = error.response.data.message
+       this.error = error.response.data.message
+       infoError(this.error)
+       return error
       })
     },
     logout() {
       this.token = null;
       this.user = null;
-      this.eror = null
+      this.error = null
        setTimeout(()=>{
         localStorage.clear()
         router.replace("/")
        },500)
        
     },
+    async getImage(id){
+      return api.get(`/api/image/${id}`)
+      .then(res => {
+        const {data:{user:{image:{img}}}} = res.data
+        this.profile = img
+      })
+    }
   },
   
 });
