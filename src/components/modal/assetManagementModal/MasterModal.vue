@@ -33,30 +33,14 @@
 <script setup>
 import { masterStore } from '@/store/AssetStore/masterAssetStore';
 import { reactive, watch,ref, watchEffect } from 'vue';
-import { useNotification } from "@kyvg/vue3-notification";
-
 import BaseModal from './../BaseModal.vue';
+import { infoSuccess,infoError } from '../../../service/notification';
 
-const notification = useNotification()
 const loading = ref(false)
+
 const text = ref('')
 
 const master = masterStore()
-const InfoError = (message) => {
-    notification.notify({
-        title: 'Failed',
-        text: message,
-        type: 'error'
-    });
-}
-
-const InfoSuccess = (message) => {
-    notification.notify({
-        title: 'Success',
-        text: message,
-        type: 'success'
-    });
-}
 
 const props = defineProps({
     modalPop: {
@@ -86,11 +70,11 @@ const add = async () => {
 
     await master.addMaster(payload)
         .then((res) => {
-            InfoSuccess(res.data.message)
+            infoSuccess(res.data.message)
             close(true)
         }).catch(error => {
             const { data: { message } } = error.response
-            InfoError(message)
+            infoError(message)
         }).finally(()=> loading.value = false)
 
 }
@@ -99,11 +83,11 @@ const update = async () => {
     const id = props.data.id;
     await master.updateMaster(id, payload)
         .then((res) => {
-            InfoSuccess(res.data.message)
+            infoSuccess(res.data.message)
             close(true)
         }).catch(error => {
             const { data: { message } } = error.response
-            InfoError(message)
+            infoError(message)
         }).finally(()=> loading.value = false)
 
 }

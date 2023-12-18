@@ -64,31 +64,16 @@
 </template>
 <script setup>
 import { reactive, watch } from 'vue';
-import { useNotification } from "@kyvg/vue3-notification";
 import { assetStore } from '@/store/AssetStore/assetStore';
 import { categoryStore } from '@/store/AssetStore/categoryStore';
 import { onMounted, ref } from 'vue'
-const notification = useNotification()
+import {infoSuccess,infoError, infoWarning} from '../../../service/notification'
+
 const categories = categoryStore()
 const category = ref([])
 const loading = ref(false)
 
 const asset = assetStore()
-const InfoError = (message) => {
-    notification.notify({
-        title: 'Failed to add',
-        text: message,
-        type: 'error'
-    });
-}
-
-const InfoSuccess = (message) => {
-    notification.notify({
-        title: 'Success',
-        text: message,
-        type: 'success'
-    });
-}
 
 const props = defineProps({
     modalPop: {
@@ -139,11 +124,11 @@ const add = async () => {
     loading.value = true
     await asset.addAsset(payload)
         .then((res) => {
-            InfoSuccess(res.data.message)
+            infoSuccess(res.data.message)
             close(true)
         }).catch(error => {
             const { data: { message } } = error.response
-            InfoError(message)
+            infoError(message)
         })
         .finally(()=> loading.value = false)
 
@@ -153,11 +138,11 @@ const update = async () => {
     const id = props.data.id;
     await asset.updateAsset(id, payload)
         .then((res) => {
-            InfoSuccess(res.data.message)
+            infoSuccess(res.data.message)
             close(true)
         }).catch(error => {
             const { data: { message } } = error.response
-            InfoError(message)
+            infoWarning(message)
         })
         .finally(()=>loading.value = false)
 

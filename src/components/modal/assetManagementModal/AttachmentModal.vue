@@ -77,7 +77,8 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { inspectStore } from '@/store/AssetStore/inspectStore.js'
-import { useNotification } from '@kyvg/vue3-notification';
+import { infoError, infoSuccess } from '../../../service/notification';
+
 const inspect = inspectStore()
 const file = ref(null)
 const fileInput = ref([])
@@ -94,24 +95,10 @@ const props = defineProps({
         }
     }
 })
+
 const loading = ref(false)
 
 const emit = defineEmits(['close'])
-const notification = useNotification()
-const infoError = (message) => {
-    notification.notify({
-        title: "Failed",
-        text: message,
-        type: 'error'
-    })
-}
-const InfoSuccess = (message) => {
-    notification.notify({
-        title: "success",
-        text: message,
-        type: 'success'
-    })
-}
 
 const close = (needRefresh) => {
     fileInput.value = ''
@@ -176,7 +163,7 @@ const createAttachment = () => {
             .then((res) => {
                 close(false)
                 message.value = res.data.message
-                InfoSuccess(message.value)
+                infoSuccess(message.value)
             }).catch(error => {
                 message.value = error.response.data.message
                 infoError(message.value)

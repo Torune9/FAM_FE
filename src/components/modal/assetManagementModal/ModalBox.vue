@@ -39,26 +39,10 @@
 <script setup>
 import { watch, reactive,ref } from "vue";
 import { categoryStore } from '@/store/AssetStore/categoryStore';
-import { useNotification } from "@kyvg/vue3-notification";
+import { infoSuccess,infoError } from "../../../service/notification";
 
-const notification = useNotification()
 const loading = ref(false)
 
-const InfoError = (message) => {
-    notification.notify({
-        title: 'Failed',
-        text: message,
-        type: 'error'
-    });
-}
-
-const InfoSuccess = (message) => {
-    notification.notify({
-        title: 'Success',
-        text: message,
-        type: 'success'
-    });
-}
 const props = defineProps({
     modalPop: {
         type: Boolean,
@@ -98,12 +82,12 @@ const add = async () => {
 
     await category.addCategory(payload)
         .then((res) => {
-            InfoSuccess(res.data.message)
+            infoSuccess(res.data.message)
             close(true)
         })
         .catch(error => {
             const { data: { message } } = error.response
-            InfoError(message)
+            infoError(message)
         }).finally(() => loading.value = false)
 
 }
@@ -112,11 +96,11 @@ const update = async () => {
     const id = props.data.id;
     await category.updateCategory(id, payload)
         .then((res) => {
-            InfoSuccess(res.data.message)
+            infoSuccess(res.data.message)
             close(true)
         }).catch(error => {
             const { data: { message } } = error.response
-            InfoError(message)
+            infoError(message)
         }).finally(() => loading.value = false)
 
 }

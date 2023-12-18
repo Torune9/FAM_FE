@@ -68,11 +68,9 @@
 <script setup>
 
 import { reactive,ref, watchEffect} from "vue";
-import { useNotification } from "@kyvg/vue3-notification";
 import { inspectStore } from '@/store/AssetStore/inspectStore'
+import { infoError,infoSuccess } from "../../../service/notification";
 
-
-const notification = useNotification()
 const warnInfo = ref('')
 const loading = ref(false)
 const link = ref('')
@@ -81,21 +79,6 @@ const fileUpload = ref([])
 
 const inspect = inspectStore()
 
-const InfoError = (message) => {
-    notification.notify({
-        title: 'Failed',
-        text: message,
-        type: 'error'
-    });
-}
-
-const InfoSuccess = (message) => {
-    notification.notify({
-        title: 'Success',
-        text: message,
-        type: 'success'
-    });
-}
 
 const props = defineProps({
     modalPop: {
@@ -155,11 +138,11 @@ const create = async () => {
     await inspect.addInspect(code,formData)
         .then((res) => {
             close(true)
-            InfoSuccess(res.data.message)
+            infoSuccess(res.data.message)
         })
         .catch(error => {
             const { data: { message } } = error.response
-            InfoError(message)
+            infoError(message)
         }).finally(()=> {
             loading.value = false
             URL.revokeObjectURL(fileUpload.value)
