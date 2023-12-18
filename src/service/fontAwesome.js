@@ -21,7 +21,8 @@ import {
     faShoePrints,
     faTableList,
     faWindowMaximize,
-    faFileCircleQuestion
+    faFileCircleQuestion,
+    faBars
 } from '@fortawesome/free-solid-svg-icons'
 import { faSquareCheck} from '@fortawesome/free-regular-svg-icons'
 
@@ -50,7 +51,8 @@ export default {
             faShoePrints,
             faTableList,
             faWindowMaximize,
-            faFileCircleQuestion
+            faFileCircleQuestion,
+            faBars
             )
     }
 }
