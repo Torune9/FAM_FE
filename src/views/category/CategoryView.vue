@@ -5,7 +5,8 @@
                 <h1>Categories</h1>
             </div>
             <div>
-                <button class="p-2 bg-pencil rounded text-white font-semibold hover:bg-slate-400" @click="btnCreate"> Add Category
+                <button class="p-2 bg-pencil rounded text-white font-semibold hover:bg-slate-400" @click="btnCreate"> Add
+                    Category
                 </button>
             </div>
 
@@ -13,8 +14,7 @@
             </ModalBox>
 
             <div class="flex items-center mt-4">
-                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white"
-                    for="search">
+                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search">
                     <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                 </label>
                 <input v-model="search"
@@ -29,19 +29,22 @@
             </div>
 
             <div>
-                <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="items" :loading="loading" alternating border-cell :rows-per-page=7 :rows-items=[7]  buttons-pagination>
+                <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="items" :loading="loading"
+                    alternating border-cell :rows-per-page=7 :rows-items=[7] buttons-pagination>
                     <template #item-action="item">
                         <div class="flex flex-row gap-2">
                             <template v-if="!item.is_deleted">
-                                
+
                                 <div @click="onUpdate(item)">
-                                    <button class=" hover:bg-blue-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-700 p-1">
+                                    <button
+                                        class=" hover:bg-blue-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-700 p-1">
                                         <font-awesome-icon icon="fa-solid fa-pen-to-square" />
                                     </button>
                                 </div>
 
                                 <div @click="onDelete(item)">
-                                    <button class=" hover:bg-red-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-red-700 p-1">
+                                    <button
+                                        class=" hover:bg-red-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-red-700 p-1">
                                         <font-awesome-icon icon="fa-solid fa-trash-can" />
                                     </button>
                                 </div>
@@ -49,7 +52,8 @@
                             </template>
 
                             <div v-else>
-                                <button @click="onRestore(item)" class=" hover:bg-blue-500 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-400 p-1">
+                                <button @click="onRestore(item)"
+                                    class=" hover:bg-blue-500 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-400 p-1">
                                     <font-awesome-icon icon="fa-solid fa-trash-can-arrow-up" />
                                 </button>
                             </div>
@@ -68,9 +72,7 @@ import { categoryStore } from "@/store/AssetStore/categoryStore"
 import ModalBox from '../../components/modal/assetManagementModal/ModalBox.vue';
 
 import { onMounted, ref, watch } from 'vue';
-import { useNotification } from "@kyvg/vue3-notification";
-
-const notification = useNotification()
+import { info, infoWarning } from '../../service/notification';
 
 const category = categoryStore()
 const items = ref([])
@@ -81,18 +83,6 @@ const showModal = ref(false)
 const btnAdd = ref(false)
 const btnUpdate = ref(false)
 const content = ref()
-
-const warnDelete = (message)=>{
-    notification.notify({
-  title: message,
-  type : 'error'
-});
-}
-const restoreInfo = (message)=>{
-    notification.notify({
-  title: message,
-});
-}
 
 const headers = [
     {
@@ -112,7 +102,7 @@ const headers = [
 watch(() => [is_deleted.value, search.value], () => {
     getData()
 })
- 
+
 const getData = () => {
 
     loading.value = true
@@ -135,8 +125,9 @@ const getData = () => {
 const onDelete = (item) => {
     category.deleteCategory(item.id)
         .then((res) => {
-            warnDelete(res.data.message)
-            getData()})
+            infoWarning(res.data.message)
+            getData()
+        })
 }
 
 const onUpdate = async (item) => {
@@ -149,7 +140,7 @@ const onRestore = (item) => {
     category.restoreCategory(item.id)
         .then((res) => {
             getData()
-            restoreInfo(res.data.message)
+           info(res.data.message)
         })
 }
 
@@ -178,9 +169,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-    .customizing-table{
-        --easy-table-header-background-color: #346751;
-        --easy-table-header-font-color: #ffff;
-        font-weight: 900;
-    }
-</style>
+.customizing-table {
+    --easy-table-header-background-color: #346751;
+    --easy-table-header-font-color: #ffff;
+    font-weight: 900;
+}</style>
