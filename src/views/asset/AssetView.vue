@@ -88,7 +88,7 @@ import { ref, onMounted, watch } from 'vue'
 import { assetStore } from '@/store/AssetStore/assetStore'
 import InspectModal from '../../components/modal/assetManagementModal/InspectModal.vue';
 import AssetModal from '../../components/modal/assetManagementModal/AssetModal.vue';
-import { useNotification } from '@kyvg/vue3-notification';
+import { info, infoWarning } from '../../service/notification';
 
 const asset = assetStore()
 const btnUpdate = ref(false)
@@ -100,7 +100,6 @@ const btnInspect = ref(false)
 const search = ref()
 const is_deleted = ref()
 const loading = ref(false)
-const notification = useNotification()
 const items = ref([])
 const rows = 5
 const headers = [
@@ -137,17 +136,6 @@ const headers = [
         value: 'countdown'
     }
 ]
-const warnDelete = (message) => {
-    notification.notify({
-        title: message,
-        type: 'error'
-    });
-}
-const restoreInfo = (message) => {
-    notification.notify({
-        title: message,
-    });
-}
 
 const onInspect = (item) => {
     content.value = item
@@ -190,14 +178,14 @@ const onUpdate = async (item) => {
 const onDelete = (item) => {
     asset.deleteAsset(item.id)
         .then((res) => {
-            warnDelete(res.message)
+            infoWarning(res.message)
             getAsset()
         })
 }
 const onRestore = (item) => {
     asset.restoreAsset(item.id)
         .then(res => {
-            restoreInfo(res.message)
+            info(res.message)
             getAsset()
         })
 }

@@ -81,11 +81,9 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, minLength } from '@vuelidate/validators';
 import { loginStore } from '@/store/UserStore/loginStore'
 import { onMounted, reactive, computed, ref } from 'vue';
-import { useNotification } from '@kyvg/vue3-notification';
 import LoadingSpinner from '../../components/utilComponent/LoadingSpinner.vue';
 
 const auth = loginStore()
-const notification = useNotification()
 const loading = ref(false)
 const type = ref('password')
 
@@ -95,13 +93,6 @@ const showHide = () => {
 }
 
 const eye = ref("fa-solid fa-eye")
-
-const InfoSuccess = () => {
-    notification.notify({
-        text: auth.message,
-        type: 'success'
-    })
-}
 
 const form = reactive({
     username: '',
@@ -126,7 +117,7 @@ const register = () => {
     v$.value.$touch()
     if (v$.value.$invalid) return
     loading.value = true
-    auth.signUp(form, InfoSuccess)
+    auth.signUp(form)
         .finally(() => {
             loading.value = false
         })
