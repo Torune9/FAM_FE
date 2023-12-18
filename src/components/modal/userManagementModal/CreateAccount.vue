@@ -51,23 +51,18 @@
 
 <script setup>
 import { computed, reactive } from 'vue';
-import { useNotification } from '@kyvg/vue3-notification';
 import {loginStore} from '../../../store/UserStore/loginStore'
 import {useVuelidate} from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
-const users = loginStore()
-const notification = useNotification()
-const infoSuccess = ()=>{
-    notification.notify({
-    title : 'Success',
-    type : 'success'
-})
-}
+
 defineProps({
     isActive : {
         type : Boolean
     }
 })
+
+const users = loginStore()
+
 const emits = defineEmits(['close'])
 const close = (value)=>{
     emits('close',value)
@@ -88,7 +83,7 @@ const v$ = useVuelidate(rules,payload)
 const createAccount = async ()=>{
     v$.value.$touch()
     if (v$.value.$invalid) return
-    await users.signUp(payload,infoSuccess)
+    await users.signUp(payload)
     close()
 }
 </script>
