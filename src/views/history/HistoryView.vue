@@ -36,14 +36,8 @@
     const assets = ref([])
     const search = ref()
     const loading = ref(false)
-
     const rows = ref(8) 
-    const url = import.meta.env.VITE_APP_BASE_URL
-
-    const routes = (code)=>{
-        return `/detail/${code}`
-    }
-    const link = (file) => url + 'resources/' + file
+    
     const headers = [
         {
             text :'Asset Code',
@@ -79,7 +73,6 @@
         
         inspect.getHistory(payload)
         .then(res =>{
-            console.log(res.result.data);
             datas.value = res.result.data
         })
         .finally(()=>{
@@ -94,6 +87,10 @@
         })
     }
     
+    const routes = (code)=>{
+        return `/detail/${code}`
+    }
+
     watch(()=>search.value,()=>{
        getHistory()
     })
