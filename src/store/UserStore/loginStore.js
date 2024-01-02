@@ -20,6 +20,8 @@ export const loginStore = defineStore('login', {
 
   getters: {
     isLogged: state => !!state.token,
+    getProfile : state => state.profile,
+    getUsername : state => state.user.username
   },
 
   actions: {
@@ -72,12 +74,12 @@ export const loginStore = defineStore('login', {
       })
     },
     logout() {
-      this.token = null;
-      this.user = null;
-      this.error = null
-       setTimeout(()=>{
+      setTimeout(()=>{
         localStorage.clear()
-        router.replace("/")
+        this.token = ''
+        this.user = {}
+        this.error = ''
+        router.replace('/')
        },500)
        
     },
@@ -86,6 +88,13 @@ export const loginStore = defineStore('login', {
       .then(res => {
         const {data:{user:{image:{img}}}} = res.data
         this.profile = img
+      })
+    },
+    async getUsernameById(id){
+      return api.get(`/api/username/${id}`)
+      .then(res => {
+        const {data:{user:{username}}} = res.data
+        this.user.username = username
       })
     }
   },
