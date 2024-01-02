@@ -1,84 +1,117 @@
 <template>
     <Transition name="modal">
-        <main v-if="modalPop" class="h-screen w-screen fixed z-10">
-            <div class="absolute bottom-24 border" v-show="modalPop">
+        <main v-if="modalPop"
+            class="h-screen w-screen z-50 fixed top-14 max-[400px]:z-50 max-[400px]:left-5 max-[400px]:top-10">
+            <div
+                class="text-white font-semibold text-sm bg-slate-800 left-0 flex rounded-t justify-center items-center h-10 w-[400px] max-[400px]:w-[350px]">
+                <h1>Inspection asset : {{ props.data.name }}</h1>
+            </div>
+            <div class=" relative w-fit max-[400px]:max-h-[550px] max-h-[430px] overflow-y-auto " v-show="modalPop">
                 <div v-if="modalPop"
-                    class=" bg-white max-w-80 h-fit rounded-md relative flex  flex-wrap justify-center flex-col pl-4 pr-4 border border-black">
-                    <div
-                        class="absolute top-0 text-white font-semibold text-sm bg-slate-800 w-full left-0 flex rounded-t justify-center items-center h-10">
-                        <h1>Inspection asset : {{ props.data.name }}</h1>
-                    </div>
-                    <div class="mt-10">
-                        <label class="font-bold font-barlow text-sm" for="inspector">Inspector</label>
-                        <br>
-                        <input v-model="payload.inspector" type="text" name="inspector" id="inspector"
-                            class="w-48 rounded h-8  text-black border-black border-2 text-sm text-center outline-none  focus:border-slate-700">
-                    </div>
+                    class=" bg-white w-[400px] max-[400px]:w-[350px]  relative flex overflow-y-auto overflow-x-hidden justify-center flex-col pl-4 pr-4 border border-black border-t-0">
                     <div>
+                        <label for="status" class="hidden"/>
+                        <br>
+                        <select v-model="payload.status" name="status" id="status">
+                            <option disabled value="">Please select status</option>
+                            <option :value="data.status" v-for="data, i of status" :key="i">
+                                {{ data.status }}
+                            </option>
+                        </select>
+                    </div>
+                    <!-- <div>
                         <label class="font-bold font-barlow text-sm" for="status">Status</label>
                         <br>
                         <input v-model="payload.status" type="text" name="status" id="status"
                             class="w-48 rounded h-8  text-black border-black border-2 text-sm text-center outline-none  focus:border-slate-700">
+                    </div> -->
+                    <div class="border border-black/50 h-fit w-80 p-2 rounded  flex justify-center items-center mt-4">
+                        <PictureInspect @save="save" />
                     </div>
-                    <div>
-                        <label for="file" class="flex justify-center items-center bg-green-500 rounded mt-2 w-48 hover:bg-green-400 transition-all cursor-pointer border-2 border-green-600 p-2">
-                            <font-awesome-icon icon="fa-solid fa-images" size="xl"/>
-                        </label>
-                        <input @change="setFile" ref="file" class="hidden" type="file" name="file" id="file">
-                        <div v-if="fileUpload.length > 0" >
-                            <div class="text-[10px] max-w-[70%] rounded bg-blue-500 p-1 mt-1 text-white relative" v-for="file,i of fileUpload" :key="i">
-                               <p> {{ i+1 }}. {{ file.name }} </p>
-                                <button @click="fileUpload.shift()" class="absolute -right-1 -top-1 text-slate-900 hover:text-red-700 cursor-pointer transition-all">
-                                    <font-awesome-icon icon="fa-solid fa-circle-xmark" size="xl"/>
-                                </button>
+                    <div class="mb-2 mt-2">
+                        <label for="file">
+                            <div
+                                class="bg-green-500 text-white rounded w-32 h-12 flex justify-center items-center group cursor-pointer hover:bg-green-400 transition-all duration-200 hover:border hover:border-black">
+                                <small>
+                                    Select a file
+                                </small>
                             </div>
-                            <figure class="absolute -right-[135px] bottom-0 w-32 overflow-hidden rounded border flex justify-center items-center p-1" >
-                                <img :src="link" alt="source not found">
-                            </figure>
-                        </div>
+                        </label>
+                        <input multiple id="file" name="file" ref="file" @change="changeFile" type="file" class="file:mr-4 file:py-2 file:px-4
+                    file:rounded file:border-0 hidden
+                    file:text-[12px] file:font-semibold
+                    file:bg-blackCurrent file:text-violet-100
+                    hover:file:bg-slate-800 hover:file:cursor-pointer">
+                    </div>
+
+                    <div v-show="fileInput.length > 0" class="h-20 overflow-auto">
+
+                        <ul>
+                            <li class="bg-blue-500/20 relative m-1 pl-2 pr-2 border border-black font-semibold min-w-max h-8 rounded flex items-center text-[11px]"
+                                v-for="(file, index) in fileInput" :key="index">
+                                <small>
+                                    {{ `${index + 1}. ` + file.name }}
+                                </small>
+                                <p v-if="file.invalidMessage" class="text-red-600">
+                                    <small>&nbsp;-&nbsp;{{ file.invalidMessage }}</small>
+                                </p>
+                                <div @click="fileInput.splice(index, 1); uploadFiles.splice(index, 1)"
+                                    class=" cursor-pointer hover:bg-red-400 absolute -right-1 -bottom-1 text-white font-semibold bg-red-600 rounded-full flex justify-center items-center w-4 h-4 border border-black">
+                                    <small>x</small>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <div>
                         <label class="font-bold font-barlow text-sm" for="desc">Information</label>
                         <br>
                         <textarea maxlength="255" v-model="payload.information" spellcheck="false"
-                        class="outline-none ring-2 ring-black focus:border-slate-600 focus:border-2 rounded p-2 text-sm text-black font-bold min-[300px]:w-60"
-                        id="desc" cols="40" rows="5">
+                            class="outline-none ring-2 ring-black focus:border-slate-600 focus:border-2 rounded p-2 text-sm text-black font-bold min-[300px]:w-60"
+                            id="desc" cols="40" rows="5">
                     </textarea>
-                            <div class="text-sm -mt-2">
-                                <small class="text-yellow-500 animate-pulse">&#42;{{ warnInfo }}</small>
-                            </div>
+                        <div class="text-sm -mt-2">
+                            <small class="text-yellow-500 animate-pulse">&#42;{{ warnInfo }}</small>
                         </div>
+                    </div>
+                    <div class="w-full flex justify-end mb-2">
                         <button @click="create($event)"
-                        class="absolute sm:bottom-2 sm:right-2 bg-yellow-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-yellow-500 transition-all min-[300px]:-bottom-6 min-[300px]:-right-2">
-                        <p v-if="!loading">Create</p>
-                        <font-awesome-icon icon="fa-solid fa-spinner" class=" animate-spin" v-else/>
-                    </button>
-                        
-                        <button
-                        class="absolute -top-1 -left-1 text-red-600 hover:text-red-500 tranition-all duration-300"
-                        @click="close(false)">
-                            <font-awesome-icon icon="fa-solid fa-circle-xmark" size="xl"/>
+                            class="bg-yellow-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-yellow-500 transition-all min-[300px]:-bottom-6 min-[300px]:-right-2">
+                            <p v-if="!loading">Create</p>
+                            <font-awesome-icon icon="fa-solid fa-spinner" class=" animate-spin" v-else />
                         </button>
                     </div>
                 </div>
+            </div>
+
+            <button class="absolute -top-1 -left-1 text-red-600 hover:text-red-500 tranition-all duration-300"
+                @click="close(false)">
+                <font-awesome-icon icon="fa-solid fa-circle-xmark" size="xl" />
+            </button>
         </main>
     </Transition>
 </template>
 
 <script setup>
 
-import { reactive,ref, watchEffect} from "vue";
+import { onMounted, reactive, ref, watchEffect } from "vue";
 import { inspectStore } from '@/store/AssetStore/inspectStore'
-import { infoError,infoSuccess } from "../../../service/notification";
+import { loginStore } from '@/store/UserStore/loginStore'
+import { infoError, infoSuccess } from "../../../service/notification";
+import { assetStore } from '@/store/AssetStore/assetStore'
+import PictureInspect from "../../camera/PictureInspect.vue";
 
 const warnInfo = ref('')
 const loading = ref(false)
-const link = ref('')
-const file = ref(null)
-const fileUpload = ref([])
+const image = ref([])
 
 const inspect = inspectStore()
+const user = loginStore()
+const asset = assetStore()
 
+const file = ref(null)
+const fileInput = ref([])
+const uploadFiles = ref([])
+const status = ref([])
 
 const props = defineProps({
     modalPop: {
@@ -102,40 +135,85 @@ const emit = defineEmits(['close'])
 
 const payload = reactive({
     status: '',
-    inspector:'',
+    inspector: user.user.username,
     information: '',
 })
+
 
 
 const close = (needRefresh = false) => {
     payload.information = ''
     payload.status = ''
-    payload.inspector = ''
+    fileInput.value = []
     file.value = []
-    fileUpload.value = []
+    uploadFiles.value = []
     emit("close", needRefresh)
 }
 
-const setFile = ()=>{
-    const files = [...file.value.files]
-    fileUpload.value = files
-    link.value = URL.createObjectURL(fileUpload.value[0])
+const save = (data) => {
+    image.value.push(data)
+
 }
 
+const dataURLtoFile = (dataURL, filename) => {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
 
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+};
+
+const changeFile = () => {
+    const files = [...file.value.files]
+    uploadFiles.value = files
+    fileInput.value = [...files.map(file => {
+        return {
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            invalidMessage: validateFile(file)
+        }
+    })]
+}
+const validateFile = (file) => {
+    const type = [
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.template"
+    ]
+    const MAX_SIZE = 1000000
+
+    if (file.size > MAX_SIZE) {
+        return `Max size is 1mb`
+    }
+    if (!type.includes(file.type)) {
+        return `File is not .pdf or .doc`
+    }
+}
 const create = async () => {
+    const id = props.data.id
     const code = props.data.asset_code
-    const formData = new FormData();
-    loading.value = true
-
-        fileUpload.value.forEach(file => {
-            formData.append('files', file);
+    const formData = new FormData()
+    if (image.value.length > 0) {
+        image.value.forEach((image, index) => {
+            formData.append('files', dataURLtoFile(image, `image${index + 1}.png`));
         });
-        formData.append('status', payload.status);
-        formData.append('inspector', payload.inspector);
-        formData.append('information', payload.information);
-
-    await inspect.addInspect(code,formData)
+    }
+    uploadFiles.value.forEach(file => {
+        formData.append('files', file);
+    });
+    formData.append('status', payload.status);
+    formData.append('inspector', payload.inspector);
+    formData.append('information', payload.information);
+    loading.value = true
+    await inspect.createAttachment(id, code, formData)
         .then((res) => {
             close(true)
             infoSuccess(res.data.message)
@@ -143,15 +221,30 @@ const create = async () => {
         .catch(error => {
             const { data: { message } } = error.response
             infoError(message)
-        }).finally(()=> {
+        }).finally(() => {
             loading.value = false
-            URL.revokeObjectURL(fileUpload.value)
+            image.value = []
         })
 }
-watchEffect(()=>{
+
+const getStatus = () => {
+    asset.getStatus()
+        .then(res => {
+            const { data } = res.result
+            status.value = data
+        })
+        .catch(error => console.log(error))
+}
+
+onMounted(() => {
+    getStatus()
+})
+
+watchEffect(() => {
+    console.log(payload.status);
     if (payload.information.length > 100) {
         warnInfo.value = 'Max is 255 character!'
-    } else {warnInfo.value = ''}
+    } else { warnInfo.value = '' }
 })
 
 </script>
