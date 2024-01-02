@@ -2,7 +2,7 @@
     <aside>
         <Transition name="side">
             <nav
-                class="fixed top-0 bg-greyHunt text-zinc-100 w-[20%] p-4 h-screen z-50 max-[800px]:w-[30%] max[400px]:w-1/2 max-[800px]:top-[68px] max-[428px]:top-[72px]">
+                class="fixed top-0 bg-greyHunt text-zinc-100 w-[20%] p-4 h-screen z-50 max-[800px]:w-[30%] max[400px]:w-1/2">
                 <div class="flex flex-col gap-2 justify-center items-center">
                     <h1 class="text-center font-bold xl:text-2xl font-rubik max-[400px]:text-[10px]">M&nbsp;E&nbsp;N&nbsp;U</h1>
 
@@ -71,6 +71,7 @@ const links = [
         icon: 'fa-solid fa-users'
     },
 ]
+
 onMounted(() => {
     menus.value = links
     if (auth.user.role === 'ADMIN') {
