@@ -1,6 +1,6 @@
 <template>
     <Transition name="loading">
-        <main v-if="showLoad" class="fixed w-full h-full bg-black/30 z-10">
+        <main v-if="showLoad" class="fixed w-full h-full bg-black/30 z-50">
             <div class="w-full h-full flex justify-center items-center">
                 <div role="status">
                     <svg aria-hidden="true"
