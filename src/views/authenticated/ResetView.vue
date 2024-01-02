@@ -23,9 +23,9 @@
             </button>
           </div>
           <button class="p-1 rounded underline underline-offset-2 mt-2 hover:bg-white/30 duration-300 transition-all" type="button">
-            <router-link to="/">
+            <router-link to="/login">
               <small>
-                back
+                Back
               </small>
             </router-link>
           </button>
