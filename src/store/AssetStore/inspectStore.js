@@ -4,8 +4,8 @@ import {defineStore} from 'pinia'
 export const inspectStore = defineStore('inspection',{
     actions : 
     {
-        async addInspect(code,payload){
-                return api.post(`asset/${code}/inspection`,payload)
+        async addInspect(id,payload){
+                return api.post(`asset/${id}/inspection`,payload)
         },
         async getHistory(payload){
             return api.get(`asset/history/`,{params : payload})
@@ -13,8 +13,8 @@ export const inspectStore = defineStore('inspection',{
                 return res.data
             })
         },
-        async createAttachment(code,payload){
-            return api.post(`asset/attachment/${code}`,payload)
+        async createAttachment(id,code,payload){
+            return api.post(`asset/attachment/${id}/${code}`,payload)
         },
         async getAttachments(code){
             return api.get(`asset/attachment/${code}`)
