@@ -12,12 +12,20 @@ import NotFoundView from '../views/notFound/NotFoundView.vue'
 import DetailAttachments from '../views/history/DetailAttachments.vue'
 import UserView from '../views/user/UserView.vue'
 import navGuard from '../service/navigationGuard'
+import ManageUserView from '../views/user/ManageUserView.vue'
+import HomeLayout from '../layout/HomeLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path : '/',
+      alias : '/home',
+      name : 'home',
+      component :HomeLayout
+    },
+    {
+      path: '/login',
       alias : '/login',
       name: 'login',
       component: LoginView,
@@ -77,6 +85,13 @@ const router = createRouter({
       path: '/users',
       name: 'user',
       component: UserView,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/manage-profile',
+      name: 'profile',
+      component: ManageUserView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/:pathMatch(.*)*',
