@@ -22,7 +22,11 @@ import {
     faTableList,
     faWindowMaximize,
     faFileCircleQuestion,
-    faBars
+    faBars,
+    faCamera,
+    faFloppyDisk,
+    faShrimp,
+    faCircleNotch
 } from '@fortawesome/free-solid-svg-icons'
 import { faSquareCheck} from '@fortawesome/free-regular-svg-icons'
 
@@ -52,7 +56,11 @@ export default {
             faTableList,
             faWindowMaximize,
             faFileCircleQuestion,
-            faBars
+            faBars,
+            faCamera,
+            faFloppyDisk,
+            faShrimp,
+            faCircleNotch
             )
     }
 }
