@@ -14,7 +14,8 @@ module.exports = {
         'pencil' : '#334756',
         'table' : '#EEEEEE',
         'button' : '#7286D3',
-        'blackCurrent' : '#222831'
+        'blackCurrent' : '#222831',
+        'mintHunt' : '#45FFCA'
       },
       fontFamily: {
        'codensed'  : '"Roboto Condensed",sans-serif',
