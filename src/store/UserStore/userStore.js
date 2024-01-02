@@ -10,7 +10,7 @@ export const useUser = defineStore('User', {
           .then(res => res.data)
           .catch(err => console.log(err))
         },
-        async uploadImages(payload,username){
+        async manageUser(payload,username){
           return api.post(`/api/image/${username}/upload`,payload)
           .then(res => res.data)
         }
