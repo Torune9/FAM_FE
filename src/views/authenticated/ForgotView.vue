@@ -17,7 +17,7 @@
                 </div>
               </form>
               <div class="relative">
-               <small class="text-white before:absolute before:bottom-0 before:contents[''] before:bg-white before:h-[2px] before:w-[34px] before:mr-3 active:text-slate-400 before:scale-x-0 hover:before:scale-x-100 before:transition-transform active:scale-x-100 font-semibold"><router-link to="/">Login</router-link></small>
+               <small class="text-white before:absolute before:bottom-0 before:contents[''] before:bg-white before:h-[2px] before:w-[34px] before:mr-3 active:text-slate-400 before:scale-x-0 hover:before:scale-x-100 before:transition-transform active:scale-x-100 font-semibold"><router-link to="/login">Login</router-link></small>
               </div>
            </div>
         </div>
