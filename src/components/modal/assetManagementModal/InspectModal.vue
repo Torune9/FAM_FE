@@ -93,7 +93,7 @@
 
 <script setup>
 
-import { onMounted, reactive, ref, watchEffect } from "vue";
+import { onMounted, reactive, ref, watch, watchEffect } from "vue";
 import { inspectStore } from '@/store/AssetStore/inspectStore'
 import { loginStore } from '@/store/UserStore/loginStore'
 import { infoError, infoSuccess } from "../../../service/notification";
@@ -134,7 +134,8 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const payload = reactive({
-    status: '',
+    status:'',
+    statusCode : '',
     inspector: user.user.username,
     information: '',
 })
@@ -144,6 +145,7 @@ const payload = reactive({
 const close = (needRefresh = false) => {
     payload.information = ''
     payload.status = ''
+    payload.statusCode = ''
     fileInput.value = []
     file.value = []
     uploadFiles.value = []
@@ -212,6 +214,7 @@ const create = async () => {
     formData.append('status', payload.status);
     formData.append('inspector', payload.inspector);
     formData.append('information', payload.information);
+    formData.append('statusCode', payload.statusCode);
     loading.value = true
     await inspect.createAttachment(id, code, formData)
         .then((res) => {
@@ -236,12 +239,23 @@ const getStatus = () => {
         .catch(error => console.log(error))
 }
 
+const statusCode = ( datas )=>{
+    datas.forEach(data=>{
+        if (data.status == payload.status) {
+           payload.statusCode = data.status_code
+        }
+    })
+}
+
 onMounted(() => {
     getStatus()
 })
 
+watch(()=>[payload.status],()=>{
+    statusCode(status.value)
+})
+
 watchEffect(() => {
-    console.log(payload.status);
     if (payload.information.length > 100) {
         warnInfo.value = 'Max is 255 character!'
     } else { warnInfo.value = '' }
