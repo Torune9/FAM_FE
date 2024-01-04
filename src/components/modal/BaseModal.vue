@@ -61,14 +61,6 @@ export default {
             this.$emit('update')
         }
     },
-    watch:{
-        buttonText(a){
-            console.log(a);
-        },
-        showAdd(a){
-            console.log(a);
-        }
-    }
 };
 </script>
 
