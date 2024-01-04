@@ -17,7 +17,7 @@
                 <div v-if="showAdd">
                     <label for="price" class="font-bold font-barlow text-sm">Price</label>
                     <br>
-                    <input v-model="payload.price" id="price" type="text"
+                    <input  v-model="payload.price" id="price" type="number"
                         class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
                 <div v-else>
