@@ -1,14 +1,14 @@
 <template>
     <main class="h-screen w-screen">
         <nav>
-            <NavBar>
+            <NavBar @sendSidebarData="showSideBar">
                 <template v-slot:dropdown>
                     <DropDown @showCreate="create" />
                 </template>
             </NavBar>
-            <SideBar/>
+            <SideBar :isShowSidebar="showSide" @closeSidebar="closeSidebar"/>
         </nav>
-        <div class="-z-10 max-[800px]:pl-[32%] max-h-screen pl-[21%] pr-2 pt-[6%] min-[300px]:pt-20 ">
+        <div :class="padding" class="-z-10 min-[800px]:pl-[21%] max-h-screen pr-2 pt-[6%] min-[300px]:pt-20 ">
             <CreateAccount :isActive="showCreate" @close="closeModal"/>
             <slot/>
         </div>
@@ -19,14 +19,39 @@
     import SideBar from '@/components/navigation/SideBar.vue'
     import DropDown from '@/components/navigation/DropDown.vue';
     import CreateAccount from '@/components/modal/userManagementModal/CreateAccount.vue';
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     const showCreate = ref(false)
+    const showSide = ref(false)
+    const padding = ref('')
     const create = (data) => {
         showCreate.value = !data.value
     }
     const closeModal = () => {
         showCreate.value = false
     }
+
+    const showSideBar = (data)=>{
+        showSide.value = data
+    }
+
+    const updateSidebarVisibility = ()=> {
+        if (window.innerWidth > 700) {
+            showSide.value = true;
+        }else{
+            showSide.value = false
+            padding.value = 'p-2'
+        }
+    }
+    const closeSidebar = (data)=>{
+        showSide.value = data
+    }
+    const resize = ()=>{
+        window.addEventListener('resize', updateSidebarVisibility);
+    }
+    onMounted(()=>{
+        updateSidebarVisibility();
+        resize()
+    })
 </script>
 
 <style>

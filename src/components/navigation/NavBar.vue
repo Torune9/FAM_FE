@@ -1,7 +1,10 @@
 <template>
     <nav class="max-[800px]:w-full fixed w-4/5 right-0 bg-darkHunt top-0 flex justify-end h-[10%] items-center z-50 p-5">
-      <div class="flex max-[800px]:w-[60%] max-[400px]:w-full w-[30%] justify-around items-center">
-          <div class="flex flex-row w-full justify-center items-center gap-4 max-[400px]:w-1/2">
+      <div class="flex max-[800px]:w-[60%] max-[700px]:w-full w-[30%] justify-around items-center">
+        <div v-if="showToggleBtn" @click="sendSidebarData" class="cursor-pointer text-white">
+          <font-awesome-icon icon="fa-solid fa-bars"/>
+        </div>
+          <div class="flex flex-row w-full justify-center items-center gap-4 max-[700px]:w-1/2">
             <h1 @click="authDropDown" class=" text-white font-semibold cursor-pointer" v-text="user.username ? auth.getUsername : 'User'"/>
               <div class="relative">
                 <div class="rounded-full overflow-hidden w-12 h-12 flex justify-center items-center">
@@ -53,15 +56,23 @@ const logout = () => {
 
 const showToggleBtn = ref(true)
 const monitScreen = ()=>{
-  showToggleBtn.value = window.innerWidth < 600
+  showToggleBtn.value = window.innerWidth <= 700
 }
-const resize  =() => {
+const resize = ()=> {
   window.addEventListener('resize',monitScreen)
 }
 
-const getUsername =()=>{
+const getUsername = ()=>{
     auth.getUsernameById(auth.id)
 }
+
+const emit = defineEmits(['sendSidebarData'])
+const sendSidebarData = ()=>{
+  emit('sendSidebarData',true)
+}
+
+
+
 watchEffect(()=> src.value = import.meta.env.VITE_APP_BASE_URL + `resources/${auth.getProfile}`)
 
 onMounted(()=> {
