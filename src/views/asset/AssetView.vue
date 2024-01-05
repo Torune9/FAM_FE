@@ -58,7 +58,7 @@
                             </template>
                             <div v-else>
                                 <button
-                                    class="bg-blue-600 hover:bg-blue-500 transition-all duration-300 w-20 rounded text-white"
+                                class=" hover:bg-blue-500 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-blue-400 p-1"
                                     @click="onRestore(item)">
                                     <font-awesome-icon icon="fa-solid fa-trash-can-arrow-up" />
                                 </button>
