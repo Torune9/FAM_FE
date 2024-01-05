@@ -9,12 +9,6 @@
                     <input v-model="payload.name" id="name" type="text"
                         class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
-                <div>
-                    <label for="quantity" class="font-bold font-barlow text-sm">Quantity</label>
-                    <br>
-                    <input v-model="payload.quantity" id="quantity" type="number"
-                        class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
-                </div>
                 <div v-if="showAdd">
                     <label for="created" class="font-bold font-barlow text-sm">CreatedBy</label>
                     <br>
@@ -27,7 +21,17 @@
                     <input v-model="payload.status" id="status" type="text"
                         class="outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
                 </div>
-                <br>
+                <div class="w-full flex justify-end flex-col p-2 mt-2">
+                    <label for="quantity" class="font-bold font-barlow text-sm text-end">Quantity</label>
+                    <div class="flex justify-end items-center gap-x-4 font-bold">
+                        <button @click="minQuantity" class="w-8 h-8 rounded bg-slate-300">-</button>
+                        <p class="w-10 text-center">{{ payload.quantity }}</p>
+                        <button @click="plusQuantity" class="w-8 h-8 rounded bg-slate-300">+</button>
+                    </div>
+                    <br>
+                    <input v-model="payload.quantity" id="quantity" type="number"
+                        class="hidden outline-none text-center border-2 border-slate-600 text-sm w-60 h-8 rounded-md font-semibold focus:border-2 text-black focus:border-blue-600">
+                </div>
                 <div v-if="showAdd">
                     <select v-model="payload.code" name="category" id="category"
                         class="w-full outline-none focus:border-slate-700 focus:border-2 h-8 text-sm rounded bg-slate-600 text-white border-slate-800 border-2">
@@ -41,21 +45,20 @@
                     <button @click="add"
                         class="absolute bottom-2 right-2 bg-green-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-green-500 transition-all">
                         <p v-if="!loading">create</p>
-                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin text-white/40" size="xl" v-else/>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin text-white/40" size="xl" v-else />
                     </button>
                 </div>
                 <div v-else>
                     <button @click="update"
                         class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">
                         <p v-if="!loading">update</p>
-                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin text-white/40" size="xl" v-else/>
+                        <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin text-white/40" size="xl" v-else />
                     </button>
                 </div>
 
                 <div>
-                    <button class="absolute top-2 left-2 hover:text-red-700 text-black/40"
-                        @click="close(false)">
-                        <font-awesome-icon icon="fa-solid fa-rectangle-xmark" size="xl"/>
+                    <button class="absolute top-2 left-2 hover:text-red-700 text-black/40" @click="close(false)">
+                        <font-awesome-icon icon="fa-solid fa-rectangle-xmark" size="xl" />
                     </button>
                 </div>
             </div>
@@ -63,11 +66,11 @@
     </Transition>
 </template>
 <script setup>
-import { reactive, watch } from 'vue';
+import { reactive, watch, watchEffect } from 'vue';
 import { assetStore } from '@/store/AssetStore/assetStore';
 import { categoryStore } from '@/store/AssetStore/categoryStore';
 import { onMounted, ref } from 'vue'
-import {infoSuccess,infoError, infoWarning} from '../../../service/notification'
+import { infoSuccess, infoError, infoWarning } from '../../../service/notification'
 
 const categories = categoryStore()
 const category = ref([])
@@ -96,7 +99,7 @@ const props = defineProps({
 const payload = reactive({
     code: '',
     name: '',
-    quantity: '',
+    quantity: 1,
     status: '',
     created_by: ''
 })
@@ -130,7 +133,7 @@ const add = async () => {
             const { data: { message } } = error.response
             infoError(message)
         })
-        .finally(()=> loading.value = false)
+        .finally(() => loading.value = false)
 
 }
 const update = async () => {
@@ -144,7 +147,7 @@ const update = async () => {
             const { data: { message } } = error.response
             infoWarning(message)
         })
-        .finally(()=>loading.value = false)
+        .finally(() => loading.value = false)
 
 }
 
@@ -156,23 +159,36 @@ const handleShowUpdate = () => {
     } else {
         payload.name = ''
         payload.created_by = ''
-        payload.quantity = ''
+        payload.quantity = 1
     }
 }
 
 const close = (needRefresh = false) => {
     emit("close", needRefresh)
 }
+
+const plusQuantity = ()=> payload.quantity++
+
+const minQuantity = ()=> payload.quantity--
+
 watch(() => props.modalPop, handleShowUpdate)
+watchEffect(()=>{
+    if (payload.quantity < 0) {
+        return payload.quantity = 0
+    }
+})
+
 onMounted(() => {
     getCategory()
 })
 </script>
 
-<style scoped>.master-modal-enter-active {
+<style scoped>
+.master-modal-enter-active {
     transition: 0.2s ease-in;
 }
 
 .master-modal-enter-from {
     transform: scale(0)
-}</style>
+}
+</style>
