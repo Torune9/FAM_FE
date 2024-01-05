@@ -16,7 +16,9 @@ export const loginStore = defineStore('login', {
     profile:''
   }),
 
-  persist: true,
+  persist: {
+    paths : ['user','token','id','profile']
+  },
 
   getters: {
     isLogged: state => !!state.token,
