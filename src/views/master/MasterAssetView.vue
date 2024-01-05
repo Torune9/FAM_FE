@@ -1,5 +1,6 @@
 <template>
     <MainLayout>
+        <ConfirmModal :id="id" :showConfirm="showConfirm" @close="closeModal" @save="save" @reject="reject" />
         <div class="flex flex-col">
             <div class="text-center text-3xl font-semibold text-slate-500">
                 <h1>Master Asset</h1>
@@ -31,7 +32,7 @@
                                         </button>
                                     </div>
 
-                                    <div @click="onDelete(item)">
+                                    <div @click="showConfirmDelete(item)">
                                         <button class="hover:bg-red-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-red-700 p-1">
                                             <font-awesome-icon icon="fa-solid fa-trash-can" />
                                         </button>
@@ -56,9 +57,10 @@
 <script setup>
 import MainLayout from '../../layout/MainLayout.vue';
 import { masterStore } from '@/store/AssetStore/masterAssetStore';
-import { onMounted,ref,watch }from "vue"
+import { onMounted,ref,watch,watchEffect }from "vue"
 import MasterModal from '../../components/modal/assetManagementModal/MasterModal.vue';
 import { info, infoWarning } from '../../service/notification';
+import ConfirmModal from '../../components/modal/confirmModal/ConfirmModal.vue';
 
 const master = masterStore()
 const dataMaster = ref([])
@@ -69,6 +71,9 @@ const btnAdd = ref(false)
 const btnUpdate = ref(false)
 const content = ref()
 const is_deleted = ref()
+const id = ref()
+const itemID = ref()
+const showConfirm = ref(false)
 const headers = [
     {   text : 'Name',
         value : 'name'
@@ -110,7 +115,8 @@ const closeModal = (needRefresh) => {
     if (needRefresh) {
         getData()
     }
-
+    id.value = 0
+    showConfirm.value = false
     showModal.value = false
 }
 
@@ -121,14 +127,7 @@ const onUpdate = async (item) => {
     btnAdd.value = false
 }
 
-const onDelete = (item) => {
-    master.deleteMaster(item.id)
-        .then((res) => {
-            infoWarning(res.message)
-            getData()
-        })
-        .catch(error => console.log(error))
-}
+
 const onRestore = (item) => {
     master.restoreMaster(item.id)
         .then(res => {
@@ -136,6 +135,39 @@ const onRestore = (item) => {
             getData()
         })
 }
+
+
+
+const showConfirmDelete = (item) => {
+    showConfirm.value = !showConfirm.value
+    itemID.value = item.id
+}
+
+const save = (event) => {
+    id.value = +event.target.id
+}
+const reject = (event) => {
+    id.value = +event.target.id
+    closeModal(false)
+}
+
+const onDelete= (id)=>{
+    master.deleteMaster(id)
+        .then((res) => {
+            infoWarning(res.message)
+            getData()
+            closeModal(false)
+        })
+}
+watchEffect(()=>{
+    if (id.value == 1) {
+       onDelete(itemID.value)
+    }else{
+        closeModal(false)
+    }
+})
+
+
 watch(() =>[is_deleted.value,search.value], () => {
     getData()
 })

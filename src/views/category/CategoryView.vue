@@ -1,5 +1,6 @@
 <template>
     <MainLayout>
+        <ConfirmModal :id="id" :showConfirm="showConfirm" @close="closeModal" @save="save" @reject="reject" />
         <div class="flex flex-col">
             <div class="text-center text-3xl font-semibold text-slate-500">
                 <h1>Categories</h1>
@@ -42,7 +43,7 @@
                                     </button>
                                 </div>
 
-                                <div @click="onDelete(item)">
+                                <div @click="showConfirmDelete(item)">
                                     <button
                                         class=" hover:bg-red-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-red-700 p-1">
                                         <font-awesome-icon icon="fa-solid fa-trash-can" />
@@ -67,11 +68,12 @@
 
 <script setup>
 import MainLayout from '../../layout/MainLayout.vue';
+import ConfirmModal from '../../components/modal/confirmModal/ConfirmModal.vue';
 
 import { categoryStore } from "@/store/AssetStore/categoryStore"
 import ModalBox from '../../components/modal/assetManagementModal/ModalBox.vue';
 
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import { info, infoWarning } from '../../service/notification';
 
 const category = categoryStore()
@@ -83,6 +85,9 @@ const showModal = ref(false)
 const btnAdd = ref(false)
 const btnUpdate = ref(false)
 const content = ref()
+const showConfirm = ref(false)
+const id = ref()
+const itemID = ref()
 
 const headers = [
     {
@@ -122,12 +127,9 @@ const getData = () => {
 }
 
 
-const onDelete = (item) => {
-    category.deleteCategory(item.id)
-        .then((res) => {
-            infoWarning(res.data.message)
-            getData()
-        })
+const showConfirmDelete = (item) => {
+    showConfirm.value = !showConfirm.value
+    itemID.value = item.id
 }
 
 const onUpdate = async (item) => {
@@ -149,7 +151,8 @@ const closeModal = (needRefresh) => {
     if (needRefresh) {
         getData()
     }
-
+    id.value = 0
+    showConfirm.value = false
     showModal.value = false
 }
 
@@ -159,12 +162,33 @@ const btnCreate = () => {
     btnAdd.value = true
 }
 
+const save = (event) => {
+    id.value = +event.target.id
+}
+const reject = (event) => {
+    id.value = +event.target.id
+    closeModal(false)
+}
 
+const onDelete= (id)=>{
+    category.deleteCategory(id)
+        .then((res) => {
+            infoWarning(res.data.message)
+            getData()
+            closeModal(false)
+        })
+}
 
 onMounted(() => {
     getData()
 })
-
+watchEffect(()=>{
+    if (id.value == 1) {
+       onDelete(itemID.value)
+    }else{
+        closeModal(false)
+    }
+})
 
 </script>
 

@@ -1,11 +1,12 @@
 <template>
     <MainLayout>
+        <ConfirmModal :id="id" :showConfirm="showConfirm" @close="closeModal" @save="save" @reject="reject" />
         <div class="flex flex-col">
             <InspectModal :modalPop="showModal" :showAdd="btnInspect" @close="closeModal" :data="content" />
 
             <AssetModal :modalPop="showAsset" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal"
                 :data="content" />
-            
+
             <div class="text-center text-3xl font-semibold text-slate-500">
                 <h1>Assets</h1>
             </div>
@@ -15,8 +16,7 @@
                 </button>
             </div>
             <div class="flex items-center mt-4">
-                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white"
-                    for="search">
+                <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search">
                     <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                 </label>
                 <input v-model="search"
@@ -42,12 +42,6 @@
                                     </button>
                                 </div>
 
-                                <div @click="onDelete(item)">
-                                    <button
-                                        class=" hover:bg-red-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-red-700 p-1">
-                                        <font-awesome-icon icon="fa-solid fa-trash-can" />
-                                    </button>
-                                </div>
 
                                 <div>
                                     <button @click="onInspect(item)"
@@ -55,9 +49,17 @@
                                         <font-awesome-icon icon="fa-solid fa-file-circle-question" />
                                     </button>
                                 </div>
+                                <div @click="showConfirmDelete(item)">
+                                    <button
+                                        class=" hover:bg-red-600 transition-all duration-300 text-white text-[font-size:8px] font-light w-12 rounded bg-red-700 p-1">
+                                        <font-awesome-icon icon="fa-solid fa-trash-can" />
+                                    </button>
+                                </div>
                             </template>
                             <div v-else>
-                                <button class="bg-blue-600 hover:bg-blue-500 transition-all duration-300 w-20 rounded text-white" @click="onRestore(item)">
+                                <button
+                                    class="bg-blue-600 hover:bg-blue-500 transition-all duration-300 w-20 rounded text-white"
+                                    @click="onRestore(item)">
                                     <font-awesome-icon icon="fa-solid fa-trash-can-arrow-up" />
                                 </button>
                             </div>
@@ -66,14 +68,13 @@
                     <template #item-countdown="items">
                         <div v-if="items.Histories.length > 0">
                             <div v-for="item of items.Histories" :key="item.id" class="p-1">
-                                <vue3-flip-countdown
-                                    mainColor="#FCF5ED"    secondFlipColor="#F4BF96"
+                                <vue3-flip-countdown mainColor="#FCF5ED" secondFlipColor="#F4BF96"
                                     :deadlineISO="item.inspection_date" labelSize="10px" countdownSize="15px" />
                             </div>
                         </div>
-                       <div v-else class="flex justify-center items-center">
-                        <font-awesome-icon icon="fa-regular fa-square-check" size="2xl"/>
-                       </div>
+                        <div v-else class="flex justify-center items-center">
+                            <font-awesome-icon icon="fa-regular fa-square-check" size="2xl" />
+                        </div>
                     </template>
                 </EasyDataTable>
             </div>
@@ -84,7 +85,8 @@
 <script setup>
 
 import MainLayout from '../../layout/MainLayout.vue';
-import { ref, onMounted, watch } from 'vue'
+import ConfirmModal from '../../components/modal/confirmModal/ConfirmModal.vue';
+import { ref, onMounted, watch, watchEffect } from 'vue'
 import { assetStore } from '@/store/AssetStore/assetStore'
 import InspectModal from '../../components/modal/assetManagementModal/InspectModal.vue';
 import AssetModal from '../../components/modal/assetManagementModal/AssetModal.vue';
@@ -102,6 +104,9 @@ const is_deleted = ref()
 const loading = ref(false)
 const items = ref([])
 const rows = 5
+const showConfirm = ref(false)
+const itemID = ref()
+const id = ref()
 const headers = [
     {
         text: "Name",
@@ -151,9 +156,11 @@ const closeModal = (needRefresh) => {
     if (needRefresh) {
         getAsset()
     }
+    showConfirm.value = false
 
     showModal.value = false
     showAsset.value = false
+    id.value = 0
 }
 const getAsset = () => {
     const payload = {
@@ -175,12 +182,10 @@ const onUpdate = async (item) => {
     btnUpdate.value = true
     btnAdd.value = false
 }
-const onDelete = (item) => {
-    asset.deleteAsset(item.id)
-        .then((res) => {
-            infoWarning(res.message)
-            getAsset()
-        })
+
+const showConfirmDelete = (item) => {
+    showConfirm.value = !showConfirm.value
+    itemID.value = item.id
 }
 const onRestore = (item) => {
     asset.restoreAsset(item.id)
@@ -190,11 +195,37 @@ const onRestore = (item) => {
         })
 }
 
+const save = (event) => {
+    id.value = +event.target.id
+}
+const reject = (event) => {
+    id.value = +event.target.id
+    closeModal(false)
+}
+
+const onDelete = (id)=>{
+    asset.deleteAsset(id)
+        .then((res) => {
+            infoWarning(res.message)
+            getAsset()
+        }).finally(()=>{
+            closeModal(false)
+        })
+}
+
 onMounted(() => {
     getAsset()
 })
 watch(() => [is_deleted.value, search.value], () => {
     getAsset()
+})
+
+watchEffect(()=>{
+    if (id.value == 1) {
+       onDelete(itemID.value)
+    }else{
+        closeModal(false)
+    }
 })
 
 </script>
