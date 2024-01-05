@@ -12,13 +12,14 @@
                     <div>
                         <label for="status" class="hidden"/>
                         <br>
-                        <select v-model="payload.status" name="status" id="status">
+                        <select class="border-2 font-black outline-none focus:border-blue-600 border-black/50 p-1 rounded" v-model="payload.status" name="status" id="status">
                             <option disabled value="">Please select status</option>
                             <option :value="data.status" v-for="data, i of status" :key="i">
                                 {{ data.status }}
                             </option>
                         </select>
                     </div>
+                    <!-- Optional input if want change the select input -->
                     <!-- <div>
                         <label class="font-bold font-barlow text-sm" for="status">Status</label>
                         <br>
