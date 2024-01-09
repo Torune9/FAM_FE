@@ -5,7 +5,7 @@
             <InspectModal :modalPop="showModal" :showAdd="btnInspect" @close="closeModal" :data="content" />
 
             <AssetModal :modalPop="showAsset" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal"
-                :data="content" />
+                :data="content"  :title="title"/>
 
             <div class="text-center text-3xl font-semibold text-slate-500">
                 <h1>Assets</h1>
@@ -107,6 +107,7 @@ const rows = 5
 const showConfirm = ref(false)
 const itemID = ref()
 const id = ref()
+const title = ref('')
 const headers = [
     {
         text: "Name",
@@ -147,6 +148,7 @@ const onInspect = (item) => {
     showModal.value = true
 }
 const btnCreate = () => {
+    title.value = 'Create New Asset'
     showAsset.value = true
     btnInspect.value = true
     btnAdd.value = true
@@ -177,6 +179,7 @@ const getAsset = () => {
         })
 }
 const onUpdate = async (item) => {
+    title.value = 'Update Asset'
     content.value = item
     showAsset.value = true
     btnUpdate.value = true
