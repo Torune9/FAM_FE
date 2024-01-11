@@ -26,7 +26,9 @@ import {
     faCamera,
     faFloppyDisk,
     faShrimp,
-    faCircleNotch
+    faCircleNotch,
+    faMinus,
+    faPlus
 } from '@fortawesome/free-solid-svg-icons'
 import { faSquareCheck} from '@fortawesome/free-regular-svg-icons'
 
@@ -60,7 +62,9 @@ export default {
             faCamera,
             faFloppyDisk,
             faShrimp,
-            faCircleNotch
+            faCircleNotch,
+            faMinus,
+            faPlus
             )
     }
 }
