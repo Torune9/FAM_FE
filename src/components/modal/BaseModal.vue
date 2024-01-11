@@ -7,7 +7,7 @@
                     <font-awesome-icon icon="fa-solid fa-rectangle-xmark"/>
                 </button>
                 <!-- slot for content -->
-                <slot />
+                <slot name="content"/>
                 <!-- TODO handle button on base modal -->
                 <div class="flex justify-end  max-[450px]:mt-3">
                     <button v-if="showAdd" @click="submit"
