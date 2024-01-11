@@ -5,35 +5,49 @@
                 <section v-if="datas">
                     <div class="text-3xl font-barlow flex items-center p-8">
                         <h1 class="font-bold"> 
-                            <span class="underline">
+                            <span>
                                 <router-link to="/history">
                                 {{ datas.asset_code }}
                             </router-link>
                             </span>
                             <span class="font-light">
-                                &nbsp;:&nbsp;{{ datas.information }}
+                                &nbsp;:&nbsp;{{ datas.information.split('.')[0] }}
                             </span>
                         </h1>
                     </div>
-                    <hr>
-                    <div class="sm:w-3/4 font-codensed min[300px]:w-full">
-                        <h1 class=" text-xl">Inspector&nbsp;&#x25B8;&nbsp;{{ datas.inspector }}</h1>
-                        <h1 class=" text-xl">Status asset&nbsp;&#x25B8;&nbsp;{{ datas.status }}</h1>
-                        <hr>
-                        <div class="mt-2 relative bg-blue-900 p-2 text-white">
-                            <details>
-                                <summary>Attachments</summary>
-                                <ul class="w-full text-white max-h-24 overflow-y-auto">
-                                    <li v-for="(file, i) of datas.attachments" :key="i"
-                                        class="bg-white/30 rounded mt-2 text-sm pl-2 hover:bg-white/40 w-1/2">
-                                        <small class="underline">
-                                            <a :href="getUrl(file)">
-                                                {{ i + 1 }}. {{ file }}
-                                            </a>
-                                        </small>
-                                    </li>
-                                </ul>
-                            </details>
+                    <div class="flex flex-row gap-x-4 p-8">
+                        <div class="w-full flex flex-col gap-y-2">
+                            <div class="bg-slate-200">
+                                <details class="p-1">
+                                    <summary class="text-sm">
+                                        Attachments
+                                    </summary>
+                                    <ul class="w-full max-h-24 overflow-y-auto">
+                                        <li v-for="(file, i) of datas.attachments" :key="i"
+                                            class="bg-white/30 rounded mt-2 text-sm pl-2 hover:bg-white/40 w-1/2">
+                                            <small>
+                                                <a :href="getUrl(file)">
+                                                    {{ i + 1 }}. {{ file }}
+                                                </a>
+                                            </small>
+                                        </li>
+                                    </ul>
+                                </details>
+                            </div>
+                            <div class="bg-slate-200 p-1">
+                                <h3 class="text-sm font-bold">Information</h3>
+                                <p class="text-[10px]">{{ datas.information }}</p>
+                            </div>
+                        </div>
+                        <div class="w-full text-sm font-semibold bg-slate-200 p-4 h-fit">
+                            <div class="border-b p-1 border-black/30">
+                                <h1 class="text-[11px]">Inspector</h1>
+                                <p>{{ datas.inspector }}</p>
+                            </div>
+                            <div class="p-1">
+                                <h1 class="text-[10px]">Status</h1>
+                                <p>{{ datas.status }}</p>
+                            </div>
                         </div>
                     </div>
                 </section>
