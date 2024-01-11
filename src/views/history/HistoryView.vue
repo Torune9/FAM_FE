@@ -12,7 +12,7 @@
             <br>
             <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="datas" :loading="loading" :rows-per-page=rows :rows-items=[rows] :fixed-expand="true">
                 <template #item-info ={information}>
-                    {{ information.substr(0,39)  }}...
+                    {{ information.substr(0,39) }}...
                 </template>
                 <template #item-code="{ asset_code }">
                     <router-link :to="routes(asset_code)" class="text-blue-700 font-bold hover:underline hover:underline-offset-4 transition-all duration-500 hover:decoration-2 font-barlow ring-1 ring-blue-500 p-1 rounded">
@@ -57,11 +57,6 @@
         {
             text :'Information',
             value : 'info',
-            width : 100
-        },
-        {
-            text :'Inspector',
-            value : 'inspector',
             width : 100
         },
     ]    
