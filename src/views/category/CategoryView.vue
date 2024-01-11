@@ -11,8 +11,8 @@
                 </button>
             </div>
 
-            <ModalBox :modalPop="showModal" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal" :data="content">
-            </ModalBox>
+            <CategoryModal :modalPop="showModal" :showAdd="btnAdd" :showUpdate="btnUpdate" @close="closeModal" :data="content">
+            </CategoryModal>
 
             <div class="flex items-center mt-4">
                 <label class="bg-red-600 w-20 p-1 rounded-tl rounded-bl text-center text-white" for="search">
@@ -71,7 +71,7 @@ import MainLayout from '../../layout/MainLayout.vue';
 import ConfirmModal from '../../components/modal/confirmModal/ConfirmModal.vue';
 
 import { categoryStore } from "@/store/AssetStore/categoryStore"
-import ModalBox from '../../components/modal/assetManagementModal/ModalBox.vue';
+import CategoryModal from '../../components/modal/assetManagementModal/CategoryModal.vue';
 
 import { onMounted, ref, watch, watchEffect } from 'vue';
 import { info, infoWarning } from '../../service/notification';
