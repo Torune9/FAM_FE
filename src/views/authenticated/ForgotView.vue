@@ -53,7 +53,7 @@ const forgotPw = ()=>{
     data.value = res.data
   })
   .catch(error => {
-    const {response:{data:{message}}}= error
+    const {data:{message}}= error.response
     infoError(message)
   }).finally(()=>{
     loading.value = false
