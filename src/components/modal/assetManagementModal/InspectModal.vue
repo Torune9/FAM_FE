@@ -1,7 +1,7 @@
 <template>
     <Transition name="modal">
         <main v-if="modalPop"
-            class="h-screen w-screen z-50 fixed top-14 max-[400px]:z-50 max-[400px]:left-5 max-[400px]:top-10">
+            class="h-screen w-screen z-50 fixed top-28 max-[400px]:z-50 max-[400px]:left-5 max-[400px]:top-10">
             <div
                 class="text-white font-semibold text-sm bg-slate-800 left-0 flex rounded-t justify-center items-center h-10 w-[400px] max-[400px]:w-[350px]">
                 <h1>Inspection asset : {{ props.data.name }}</h1>
@@ -19,7 +19,7 @@
                             </option>
                         </select>
                     </div>
-                    <!-- Optional input if want change the select input -->
+                    <!-- Optional input if want replace the select input -->
                     <!-- <div>
                         <label class="font-bold font-barlow text-sm" for="status">Status</label>
                         <br>
