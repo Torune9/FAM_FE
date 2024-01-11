@@ -50,7 +50,7 @@
                             <font-awesome-icon icon="fa-solid fa-user" />
                         </label>
                         <input placeholder="username" type="text" name="username" id="username" v-model="payload.username"
-                            class="border rounded w-60 h-6 p-[14px] text-[10px] font-bold pl-7 outline-none border-slate-500 group-hover:border-slate-800">
+                            class="border rounded w-60 h-6 p-[14px] text-[10px] font-bold pl-7 outline-none border-slate-500 group-hover:border-slate-800 focus:border-blue-700 transition-all">
                     </div>
                     <div class="relative group flex w-60 justify-center items-center">
                         <label for="email" class="absolute left-2 top-1 text-black/70 group-hover:text-black">
@@ -58,13 +58,14 @@
                         </label>
                         <input :disabled="isDisable" :placeholder="auth.user.email" type="email" name="email" id="email"
                             v-model="payload.email"
-                            class="border rounded w-full h-6 p-[14px] text-[10px] font-bold pl-7 outline-none border-slate-500 group-hover:border-slate-800 mr-2">
-                        <input name="isDisable" id="isDisable" v-model="isDisable" type="checkbox">
+                            class="border rounded w-full h-6 p-[14px] text-[10px] font-bold pl-7 outline-none border-slate-500 group-hover:border-slate-800 focus:border-blue-700 transition-all mr-2">
+                        <input class="cursor-pointer" name="isDisable" id="isDisable" v-model="isChangeEmail" type="checkbox">
+                        <span class="text-[10px] ml-1 w-[5%]">{{ isEnable }}</span>
                     </div>
                     <div>
                         <router-link to="/forgot-password">
                             <p class="text-[10px]">
-                                Forgot Password ?
+                                Change password
                             </p>
                         </router-link>
                     </div>
@@ -100,6 +101,8 @@ const src = ref('')
 const loading = ref(false)
 
 const isDisable = ref(true)
+const isChangeEmail = ref(false)
+const isEnable = ref('Enabled')
 
 const payload = reactive({
     username: '',
@@ -129,7 +132,10 @@ const manageUser = async () => {
             router.replace('/dashboard')
             getImage()
         })
-        .catch(error => infoError(error))
+        .catch(error => {
+            const {data:{message}} = error.response
+            infoError(message)
+        })
         .finally(() => {
             loading.value = !loading.value
             showSubmit.value = false
@@ -158,7 +164,15 @@ watch(() => [src.value], () => {
     openFile.value = !openFile.value
 })
 
-watchEffect(() => isDisable.value)
+watchEffect(() => {
+    if (isChangeEmail.value) {
+        isDisable.value = false
+        isEnable.value = 'Disabled'
+    }else{
+        isDisable.value = true
+        isEnable.value = 'Enabled'
+    }
+})
 
 
 onMounted(() => {
