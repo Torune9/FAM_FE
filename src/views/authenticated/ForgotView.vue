@@ -4,7 +4,7 @@
     <SuccessInfo :showSuccess="success" :data="data"/>
         <div class=" w-screen h-screen flex justify-center items-center">
            <div class="rounded-md flex justify-center items-center flex-wrap h-[400px] w-[400px] max-[450px]:w-[350px] max-[450px]:h-[350px] p-4 shadow-lg bg-slate-800 text-zinc-200 relative">
-            <h1 class=" text-2xl font-semibold mb-9">Forgot password</h1>
+            <h1 class=" text-2xl font-semibold mb-9">Change password</h1>
             <small class=" mb-4">Please provide your email addres that you used when you signed up for your account.</small>
             <form @submit.prevent="forgotPw" class="flex flex-wrap gap-5">
                 <div>
