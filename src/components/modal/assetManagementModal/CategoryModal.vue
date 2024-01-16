@@ -5,12 +5,12 @@
                 <div v-if="modalPop"
                     class=" bg-white border border-black sm:w-80 h-60 rounded-md relative flex content-center justify-items-center shadow-lg flex-wrap min-[300px]:w-72">
                     <div class="flex justify-center flex-wrap mb-2">
-                        <label for="name" class="text-sm font-barlow font-bold">Category name</label>
+                        <label for="name" class="text-sm font-bold">Category name</label>
                         <input v-model="payload.name" type="text" id="name"
                             class="outline-none text-center border-2 border-black text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-800">
                     </div>
                     <div class="flex justify-center flex-wrap">
-                        <label for="code" class="text-sm font-barlow font-bold">Category code</label>
+                        <label for="code" class="text-sm font-bold">Category code</label>
                         <input v-model="payload.code" type="text" id="code"
                             class="outline-none text-center border-2 border-black text-sm w-60 h-8 rounded-md font-semibold focus:border-2 focus:border-blue-800">
                     </div>
