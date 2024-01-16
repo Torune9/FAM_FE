@@ -1,7 +1,7 @@
 <template>
     <LoadingSpinner :show-load="loading" />
     <main>
-        <section class="flex justify-center items-center w-screen h-screen">
+        <section class="flex justify-center items-center w-screen h-screen bg-gradient-to-r from-indigo-600 to-pink-800">
             <div
                 class="h-[400px] w-[400px] max-[450px]:w-[350px] max-[450px]:h-[350px] bg-greyHunt rounded-md flex flex-col justify-center items-center text-zinc-100 shadow-lg shadow-black/60">
                 <p class="text-center w-full font-extrabold text-2xl">
