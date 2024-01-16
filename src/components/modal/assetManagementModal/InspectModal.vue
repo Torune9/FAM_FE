@@ -1,12 +1,12 @@
 <template>
     <Transition name="modal">
         <main v-if="modalPop"
-            class="h-screen w-screen z-50 fixed top-28 max-[400px]:z-50 max-[400px]:left-5 max-[400px]:top-10">
+            class="h-screen w-screen z-50 fixed top-20 max-[400px]:z-50 max-[700px]:left-5 max-[600px]:top-28 max-[800px]:left-60">
             <div
                 class="text-white font-semibold text-sm bg-slate-800 left-0 flex rounded-t justify-center items-center h-10 w-[400px] max-[400px]:w-[350px]">
                 <h1>Inspection asset : {{ props.data.name }}</h1>
             </div>
-            <div class=" relative w-fit max-[400px]:max-h-[550px] max-h-[430px] overflow-y-auto " v-show="modalPop">
+            <div class=" relative w-fit max-[400px]:max-h-[550px] max-h-[430px] overflow-y-auto" v-show="modalPop">
                 <div v-if="modalPop"
                     class=" bg-white w-[400px] max-[400px]:w-[350px]  relative flex overflow-y-auto overflow-x-hidden justify-center flex-col pl-4 pr-4 border border-black border-t-0">
                     <div>
