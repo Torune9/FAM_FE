@@ -3,7 +3,7 @@
         <main class="h-full w-full flex flex-col">
             <div v-if="datas">
                 <section v-if="datas">
-                    <div class="text-3xl font-barlow flex items-center p-8">
+                    <div class="text-3xl font-barlow flex items-center p-8 border-b">
                         <h1 class="font-bold"> 
                             <span>
                                 <router-link to="/history">
@@ -70,7 +70,7 @@ import { inspectStore } from '@/store/AssetStore/inspectStore';
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-const { params: { code } } = useRoute()
+const { params: { id } } = useRoute()
 const datas = ref(null)
 const url = import.meta.env.VITE_APP_BASE_URL
 const getUrl = (file) => {
@@ -81,7 +81,7 @@ const loading = ref(false)
 
 const getAttachments = async () => {
     loading.value = true
-    inspect.getAttachments(code)
+    inspect.getAttachments(id)
         .then(res => {
             res.data.forEach(data => {
                 datas.value = data

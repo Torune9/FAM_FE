@@ -14,8 +14,8 @@
                 <template #item-info ={information}>
                     {{ information.substr(0,39) }}...
                 </template>
-                <template #item-code="{ asset_code }">
-                    <router-link :to="routes(asset_code)" class="text-blue-700 font-bold hover:underline hover:underline-offset-4 transition-all duration-500 hover:decoration-2 font-barlow ring-1 ring-blue-500 p-1 rounded">
+                <template #item-code="{ asset_code,id }">
+                    <router-link :to="routes(id)" class="text-blue-700 font-bold hover:underline hover:underline-offset-4 transition-all duration-500 hover:decoration-2 font-barlow ring-1 ring-blue-500 p-1 rounded">
                         {{ asset_code }}
                     </router-link>
                 </template>
@@ -82,8 +82,8 @@
         })
     }
     
-    const routes = (code)=>{
-        return `/detail/${code}`
+    const routes = (id)=>{
+        return `/detail/${id}`
     }
 
     watch(()=>search.value,()=>{

@@ -76,7 +76,7 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: '/detail/:code',
+      path: '/detail/:id',
       name: 'detail',
       component: DetailAttachments,
       meta: { requiresAuth: true },
