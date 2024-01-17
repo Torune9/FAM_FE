@@ -2,7 +2,7 @@ import { createRouter, createWebHistory} from 'vue-router'
 import LoginView from '../views/authenticated/LoginView.vue'
 import RegisterView from '../views/authenticated/RegisterView.vue'
 import ForgotView from '../views/authenticated/ForgotView.vue'
-import ResetView from '../views/authenticated/ResetView.vue'
+// import ResetView from '../views/authenticated/ResetView.vue'
 import Dashboard from '../views/dashboard/DashboardView.vue'
 import Category from '../views/category/CategoryView.vue'
 import MasterAsset from'../views/master/MasterAssetView.vue'
@@ -40,11 +40,11 @@ const router = createRouter({
       name: 'forgot-password',
       component: ForgotView,
     },
-    {
-      path: '/reset-password/:token',
-      name: 'reset-password',
-      component: ResetView,
-    },
+    // {
+    //   path: '/reset-password/:token',
+    //   name: 'reset-password',
+    //   component: ResetView,
+    // },
     {
       path: '/dashboard',
       name: 'dashboard',
