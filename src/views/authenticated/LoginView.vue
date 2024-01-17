@@ -45,17 +45,17 @@
                                     </button>
                                 </div>
                                 <br>
-                                <div class="flex flex-row justify-center items-center gap-x-10">
+                                <div class="flex flex-row justify-center items-center gap-x-10 cursor-pointer">
                                     <p class="text-[10px] font-semibold hover:text-blue-500">
                                         <router-link to="forgot-password">
                                             Forgot password&#63;
                                         </router-link>
                                     </p>
-                                    <button class="bg-blackCurrent text-[12px] p-2 font-semibold hover:bg-white hover:text-black rounded w-24 transition-all duration-300">
-                                        <router-link to="/register">
+                                    <router-link to="/register">
+                                        <button class="bg-blackCurrent text-[12px] p-2 font-semibold hover:bg-white hover:text-black rounded w-24 transition-all duration-300">
                                             Register
-                                        </router-link>
-                                    </button>
+                                        </button>
+                                    </router-link>
                                 </div>
                             </div>
                        </section>
