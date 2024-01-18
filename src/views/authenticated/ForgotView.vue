@@ -72,4 +72,5 @@ const forgotPw = () => {
 
 <style> div {
    font-family: 'prompt', sans-serif;
- }</style>
+ }
+ </style>
