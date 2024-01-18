@@ -19,7 +19,7 @@
                         <div class="w-full flex flex-col gap-y-2">
                             <div class="bg-slate-200">
                                 <details class="p-1">
-                                    <summary class="text-sm">
+                                    <summary class="text-sm font-bold">
                                         Attachments
                                     </summary>
                                     <ul class="w-full max-h-24 overflow-y-auto">
