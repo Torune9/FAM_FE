@@ -1,10 +1,13 @@
 <template>
     <MainLayout>
         <main class="flex flex-col gap-2">
+
             <section class="text-center">
                 <h1 class="font-bold text-lg font-rubik">Manage Profile</h1>
             </section>
+            
             <hr>
+
             <section class="w-full flex flex-col justify-center items-center">
                 <div class="relative">
                     <div class="w-24 h-24 border rounded-full flex justify-center items-center relative overflow-hidden bg-darkHunt">
@@ -31,7 +34,21 @@
                     </div>
                 </div>
             </section>
-            <section class="flex justify-center items-center border p-2">
+
+            <section v-if="!showManageForm">
+                <div class="w-full flex justify-center">
+                    <button @click="toggleManageProfile" class="w-1/2 h-8 bg-blue-800 text-white tracking-widest rounded">
+                        Manage Profile
+                    </button>
+                </div>
+            </section>
+            
+            <section v-else class="flex justify-center items-center border p-2 relative">
+
+                <button @click="toggleManageProfile" type="button" class="absolute top-2 left-2 text-black/50 hover:text-red-600">
+                    <font-awesome-icon icon="fa-solid fa-rectangle-xmark" size="lg"/>
+                </button>
+
                 <form @submit.prevent="manageUser" enctype="multipart/form-data"
                     class="flex flex-col gap-4 w-full justify-center items-center">
                     <div class="flex justify-center items-center relative">
@@ -92,6 +109,7 @@ import { info, infoError } from '../../service/notification';
 import router from '../../router';
 
 const users = useUser()
+const showManageForm = ref(false)
 const auth = loginStore()
 const showSubmit = ref(false)
 const files = ref([])
@@ -139,6 +157,7 @@ const manageUser = async () => {
         .finally(() => {
             loading.value = !loading.value
             showSubmit.value = false
+            showManageForm.value = false
         })
 
 }
@@ -160,6 +179,9 @@ const getUsername = () => {
 const getFirstLetterFromUsername = (username)=>{
     return username.substr(0,1).toUpperCase()
 }
+
+const toggleManageProfile = ()=> showManageForm.value = !showManageForm.value
+
 watch(() => [src.value], () => {
     openFile.value = !openFile.value
 })
