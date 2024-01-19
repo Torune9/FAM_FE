@@ -14,7 +14,7 @@
                   <font-awesome-icon icon="fa-solid fa-user" size="lg" v-else/>
                 </div>
                 <button class="absolute text-white -bottom-1 -right-1">
-                  <router-link to="manage-profile">
+                  <router-link to="/manage-profile">
                     <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
                   </router-link>
                 </button>
