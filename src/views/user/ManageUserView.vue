@@ -3,9 +3,9 @@
         <main class="flex flex-col gap-2">
 
             <section class="text-center">
-                <h1 class="font-bold text-lg font-rubik">Manage Profile</h1>
+                <h1 class="font-bold text-lg font-rubik">Profile Edit</h1>
             </section>
-            
+
             <hr>
 
             <section class="w-full flex flex-col justify-center items-center">
@@ -37,7 +37,7 @@
 
             <section v-if="!showManageForm">
                 <div class="w-full flex justify-center">
-                    <button @click="toggleManageProfile" class="w-1/2 h-8 bg-blue-800 text-white tracking-widest rounded">
+                    <button @click="toggleManageProfile" class="w-1/2 h-8 bg-blue-800 text-white tracking-widest rounded hover:bg-blue-700 ">
                         Manage Profile
                     </button>
                 </div>
