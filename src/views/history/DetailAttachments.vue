@@ -18,7 +18,7 @@
                     <div class="flex flex-row gap-x-4 p-8">
                         <div class="w-full flex flex-col gap-y-2">
                             <div class="bg-slate-200">
-                                <details class="p-1">
+                                <details class="p-4">
                                     <summary class="text-sm font-bold">
                                         Attachments
                                     </summary>
@@ -34,7 +34,7 @@
                                     </ul>
                                 </details>
                             </div>
-                            <div class="bg-slate-200 p-1">
+                            <div class="bg-slate-200 p-4">
                                 <h3 class="text-sm font-bold">Information</h3>
                                 <p class="text-[10px]">{{ datas.information }}</p>
                             </div>
