@@ -11,7 +11,7 @@
                             </router-link>
                             </span>
                             <span class="font-light">
-                                &nbsp;:&nbsp;{{ getHalftInformation(datas.information) }}
+                                &nbsp;:&nbsp;{{ getHalfInformation(datas.information) }}
                             </span>
                         </h1>
                     </div>
@@ -90,7 +90,7 @@ const getAttachments = async () => {
         .catch(err => console.log(err))
         .finally(()=> loading.value = false)
 }
-const getHalftInformation = information=> information.split('.')[0]
+const getHalfInformation = information => information.split('.')[0]
 
 onMounted(() => {
     getAttachments()

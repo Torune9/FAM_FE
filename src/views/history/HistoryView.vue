@@ -86,7 +86,7 @@
         return `/detail/${id}`
     }
 
-    const getSubStrInfo = (information) => information.substr(0,39) 
+    const getSubStrInfo = information => information.substr(0,39) 
 
     watch(()=>search.value,()=>{
        getHistory()
