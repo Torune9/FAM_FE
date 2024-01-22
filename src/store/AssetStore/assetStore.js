@@ -4,7 +4,7 @@ import {defineStore} from 'pinia'
 export const assetStore = defineStore('asset',{
     actions :{
         async getAsset(payload){
-            return api.get('asset',{
+            return api.get('assets',{
                 params : payload
             })
             .then(res => {
@@ -12,7 +12,7 @@ export const assetStore = defineStore('asset',{
             })
         },
         async getStatus(){
-            return api.get('asset/status').then(res => {
+            return api.get('asset/statuses').then(res => {
                 return res.data
             })
         },

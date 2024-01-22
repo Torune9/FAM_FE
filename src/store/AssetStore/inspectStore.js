@@ -8,7 +8,7 @@ export const inspectStore = defineStore('inspection',{
                 return api.post(`asset/${id}/inspection`,payload)
         },
         async getHistory(payload){
-            return api.get(`asset/history/`,{params : payload})
+            return api.get(`asset/histories/`,{params : payload})
             .then(res => {
                 return res.data
             })

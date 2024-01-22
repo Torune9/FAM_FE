@@ -7,7 +7,7 @@ export const forgotPassword = defineStore('forgot',{
             return api.post('api/forgot',payload)
         },
         async resetPassword (token,payload){
-            return api.put(`api/reset-password/${token}`,payload)
+            return api.put(`api/password/${token}`,payload)
         }
     }
 })

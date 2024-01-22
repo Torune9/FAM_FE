@@ -6,7 +6,7 @@ export const useUser = defineStore('User', {
     getters: {},
     actions: {
         async getUser(payload){
-          return api.get('/api/listUser',{params: payload})
+          return api.get('/api/users',{params: payload})
           .then(res => res.data)
           .catch(err => console.log(err))
         },

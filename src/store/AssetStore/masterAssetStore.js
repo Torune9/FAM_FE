@@ -5,7 +5,7 @@ import api from '../../service/api'
 export const masterStore = defineStore('master',{
     actions :{
         async getMasterData(payload){
-            return api.get('master-asset',{params : payload})
+            return api.get('master-assets',{params : payload})
             .then(res => res.data)
         },
         async addMaster (payload){
