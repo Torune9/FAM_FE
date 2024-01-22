@@ -12,7 +12,7 @@
             <br>
             <EasyDataTable table-class-name="customizing-table" :headers="headers" :items="datas" :loading="loading" :rows-per-page=rows :rows-items=[rows] :fixed-expand="true">
                 <template #item-info ={information}>
-                    {{ information.substr(0,39) }}...
+                    {{ getSubStrInfo(information) }}...
                 </template>
                 <template #item-code="{ asset_code,id }">
                     <router-link :to="routes(id)" class="text-blue-700 font-bold hover:underline hover:underline-offset-4 transition-all duration-500 hover:decoration-2 font-barlow ring-1 ring-blue-500 p-1 rounded">
@@ -85,6 +85,8 @@
     const routes = (id)=>{
         return `/detail/${id}`
     }
+
+    const getSubStrInfo = (information) => information.substr(0,39) 
 
     watch(()=>search.value,()=>{
        getHistory()
