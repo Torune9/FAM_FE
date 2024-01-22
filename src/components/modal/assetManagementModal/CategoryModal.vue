@@ -22,7 +22,7 @@
 
                     <button v-else @click="update"
                         class="absolute bottom-2 right-2 bg-blue-600 font-semibold w-32 h-10 rounded-md text-white text-sm border-2 hover:bg-blue-500 transition-all">
-                        <p v-if="!loading">create</p>
+                        <p v-if="!loading">update</p>
                         <font-awesome-icon icon="fa-solid fa-spinner" class="animate-spin text-white/40" size="xl"  v-else/>
                     </button>
 
