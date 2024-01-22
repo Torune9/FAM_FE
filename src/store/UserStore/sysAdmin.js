@@ -4,7 +4,7 @@ import api from "../../service/mainService/api";
 export const sysAdminStore = defineStore('sysadmin',{
     actions:{
         async updateUser(id,role){
-            return api.put(`/api/update/${id}`,role)
+            return api.put(`/api/role/${id}/update`,role)
             .then(res => res.data)
           },
         async resetPassword(id,payload){
