@@ -71,7 +71,7 @@ import { required } from '@vuelidate/validators';
 import { loginStore } from '@/store/UserStore/loginStore'
 import { onMounted, reactive, computed, ref } from 'vue';
 import LoadingSpinner from '../../components/utilComponent/LoadingSpinner.vue';
-import {infoSuccess,infoError} from '../../service/notification'
+import {infoSuccess,infoError} from '../../service/commonService/notification'
 import BaseLayoutAuth from '../../layout/BaseLayoutAuth.vue';
 
 const auth = loginStore()

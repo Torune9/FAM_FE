@@ -39,7 +39,7 @@
 <script setup>
 import { watch, reactive,ref } from "vue";
 import { categoryStore } from '@/store/AssetStore/categoryStore';
-import { infoSuccess,infoError } from "../../../service/notification";
+import { infoSuccess,infoError } from "../../../service/commonService/notification";
 
 const loading = ref(false)
 

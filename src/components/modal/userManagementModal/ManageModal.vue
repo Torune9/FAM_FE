@@ -72,7 +72,7 @@ import { sysAdminStore } from '@/store/UserStore/sysAdmin'
 import { reactive, computed, watch, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
-import { infoError, infoSuccess } from '../../../service/notification';
+import { infoError, infoSuccess } from '../../../service/commonService/notification';
 
 const options = ["USER", "ADMIN", "AUDITHOR", "SYSADMIN", "INSPECTOR"]
 const sysAdmin = sysAdminStore()

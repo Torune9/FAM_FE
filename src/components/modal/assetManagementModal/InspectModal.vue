@@ -97,9 +97,11 @@
 import { onMounted, reactive, ref, watch, watchEffect } from "vue";
 import { inspectStore } from '@/store/AssetStore/inspectStore'
 import { loginStore } from '@/store/UserStore/loginStore'
-import { infoError, infoSuccess } from "../../../service/notification";
+import { infoError, infoSuccess } from "../../../service/commonService/notification";
 import { assetStore } from '@/store/AssetStore/assetStore'
 import PictureInspect from "../../camera/PictureInspect.vue";
+import dataURLtoFile from '../../../service/fileService/fileToUrl'
+import validateFile from '../../../service/fileService/validateFile'
 
 const warnInfo = ref('')
 const loading = ref(false)
@@ -158,20 +160,6 @@ const save = (data) => {
 
 }
 
-const dataURLtoFile = (dataURL, filename) => {
-    const arr = dataURL.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    return new File([u8arr], filename, { type: mime });
-};
-
 const changeFile = () => {
     const files = [...file.value.files]
     uploadFiles.value = files
@@ -184,22 +172,7 @@ const changeFile = () => {
         }
     })]
 }
-const validateFile = (file) => {
-    const type = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.template"
-    ]
-    const MAX_SIZE = 1000000
 
-    if (file.size > MAX_SIZE) {
-        return `Max size is 1mb`
-    }
-    if (!type.includes(file.type)) {
-        return `File is not .pdf or .doc`
-    }
-}
 const create = async () => {
     const id = props.data.id
     const code = props.data.asset_code
@@ -208,7 +181,10 @@ const create = async () => {
         image.value.forEach((image, index) => {
             formData.append('files', dataURLtoFile(image, `image${index + 1}.png`));
         });
+    }else{
+        return infoError('File can be empty')
     }
+
     uploadFiles.value.forEach(file => {
         formData.append('files', file);
     });

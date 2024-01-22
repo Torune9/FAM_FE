@@ -4,14 +4,14 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 import router from './router'
-import pinia from './service'
+import pinia from './service/mainService/pinia'
 
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 import Notifications from '@kyvg/vue3-notification'
 import Countdown from 'vue3-flip-countdown'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import library from './service/fontAwesome'
+import library from './service/commonService/fontAwesome'
 
 const app = createApp(App)
 

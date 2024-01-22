@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import api from "../../service/api";
+import api from "../../service/mainService/api";
 
 export const sysAdminStore = defineStore('sysadmin',{
     actions:{

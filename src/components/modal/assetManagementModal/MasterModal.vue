@@ -36,7 +36,7 @@
 import { masterStore } from '@/store/AssetStore/masterAssetStore';
 import { reactive, watch,ref, watchEffect } from 'vue';
 import BaseModal from './../BaseModal.vue';
-import { infoSuccess,infoError } from '../../../service/notification';
+import { infoSuccess,infoError } from '../../../service/commonService/notification';
 
 const loading = ref(false)
 

@@ -11,7 +11,7 @@ import History from '../views/history/HistoryView.vue'
 import NotFoundView from '../views/notFound/NotFoundView.vue'
 import DetailAttachments from '../views/history/DetailAttachments.vue'
 import UserView from '../views/user/UserView.vue'
-import navGuard from '../service/navigationGuard'
+import navGuard from '../service/mainService/navigationGuard'
 import ManageUserView from '../views/user/ManageUserView.vue'
 import HomeLayout from '../layout/HomeLayout.vue'
 

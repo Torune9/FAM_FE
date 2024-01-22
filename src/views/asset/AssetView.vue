@@ -90,7 +90,7 @@ import { ref, onMounted, watch, watchEffect } from 'vue'
 import { assetStore } from '@/store/AssetStore/assetStore'
 import InspectModal from '../../components/modal/assetManagementModal/InspectModal.vue';
 import AssetModal from '../../components/modal/assetManagementModal/AssetModal.vue';
-import { info, infoWarning } from '../../service/notification';
+import { info, infoWarning } from '../../service/commonService/notification';
 
 const asset = assetStore()
 const btnUpdate = ref(false)

@@ -74,7 +74,7 @@ import { categoryStore } from "@/store/AssetStore/categoryStore"
 import CategoryModal from '../../components/modal/assetManagementModal/CategoryModal.vue';
 
 import { onMounted, ref, watch, watchEffect } from 'vue';
-import { info, infoWarning } from '../../service/notification';
+import { info, infoWarning } from '../../service/commonService/notification';
 
 const category = categoryStore()
 const items = ref([])

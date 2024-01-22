@@ -1,5 +1,5 @@
 import axios from "axios"
-import { loginStore } from '../store/UserStore/loginStore'
+import { loginStore } from '../../store/UserStore/loginStore'
 const VUE_BASE_URL = import.meta.env.VITE_APP_BASE_URL
 const api = axios.create({
   baseURL: VUE_BASE_URL,

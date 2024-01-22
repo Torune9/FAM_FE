@@ -74,7 +74,7 @@ import { reactive, watch, watchEffect } from 'vue';
 import { assetStore } from '@/store/AssetStore/assetStore';
 import { categoryStore } from '@/store/AssetStore/categoryStore';
 import { onMounted, ref } from 'vue'
-import { infoSuccess, infoError, infoWarning } from '../../../service/notification'
+import { infoSuccess, infoError, infoWarning } from '../../../service/commonService/notification'
 
 const categories = categoryStore()
 const category = ref([])

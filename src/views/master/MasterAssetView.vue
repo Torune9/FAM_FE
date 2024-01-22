@@ -59,7 +59,7 @@ import MainLayout from '../../layout/MainLayout.vue';
 import { masterStore } from '@/store/AssetStore/masterAssetStore';
 import { onMounted,ref,watch,watchEffect }from "vue"
 import MasterModal from '../../components/modal/assetManagementModal/MasterModal.vue';
-import { info, infoWarning } from '../../service/notification';
+import { info, infoWarning } from '../../service/commonService/notification';
 import ConfirmModal from '../../components/modal/confirmModal/ConfirmModal.vue';
 
 const master = masterStore()

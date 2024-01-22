@@ -1,4 +1,4 @@
-import api from '../../service/api'
+import api from '../../service/mainService/api'
 import { defineStore } from 'pinia'
 
 export const categoryStore = defineStore('category', {

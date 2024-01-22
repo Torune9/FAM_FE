@@ -105,7 +105,7 @@ import { reactive, ref, onMounted, watch, watchEffect } from 'vue';
 import MainLayout from '../../layout/MainLayout.vue';
 import { useUser } from '@/store/UserStore/userStore'
 import { loginStore } from '@/store/UserStore/loginStore'
-import { info, infoError } from '../../service/notification';
+import { info, infoError } from '../../service/commonService/notification';
 import router from '../../router';
 
 const users = useUser()

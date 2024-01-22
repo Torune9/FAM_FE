@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import { infoError,infoSuccess } from '../../service/notification';
+import { infoError,infoSuccess } from '../../service/commonService/notification';
 
 import router from '../../router';
 
 import jwtDecode from 'jwt-decode';
-import api from '../../service/api'
+import api from '../../service/mainService/api'
 
 
 export const loginStore = defineStore('login', {
