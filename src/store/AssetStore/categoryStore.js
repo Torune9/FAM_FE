@@ -11,19 +11,19 @@ export const categoryStore = defineStore('category', {
         },
         
         async addCategory(payload){
-            return api.post('asset/categories',payload)
+            return api.post('asset/category',payload)
         },
         
         async updateCategory (id,payload){
-            return api.put(`asset/categories/${id}`,payload)
+            return api.put(`asset/category/${id}`,payload)
         },
 
         async deleteCategory(id){
-            return api.delete(`asset/categories/${id}`)
+            return api.delete(`asset/category/${id}`)
             
         },
         async restoreCategory(id){
-            return api.get(`asset/categories/${id}`)
+            return api.get(`asset/category/${id}`)
         }
     },
   })
